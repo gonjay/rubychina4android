@@ -9,4 +9,5 @@ public class User {
     public String login;
     public String id;
     public String email;
+    public String private_token;
 }

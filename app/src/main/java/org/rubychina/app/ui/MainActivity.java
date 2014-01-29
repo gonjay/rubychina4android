@@ -1,8 +1,11 @@
 package org.rubychina.app.ui;
 
+import android.annotation.TargetApi;
 import android.app.ActionBar;
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.graphics.Color;
+import android.os.Build;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
@@ -18,6 +21,7 @@ import android.view.ViewGroup;
 import org.rubychina.app.R;
 import org.rubychina.app.ui.fragment.DrawerFragment;
 import org.rubychina.app.ui.fragment.HotFragment;
+import org.rubychina.app.utils.UserUtils;
 
 import uk.co.senab.actionbarpulltorefresh.library.PullToRefreshAttacher;
 
@@ -27,6 +31,7 @@ public class MainActivity extends FragmentActivity {
     private Menu mMenu;
     private PullToRefreshAttacher mPullToRefreshAttacher;
 
+    @TargetApi(Build.VERSION_CODES.ICE_CREAM_SANDWICH)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -84,6 +89,12 @@ public class MainActivity extends FragmentActivity {
         mDrawerToggle.onConfigurationChanged(newConfig);
     }
 
+    @Override
+    public void onResume(){
+        super.onResume();
+        getSupportFragmentManager().beginTransaction().replace(R.id.left_drawer, new DrawerFragment()).commit();
+    }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -104,7 +115,15 @@ public class MainActivity extends FragmentActivity {
         }
         int id = item.getItemId();
         if (id == R.id.action_settings) {
-            return true;
+            UserUtils.clearUser();
+            getSupportFragmentManager().beginTransaction().replace(R.id.left_drawer, new DrawerFragment()).commit();
+        } else if (id == R.id.action_write){
+            if (UserUtils.logined()) {
+
+            } else {
+                startActivity(new Intent(MainActivity.this, LoginActivity.class));
+                overridePendingTransition(R.anim.push_up_in,R.anim.push_up_out);
+            }
         }
         return super.onOptionsItemSelected(item);
     }
