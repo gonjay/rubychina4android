@@ -92,7 +92,7 @@ public class MainActivity extends FragmentActivity {
     @Override
     public void onResume(){
         super.onResume();
-        getSupportFragmentManager().beginTransaction().replace(R.id.left_drawer, new DrawerFragment()).commit();
+        if (mDrawerLayout != null)getSupportFragmentManager().beginTransaction().replace(R.id.left_drawer, new DrawerFragment()).commit();
     }
 
 

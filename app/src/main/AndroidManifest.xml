@@ -6,6 +6,8 @@
     <!-- Include next permission if you want to allow UIL to cache images on SD card -->
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
+    <uses-permission android:name="android.permission.VIBRATE"/>
+
     <application
         android:name=".MyApp"
         android:allowBackup="true"
@@ -23,12 +25,17 @@
         </activity>
 
         <activity
+            android:name=".ui.TopicActivity"
+            android:label="@string/login">
+        </activity>
+
+        <activity
             android:name=".ui.LoginActivity"
             android:label="@string/login">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".ui.MainActivity" />
-            </activity>
+        </activity>
     </application>
 
 </manifest>

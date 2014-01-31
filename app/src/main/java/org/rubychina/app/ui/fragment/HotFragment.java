@@ -67,7 +67,7 @@ public class HotFragment extends Fragment implements PullToRefreshAttacher.OnRef
         mLoadingFooter = new LoadingFooter(getActivity());
         mListView.addFooterView(mLoadingFooter.getView());
 
-        mAdapter = new TopicAdapter(topics);
+        mAdapter = new TopicAdapter(topics, getActivity());
         AnimationAdapter animationAdapter = new ItemAnimationAdapter(mAdapter);
         animationAdapter.setListView(mListView);
         mListView.setAdapter(animationAdapter);

@@ -5,6 +5,8 @@
         <!-- Customize your theme here. -->
         <item name="android:windowBackground">@drawable/main_bg</item>
 
+        <item name="android:windowIsTranslucent">true</item>
+
     </style>
 
 </resources>

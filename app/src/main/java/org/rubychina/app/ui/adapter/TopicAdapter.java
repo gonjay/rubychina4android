@@ -1,12 +1,14 @@
 package org.rubychina.app.ui.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
@@ -18,6 +20,7 @@ import org.rubychina.app.MyApp;
 import org.rubychina.app.R;
 import org.rubychina.app.helper.MyBitmapDisplayer;
 import org.rubychina.app.model.Topic;
+import org.rubychina.app.ui.TopicActivity;
 
 import java.util.List;
 
@@ -26,6 +29,7 @@ import java.util.List;
  */
 public class TopicAdapter extends BaseAdapter {
     private List<Topic> topics;
+    private Context context;
     ImageLoader imageLoader = ImageLoader.getInstance();
     DisplayImageOptions options = new DisplayImageOptions.Builder()
             .showImageOnFail(R.drawable.avatar).displayer(new RoundedBitmapDisplayer(100))
@@ -42,8 +46,9 @@ public class TopicAdapter extends BaseAdapter {
 
     }
 
-    public TopicAdapter(List<Topic> topics){
+    public TopicAdapter(List<Topic> topics, Context context){
         this.topics = topics;
+        this.context = context;
     }
 
     @Override
@@ -79,6 +84,13 @@ public class TopicAdapter extends BaseAdapter {
         holder.time.setText(topics.get(position).getCreated_at());
         holder.replies.setText(topics.get(position).replies_count);
         holder.userName.setText(topics.get(position).user.login);
+        convertView.setOnClickListener(new View.OnClickListener(){
+
+            @Override
+            public void onClick(View v) {
+                context.startActivity(new Intent(context, TopicActivity.class));
+            }
+        });
 
         imageLoader.displayImage(topics.get(position).user.avatar_url, holder.avatar, options);
 
