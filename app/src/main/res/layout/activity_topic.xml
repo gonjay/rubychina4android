@@ -1,14 +1,16 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    android:paddingBottom="@dimen/activity_vertical_margin">
+    android:layout_height="match_parent">
+
+    <ScrollView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_marginRight="10dip"
-        android:layout_marginLeft="10dip"
+        android:layout_marginBottom="10dip"
+        android:layout_margin="10dip"
         android:padding="8dip"
         android:layout_height="wrap_content"
         android:background="@drawable/listitem_selector"
@@ -19,8 +21,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginRight="55dip"
-            android:textSize="16sp"
-            android:text="工作也旅行 - 工作机会" />
+            android:textSize="16sp"/>
 
         <ImageView
             android:id="@+id/tv_avatar"
@@ -38,24 +39,34 @@
             android:orientation="horizontal">
 
             <TextView
+                android:id="@+id/tv_detail"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="#777777"
-                android:textSize="10sp"
-                android:text="分享 • ichord • 于4天前发布\n最后由 sg552sg552 于1天前回复 • 1906次阅读" />
+                android:text="\n"
+                android:textSize="10sp"/>
 
         </LinearLayout>
 
         <LinearLayout
-            android:layout_marginTop="5dip"
+            android:layout_marginTop="8dip"
             android:layout_below="@id/ll_detail"
             android:layout_width="match_parent"
-            android:layout_height="40dip"
-            android:background="#DDDDDD">
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="#ffffff">
+
+            <WebView
+                android:id="@+id/wv_content"
+                android:visibility="gone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
 
             </LinearLayout>
 
 
     </RelativeLayout>
+
+    </ScrollView>
 
 </LinearLayout>

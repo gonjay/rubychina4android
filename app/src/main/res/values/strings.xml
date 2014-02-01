@@ -10,6 +10,7 @@
     <string name="drawer_close">Close navigation drawer</string>
 
     <string name="login">登录</string>
+    <string name="view_topic">浏览帖子</string>
     <string name="user_login">用户名</string>
     <string name="user_password">密码</string>
     <string name="login_validate">用户名或者密码不能为空</string>

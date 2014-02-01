@@ -8,7 +8,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
@@ -18,7 +17,6 @@ import com.nostra13.universalimageloader.core.display.RoundedBitmapDisplayer;
 
 import org.rubychina.app.MyApp;
 import org.rubychina.app.R;
-import org.rubychina.app.helper.MyBitmapDisplayer;
 import org.rubychina.app.model.Topic;
 import org.rubychina.app.ui.TopicActivity;
 
@@ -67,7 +65,7 @@ public class TopicAdapter extends BaseAdapter {
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(final int position, View convertView, ViewGroup parent) {
         final ViewHolder holder = new ViewHolder();
 
         convertView = LayoutInflater.from(MyApp.getContext()).inflate(R.layout.list_item, null);
@@ -81,14 +79,16 @@ public class TopicAdapter extends BaseAdapter {
 
         holder.title.setText(topics.get(position).title);
         holder.node.setText(topics.get(position).node_name);
-        holder.time.setText(topics.get(position).getCreated_at());
+        holder.time.setText(topics.get(position).getLastReply());
         holder.replies.setText(topics.get(position).replies_count);
         holder.userName.setText(topics.get(position).user.login);
         convertView.setOnClickListener(new View.OnClickListener(){
 
             @Override
             public void onClick(View v) {
-                context.startActivity(new Intent(context, TopicActivity.class));
+                Intent i = new Intent(context, TopicActivity.class);
+                i.putExtra("topic_id",topics.get(position).id);
+                context.startActivity(i);
             }
         });
 

@@ -26,7 +26,7 @@
 
         <activity
             android:name=".ui.TopicActivity"
-            android:label="@string/login">
+            android:label="@string/view_topic">
         </activity>
 
         <activity
