@@ -100,5 +100,10 @@ public class TopicActivity extends FragmentActivity {
         public String getContentBody() {
             return topic.body;
         }
+
+        @JavascriptInterface
+        public String getContentBodyHtml() {
+            return topic.body_html;
+        }
     }
 }

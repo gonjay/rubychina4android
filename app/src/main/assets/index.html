@@ -4,9 +4,8 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0, maximum-scale=1.0" />
-    
+
     <script type='text/javascript' src='./jquery.min.js'></script>
-    <script type='text/javascript' src="./showdown.min.js"></script>
 
     <link rel="stylesheet" href="./bootstrap.min.css">
     <link rel="stylesheet" href="./themes/bootstrap-responsive.min.css" />
@@ -24,16 +23,7 @@
 </body>
 
     <script>
-    var converter = new Showdown.converter({
-        'github_flavouring': true,
-        'tables': true
-    });
-
-    var md = isFromAndroid.getContentBody();
-
-    var html = converter.makeHtml(md);
-
-    $('#display').html(html);
+    $('#display').html(isFromAndroid.getContentBodyHtml());
 
     </script>
 

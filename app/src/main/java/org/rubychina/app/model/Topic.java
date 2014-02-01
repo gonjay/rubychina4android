@@ -19,6 +19,7 @@ public class Topic {
     public String last_reply_user_id;
     public String last_reply_user_login;
     public String body;
+    public String body_html;
     public String hits;
 
     public User user;
