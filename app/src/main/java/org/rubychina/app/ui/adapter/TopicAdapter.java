@@ -27,7 +27,7 @@ import java.util.List;
  */
 public class TopicAdapter extends BaseAdapter {
     private List<Topic> topics;
-    private Context context;
+    public Context context;
     ImageLoader imageLoader = ImageLoader.getInstance();
     DisplayImageOptions options = new DisplayImageOptions.Builder()
             .showImageOnFail(R.drawable.avatar).displayer(new RoundedBitmapDisplayer(100))
@@ -35,9 +35,9 @@ public class TopicAdapter extends BaseAdapter {
             .cacheInMemory(true)
             .cacheOnDisc(true).bitmapConfig(Bitmap.Config.RGB_565).build();
 
-    private class ViewHolder{
-        private ImageView avatar;
-        private TextView title, time, replies, node, userName;
+    public class ViewHolder{
+        public ImageView avatar;
+        public TextView title, time, replies, node, userName, body;
     }
 
     public TopicAdapter(){

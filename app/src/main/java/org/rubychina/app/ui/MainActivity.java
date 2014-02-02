@@ -23,6 +23,8 @@ import org.rubychina.app.utils.UserUtils;
 import uk.co.senab.actionbarpulltorefresh.library.PullToRefreshAttacher;
 
 public class MainActivity extends FragmentActivity {
+    public static final int ACTION_FOR_LOGIN = 2000;
+
     private DrawerLayout mDrawerLayout;
     private ActionBarDrawerToggle mDrawerToggle;
     private Menu mMenu;
@@ -53,6 +55,7 @@ public class MainActivity extends FragmentActivity {
 
             public void onDrawerOpened(View drawerView) {
                 mMenu.findItem(R.id.action_write).setVisible(false);
+
             }
         };
 
@@ -87,13 +90,6 @@ public class MainActivity extends FragmentActivity {
     }
 
     @Override
-    public void onResume(){
-        super.onResume();
-        if (mDrawerLayout != null)getSupportFragmentManager().beginTransaction().replace(R.id.left_drawer, new DrawerFragment()).commit();
-    }
-
-
-    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -118,7 +114,7 @@ public class MainActivity extends FragmentActivity {
             if (UserUtils.logined()) {
 
             } else {
-                startActivity(new Intent(MainActivity.this, LoginActivity.class));
+                startActivityForResult(new Intent(MainActivity.this, LoginActivity.class), ACTION_FOR_LOGIN);
                 overridePendingTransition(R.anim.push_up_in,R.anim.push_up_out);
             }
         }
@@ -129,4 +125,11 @@ public class MainActivity extends FragmentActivity {
         return mPullToRefreshAttacher;
     }
 
+
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(resultCode == LoginActivity.LOGIN_SUCCESS){
+            getSupportFragmentManager().beginTransaction().replace(R.id.left_drawer, new DrawerFragment()).commit();
+        }
+    }
 }

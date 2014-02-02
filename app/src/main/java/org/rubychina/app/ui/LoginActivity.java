@@ -26,6 +26,8 @@ import org.rubychina.app.utils.UserUtils;
  * Created by mac on 14-1-29.
  */
 public class LoginActivity extends Activity {
+    public static final int LOGIN_SUCCESS = 2001;
+
     private String login;
     private String password;
     private EditText loginEditText, passwordEditText;
@@ -72,6 +74,7 @@ public class LoginActivity extends Activity {
                     public void onSuccess(String responce) {
                         User userPro = gson.fromJson(responce, User.class);
                         UserUtils.saveUserAvatar(userPro.avatar_url);
+                        setResult(LOGIN_SUCCESS);
                         onBackPressed();
                     }
                 });

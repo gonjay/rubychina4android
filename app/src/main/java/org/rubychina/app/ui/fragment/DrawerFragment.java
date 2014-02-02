@@ -20,6 +20,7 @@ import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 import org.rubychina.app.R;
 import org.rubychina.app.helper.MyBitmapDisplayer;
 import org.rubychina.app.ui.LoginActivity;
+import org.rubychina.app.ui.MainActivity;
 import org.rubychina.app.ui.adapter.DrawerAdapter;
 import org.rubychina.app.utils.UserUtils;
 
@@ -29,7 +30,7 @@ import org.rubychina.app.utils.UserUtils;
 public class DrawerFragment extends Fragment {
     ImageLoader imageLoader = ImageLoader.getInstance();
     DisplayImageOptions options = new DisplayImageOptions.Builder()
-            .showImageOnFail(R.drawable.avatar).displayer(new MyBitmapDisplayer(100, 1000))
+            .showImageOnFail(R.drawable.avatar).displayer(new MyBitmapDisplayer(100, 2000))
             .imageScaleType(ImageScaleType.EXACTLY_STRETCHED)
             .cacheOnDisc(true).bitmapConfig(Bitmap.Config.RGB_565).build();
 
@@ -56,7 +57,7 @@ public class DrawerFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 if(!UserUtils.logined()) {
-                    getActivity().startActivity(new Intent(getActivity(), LoginActivity.class));
+                    getActivity().startActivityForResult(new Intent(getActivity(), LoginActivity.class), MainActivity.ACTION_FOR_LOGIN);
                     getActivity().overridePendingTransition(R.anim.push_up_in,R.anim.push_up_out);
                 }
             }
