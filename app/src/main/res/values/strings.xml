@@ -3,8 +3,13 @@
 
     <string name="app_name">RubyChina</string>
     <string name="hello_world">Hello world!</string>
-    <string name="action_settings">Settings</string>
+    <string name="action_settings">设置</string>
+    <string name="action_exit">退出</string>
     <string name="write">发帖</string>
+    <string name="reply">回复</string>
+    <string name="refresh">刷新</string>
+    <string name="send">发送</string>
+    <string name="preview">预览</string>
 
     <string name="drawer_open">Open navigation drawer</string>
     <string name="drawer_close">Close navigation drawer</string>

@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
+import android.view.Menu;
 import android.view.MenuItem;
 
 import com.google.gson.Gson;
@@ -33,7 +34,13 @@ import java.util.List;
 public class TopicActivity extends FragmentActivity {
     private Topic topic = new Topic();
 
+    private Menu mMenu;
+
     private ViewPager pager;
+
+    MyReplyFragment myReplyFragment;
+
+    private TopicFragmentPagerAdapter topicFragmentPagerAdapter;
 
     private List<Fragment> mFragments = new ArrayList<Fragment>();
 
@@ -46,9 +53,48 @@ public class TopicActivity extends FragmentActivity {
 
         pager = (ViewPager)findViewById(R.id.pager);
 
-        topic.id = getIntent().getStringExtra("topic_id");
-        if (topic.id != null) fetchData();
+        topicFragmentPagerAdapter = new TopicFragmentPagerAdapter(getSupportFragmentManager(), mFragments);
 
+        pager.setAdapter(topicFragmentPagerAdapter);
+
+        topic.id = getIntent().getStringExtra("topic_id");
+        if (topic.id != null) {
+            Bundle bundle = new Bundle();
+            bundle.putString("topic_id", topic.id);
+            myReplyFragment = new MyReplyFragment();
+            myReplyFragment.setArguments(bundle);
+            fetchData();
+        }
+
+        pager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int i, float v, int i2) {
+            }
+            @Override
+            public void onPageSelected(int i) {
+                System.out.println(i);
+                mMenu.clear();
+                switch (i){
+                    case 2:
+                        getMenuInflater().inflate(R.menu.topic_reply_menu, mMenu);
+                        break;
+                    default:
+                        getMenuInflater().inflate(R.menu.topic_menu, mMenu);
+                        break;
+                }
+            }
+            @Override
+            public void onPageScrollStateChanged(int i) {
+            }
+        });
+
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.topic_menu, menu);
+        this.mMenu = menu;
+        return true;
     }
 
     @Override
@@ -56,6 +102,16 @@ public class TopicActivity extends FragmentActivity {
         switch (item.getItemId()) {
             case android.R.id.home:
                 onBackPressed();
+                return true;
+            case R.id.action_reply:
+                pager.setCurrentItem(2);
+                return true;
+            case R.id.action_send:
+                myReplyFragment.sendReply();
+                return true;
+            case R.id.action_refresh:
+                mFragments.clear();
+                fetchData();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -72,11 +128,10 @@ public class TopicActivity extends FragmentActivity {
         ApiUtils.get(ApiUtils.TOPIC_VIEW + topic.id + ".json", null, new AsyncHttpResponseHandler() {
             @Override
             public void onSuccess(String response) {
+                System.out.println(response);
                 Gson gson = new Gson();
                 topic = gson.fromJson(response, Topic.class);
                 mFragments.add(new TopicViewFragment(topic));
-                System.out.println(response);
-
                 try {
                     String replies = JsonUtils.getString(new JSONObject(response), "replies");
                     Type listType = new TypeToken<List<TopicReply>>(){}.getType();
@@ -87,14 +142,10 @@ public class TopicActivity extends FragmentActivity {
                     e.printStackTrace();
                 }
 
-                Bundle bundle = new Bundle();
-                bundle.putString("topic_id", topic.id);
-                MyReplyFragment myReplyFragment = new MyReplyFragment();
-                myReplyFragment.setArguments(bundle);
-
                 mFragments.add(myReplyFragment);
 
                 pager.setAdapter(new TopicFragmentPagerAdapter(getSupportFragmentManager(), mFragments));
+
             }
         });
     }

@@ -14,6 +14,11 @@ public class ApiParams extends RequestParams {
         return this;
     }
 
+    public ApiParams withToken() {
+        put("token", UserUtils.getUserToken());
+        return this;
+    }
+
     public ApiParams withFile(String key, File file) {
         try {
             put(key, file);
@@ -21,16 +26,6 @@ public class ApiParams extends RequestParams {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
-        return this;
-    }
-
-    public ApiParams withTokenId() {
-        // if(UserUtils.getTokenId().equals(""))
-        // {
-        // put("device_id",UserUtils.getuniqueId());
-        // }
-        // else
-//        put("token_id", UserUtils.getTokenId());
         return this;
     }
 }

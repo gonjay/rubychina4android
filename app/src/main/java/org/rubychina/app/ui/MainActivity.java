@@ -100,16 +100,12 @@ public class MainActivity extends FragmentActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         if (mDrawerToggle.onOptionsItemSelected(item)) {
             return true;
         }
         int id = item.getItemId();
         if (id == R.id.action_settings) {
-            UserUtils.clearUser();
-            getSupportFragmentManager().beginTransaction().replace(R.id.left_drawer, new DrawerFragment()).commit();
+
         } else if (id == R.id.action_write){
             if (UserUtils.logined()) {
 
@@ -117,6 +113,9 @@ public class MainActivity extends FragmentActivity {
                 startActivityForResult(new Intent(MainActivity.this, LoginActivity.class), ACTION_FOR_LOGIN);
                 overridePendingTransition(R.anim.push_up_in,R.anim.push_up_out);
             }
+        } else if (id == R.id.action_exit) {
+            UserUtils.clearUser();
+            getSupportFragmentManager().beginTransaction().replace(R.id.left_drawer, new DrawerFragment()).commit();
         }
         return super.onOptionsItemSelected(item);
     }

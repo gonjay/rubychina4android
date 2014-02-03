@@ -1,0 +1,18 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="org.rubychina.app.ui.MainActivity" >
+
+    <item
+        android:id="@+id/action_refresh"
+        android:title="@string/refresh"
+        android:icon="@drawable/ic_menu_refresh"
+        android:showAsAction="always"/>
+
+    <item
+        android:id="@+id/action_reply"
+        android:title="@string/reply"
+        android:icon="@drawable/ic_write"
+        android:showAsAction="always"/>
+
+</menu>
