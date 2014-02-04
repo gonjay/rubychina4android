@@ -1,5 +1,6 @@
 package org.rubychina.app.ui;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -17,11 +18,13 @@ import org.rubychina.app.R;
 import org.rubychina.app.model.Topic;
 import org.rubychina.app.model.TopicReply;
 import org.rubychina.app.ui.adapter.TopicFragmentPagerAdapter;
-import org.rubychina.app.ui.fragment.MyReplyFragment;
+import org.rubychina.app.ui.fragment.PreviewFragment;
+import org.rubychina.app.ui.fragment.Topic.MyReplyFragment;
 import org.rubychina.app.ui.fragment.Topic.TopicRepliesFragment;
 import org.rubychina.app.ui.fragment.Topic.TopicViewFragment;
 import org.rubychina.app.utils.ApiUtils;
 import org.rubychina.app.utils.JsonUtils;
+import org.rubychina.app.utils.UserUtils;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
@@ -103,11 +106,21 @@ public class TopicActivity extends FragmentActivity {
             case android.R.id.home:
                 onBackPressed();
                 return true;
+            case R.id.action_preview:
+                Intent i = new Intent(TopicActivity.this, PreviewActivity.class);
+                i.putExtra("body", myReplyFragment.getBody());
+                startActivity(i);
+                return true;
             case R.id.action_reply:
                 pager.setCurrentItem(2);
                 return true;
             case R.id.action_send:
-                myReplyFragment.sendReply();
+                if (UserUtils.logined()) {
+                    myReplyFragment.sendReply();
+                } else {
+                    startActivityForResult(new Intent(TopicActivity.this, LoginActivity.class), MainActivity.ACTION_FOR_LOGIN);
+                    overridePendingTransition(R.anim.push_up_in,R.anim.push_up_out);
+                }
                 return true;
             case R.id.action_refresh:
                 mFragments.clear();

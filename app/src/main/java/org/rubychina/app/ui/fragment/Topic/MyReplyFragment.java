@@ -1,4 +1,4 @@
-package org.rubychina.app.ui.fragment;
+package org.rubychina.app.ui.fragment.Topic;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -49,15 +49,19 @@ public class MyReplyFragment extends Fragment {
     public void sendReply() {
         String replyBody = body.getText().toString();
         if (replyBody.length() < 1){
-            Toast.makeText(getActivity(), "回复内容不能为空字符", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(), R.string.reply_empty, Toast.LENGTH_SHORT).show();
             return;
         }
         ApiUtils.post(ApiUtils.TOPIC_REPLY + topic_id + "/replies.json", new ApiParams().with("body", replyBody).withToken(), new AsyncHttpResponseHandler() {
             @Override
             public void onSuccess(String response) {
-                Toast.makeText(getActivity(), "回复成功", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), R.string.reply_success, Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    public String getBody(){
+        return body.getText().toString();
     }
 
 }

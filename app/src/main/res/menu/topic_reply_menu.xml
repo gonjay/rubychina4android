@@ -3,12 +3,13 @@
     tools:context="org.rubychina.app.ui.MainActivity" >
 
     <item
+        android:id="@+id/action_preview"
+        android:title="@string/preview"
+        android:showAsAction="always"/>
+
+    <item
         android:id="@+id/action_send"
         android:title="@string/send"
         android:showAsAction="always"/>
 
-    <item
-        android:id="@+id/action_preview"
-        android:title="@string/preview"
-        android:showAsAction="always"/>
 </menu>

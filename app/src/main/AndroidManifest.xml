@@ -25,6 +25,15 @@
         </activity>
 
         <activity
+            android:name=".ui.PreviewActivity"
+            android:label="@string/preview">
+        </activity>
+        <activity
+            android:name=".ui.NewTopicActivity"
+            android:label="@string/new_topic">
+        </activity>
+
+        <activity
             android:name=".ui.TopicActivity"
             android:label="@string/view_topic">
         </activity>

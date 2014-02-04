@@ -16,9 +16,22 @@
 
     <string name="login">登录</string>
     <string name="view_topic">浏览帖子</string>
+    <string name="new_topic">创建帖子</string>
     <string name="user_login">用户名</string>
     <string name="user_password">密码</string>
     <string name="login_validate">用户名或者密码不能为空</string>
+    <string name="reply_empty">回复内容不能为空字符</string>
+    <string name="reply_success">回复成功</string>
     <string name="login_success">登录成功</string>
+
+    <string-array name="node_category_arrays">
+        <item>Ruby</item>
+        <item>分享</item>
+        <item>Web开发</item>
+        <item>Mobile</item>
+        <item>Languages</item>
+        <item>Ruby China</item>
+        <item>活动</item>
+    </string-array>
 
 </resources>

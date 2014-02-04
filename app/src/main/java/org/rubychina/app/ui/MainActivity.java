@@ -107,8 +107,9 @@ public class MainActivity extends FragmentActivity {
         if (id == R.id.action_settings) {
 
         } else if (id == R.id.action_write){
-            if (UserUtils.logined()) {
 
+            if (UserUtils.logined()) {
+                startActivity(new Intent(MainActivity.this, NewTopicActivity.class));
             } else {
                 startActivityForResult(new Intent(MainActivity.this, LoginActivity.class), ACTION_FOR_LOGIN);
                 overridePendingTransition(R.anim.push_up_in,R.anim.push_up_out);
