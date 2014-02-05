@@ -1,4 +1,4 @@
-package org.rubychina.app.ui.fragment.Topic;
+package org.rubychina.app.ui.fragment.topic;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -17,7 +17,7 @@ import org.rubychina.app.utils.ApiUtils;
 /**
  * Created by mac on 14-2-2.
  */
-public class MyReplyFragment extends Fragment {
+public class TopicReplyFragment extends Fragment {
     public static final String ARG_TOPIC_ID = "topic_id";
     public static final String ARG_NODE_ID = "node_id";
 

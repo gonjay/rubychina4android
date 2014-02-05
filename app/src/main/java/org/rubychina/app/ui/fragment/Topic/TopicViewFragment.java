@@ -1,4 +1,4 @@
-package org.rubychina.app.ui.fragment.Topic;
+package org.rubychina.app.ui.fragment.topic;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -13,8 +13,6 @@ import android.webkit.WebViewClient;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.google.gson.Gson;
-import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
@@ -22,7 +20,6 @@ import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
 
 import org.rubychina.app.R;
 import org.rubychina.app.model.Topic;
-import org.rubychina.app.utils.ApiUtils;
 
 /**
  * Created by mac on 14-2-2.
@@ -56,6 +53,10 @@ public class TopicViewFragment extends Fragment {
         findView();
         updateView();
         return view;
+    }
+
+    public void updateData(Topic topic){
+        this.topic = topic;
     }
 
     private void updateView(){

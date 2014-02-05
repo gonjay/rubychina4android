@@ -1,4 +1,4 @@
-package org.rubychina.app.ui.fragment;
+package org.rubychina.app.ui.fragment.topic;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -6,7 +6,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import org.rubychina.app.R;
@@ -16,11 +15,9 @@ import org.rubychina.app.ui.adapter.ItemAnimationAdapter;
 import org.rubychina.app.ui.adapter.TopicAdapter;
 import org.rubychina.app.utils.ApiParams;
 import org.rubychina.app.utils.ApiUtils;
-import org.rubychina.app.utils.TimeFomater;
 import org.rubychina.app.utils.UserUtils;
 import org.rubychina.app.view.LoadingFooter;
 
-import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
@@ -35,7 +32,7 @@ import uk.co.senab.actionbarpulltorefresh.library.PullToRefreshAttacher;
 /**
  * Created by mac on 14-1-28.
  */
-public class HotFragment extends Fragment implements PullToRefreshAttacher.OnRefreshListener{
+public class TopicsFragment extends Fragment implements PullToRefreshAttacher.OnRefreshListener{
 
     private PullToRefreshAttacher mPullToRefreshAttacher;
 
@@ -51,7 +48,7 @@ public class HotFragment extends Fragment implements PullToRefreshAttacher.OnRef
     Type listType = new TypeToken<List<Topic>>(){}.getType();
     List<Topic> topics = new ArrayList<Topic>();
 
-    public HotFragment(){
+    public TopicsFragment(){
 
     }
 

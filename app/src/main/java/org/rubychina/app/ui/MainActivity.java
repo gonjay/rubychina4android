@@ -17,7 +17,7 @@ import android.view.View;
 
 import org.rubychina.app.R;
 import org.rubychina.app.ui.fragment.DrawerFragment;
-import org.rubychina.app.ui.fragment.HotFragment;
+import org.rubychina.app.ui.fragment.topic.TopicsFragment;
 import org.rubychina.app.utils.UserUtils;
 
 import uk.co.senab.actionbarpulltorefresh.library.PullToRefreshAttacher;
@@ -70,7 +70,7 @@ public class MainActivity extends FragmentActivity {
 
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction()
-                    .add(R.id.container, new HotFragment())
+                    .add(R.id.container, new TopicsFragment())
                     .commit();
         }
         getSupportFragmentManager().beginTransaction().replace(R.id.left_drawer, new DrawerFragment()).commit();

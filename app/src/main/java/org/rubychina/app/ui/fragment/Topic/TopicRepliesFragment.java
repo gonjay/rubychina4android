@@ -1,4 +1,4 @@
-package org.rubychina.app.ui.fragment.Topic;
+package org.rubychina.app.ui.fragment.topic;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -13,7 +13,6 @@ import com.google.gson.reflect.TypeToken;
 import org.rubychina.app.R;
 import org.rubychina.app.model.Topic;
 import org.rubychina.app.model.TopicReply;
-import org.rubychina.app.ui.adapter.TopicAdapter;
 import org.rubychina.app.ui.adapter.TopicReplyAdapter;
 
 import java.lang.reflect.Type;
@@ -42,5 +41,13 @@ public class TopicRepliesFragment extends Fragment{
         mAdapter = new TopicReplyAdapter(topicReplies, getActivity());
         mListView.setAdapter(mAdapter);
         return view;
+    }
+
+    public void updateData(List<TopicReply> topicReplies){
+        this.topicReplies = topicReplies;
+    }
+
+    public void updateView() {
+        mAdapter.notifyDataSetChanged();
     }
 }

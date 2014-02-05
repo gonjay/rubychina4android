@@ -18,10 +18,9 @@ import org.rubychina.app.R;
 import org.rubychina.app.model.Topic;
 import org.rubychina.app.model.TopicReply;
 import org.rubychina.app.ui.adapter.TopicFragmentPagerAdapter;
-import org.rubychina.app.ui.fragment.PreviewFragment;
-import org.rubychina.app.ui.fragment.Topic.MyReplyFragment;
-import org.rubychina.app.ui.fragment.Topic.TopicRepliesFragment;
-import org.rubychina.app.ui.fragment.Topic.TopicViewFragment;
+import org.rubychina.app.ui.fragment.topic.TopicRepliesFragment;
+import org.rubychina.app.ui.fragment.topic.TopicReplyFragment;
+import org.rubychina.app.ui.fragment.topic.TopicViewFragment;
 import org.rubychina.app.utils.ApiUtils;
 import org.rubychina.app.utils.JsonUtils;
 import org.rubychina.app.utils.UserUtils;
@@ -41,7 +40,7 @@ public class TopicActivity extends FragmentActivity {
 
     private ViewPager pager;
 
-    MyReplyFragment myReplyFragment;
+    TopicReplyFragment myReplyFragment;
 
     private TopicFragmentPagerAdapter topicFragmentPagerAdapter;
 
@@ -64,7 +63,7 @@ public class TopicActivity extends FragmentActivity {
         if (topic.id != null) {
             Bundle bundle = new Bundle();
             bundle.putString("topic_id", topic.id);
-            myReplyFragment = new MyReplyFragment();
+            myReplyFragment = new TopicReplyFragment();
             myReplyFragment.setArguments(bundle);
             fetchData();
         }
@@ -75,7 +74,6 @@ public class TopicActivity extends FragmentActivity {
             }
             @Override
             public void onPageSelected(int i) {
-                System.out.println(i);
                 mMenu.clear();
                 switch (i){
                     case 2:
@@ -97,6 +95,7 @@ public class TopicActivity extends FragmentActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.topic_menu, menu);
         this.mMenu = menu;
+        menu.findItem(R.id.action_refresh).setActionView(R.layout.progressbar);
         return true;
     }
 
@@ -123,6 +122,7 @@ public class TopicActivity extends FragmentActivity {
                 }
                 return true;
             case R.id.action_refresh:
+                item.setActionView(R.layout.progressbar);
                 mFragments.clear();
                 fetchData();
                 return true;
@@ -134,31 +134,29 @@ public class TopicActivity extends FragmentActivity {
     @Override
     public void onBackPressed() {
         finish();
-        overridePendingTransition(R.anim.anim_left_to_right,R.anim.anim_right_to_left);
+        overridePendingTransition(R.anim.anim_left_to_right, R.anim.anim_right_to_left);
     }
 
     private void fetchData(){
         ApiUtils.get(ApiUtils.TOPIC_VIEW + topic.id + ".json", null, new AsyncHttpResponseHandler() {
             @Override
             public void onSuccess(String response) {
-                System.out.println(response);
                 Gson gson = new Gson();
                 topic = gson.fromJson(response, Topic.class);
                 mFragments.add(new TopicViewFragment(topic));
                 try {
                     String replies = JsonUtils.getString(new JSONObject(response), "replies");
-                    Type listType = new TypeToken<List<TopicReply>>(){}.getType();
+                    Type listType = new TypeToken<List<TopicReply>>() {
+                    }.getType();
                     List<TopicReply> topicReplies = gson.fromJson(replies, listType);
                     mFragments.add(new TopicRepliesFragment(topicReplies));
-                    System.out.println(topicReplies.size());
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
 
                 mFragments.add(myReplyFragment);
-
-                pager.setAdapter(new TopicFragmentPagerAdapter(getSupportFragmentManager(), mFragments));
-
+                topicFragmentPagerAdapter.notifyDataSetChanged();
+                mMenu.findItem(R.id.action_refresh).setActionView(null);
             }
         });
     }
