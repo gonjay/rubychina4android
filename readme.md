@@ -18,8 +18,10 @@
 
 ## 预览
 
- Gmail的抽屉![](http://rubychina.qiniudn.com/media-20140204%20(1).png?imageView2/1/w/300/h/550)
- Markdown![](http://rubychina.qiniudn.com/media-20140204.png?imageView2/1/w/300/h/550) 
+ Gmail的抽屉
+ ![](http://rubychina.qiniudn.com/media-20140204%20(1).png?imageView2/1/w/300/h/550)
+ Markdown
+ ![](http://rubychina.qiniudn.com/media-20140204.png?imageView2/1/w/300/h/550)
  ![](http://rubychina.qiniudn.com/media-20140204%20(2).png?imageView2/1/w/300/h/550) ![](http://rubychina.qiniudn.com/media-20140204%20(3).png?imageView2/1/w/300/h/550) 
 
 ## Tips
