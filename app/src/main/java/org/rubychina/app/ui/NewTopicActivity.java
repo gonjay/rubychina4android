@@ -79,7 +79,7 @@ public class NewTopicActivity extends FragmentActivity {
                 onBackPressed();
                 return true;
             case R.id.action_send:
-
+                newFragment.send();
                 return true;
             case R.id.action_preview:
                 System.out.println(mShowingBack);

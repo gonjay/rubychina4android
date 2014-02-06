@@ -1,7 +1,9 @@
 package org.rubychina.app.ui.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,9 +11,20 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Toast;
 
+import com.google.gson.Gson;
+import com.loopj.android.http.AsyncHttpResponseHandler;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.rubychina.app.R;
 import org.rubychina.app.model.Node;
+import org.rubychina.app.model.Topic;
+import org.rubychina.app.ui.TopicActivity;
+import org.rubychina.app.utils.ApiParams;
+import org.rubychina.app.utils.ApiUtils;
+import org.rubychina.app.utils.JsonUtils;
 
 /**
  * Created by mac on 14-2-4.
@@ -86,5 +99,39 @@ public class NewTopicFragment extends Fragment {
         spinner1 = (Spinner) v.findViewById(R.id.spinner1);
         spinner2 = (Spinner) v.findViewById(R.id.spinner2);
         body = (EditText) v.findViewById(R.id.et_body);
+        title = (EditText) v.findViewById(R.id.et_title);
+    }
+
+    public void send() {
+        ApiUtils.post(ApiUtils.TOPIC_NEW, new ApiParams()
+                .with("node_id", node_id)
+                .with("title", title.getText().toString())
+                .with("body", body.getText().toString())
+                .withToken(),
+                new AsyncHttpResponseHandler(){
+                    @Override
+                    public void onSuccess(String response) {
+                        Toast.makeText(getActivity(), R.string.send_success, Toast.LENGTH_SHORT).show();
+                        Gson gson = new Gson();
+                        Topic t = gson.fromJson(response, Topic.class);
+                        Intent i = new Intent(getActivity(), TopicActivity.class);
+                        i.putExtra("topic_id", t.id);
+                        getActivity().startActivity(i);
+                        getActivity().finish();
+                    }
+
+                    @Override
+                    public  void onFailure(java.lang.Throwable error, java.lang.String response){
+                        try {
+                            String s1 = JsonUtils.getString(new JSONObject(response), "error");
+                            Toast.makeText(getActivity(), s1.replace(",", "\n").replace("\"", "").replace("[",""), Toast.LENGTH_SHORT).show();
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+
+                    }
+
+        });
+
     }
 }

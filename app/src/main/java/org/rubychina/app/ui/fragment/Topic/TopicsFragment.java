@@ -70,7 +70,6 @@ public class TopicsFragment extends Fragment implements PullToRefreshAttacher.On
         mListView.setAdapter(animationAdapter);
         bindListView();
 
-//        loadData(page);
         loadCacheData();
         return rootView;
     }

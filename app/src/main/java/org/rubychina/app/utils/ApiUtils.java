@@ -14,6 +14,7 @@ public class ApiUtils {
     public static final String TOPIC_REPLY = "http://ruby-china.org/api/v2/topics/";
     public static final String USER_PROFILE = "http://ruby-china.org/api/v2/users/";
     public static final String TOPIC_VIEW = "http://ruby-china.org/api/v2/topics/";
+    public static final String TOPIC_NEW = "http://ruby-china.org/api/v2/topics.json";
 
     public static AsyncHttpClient client = new AsyncHttpClient();
 

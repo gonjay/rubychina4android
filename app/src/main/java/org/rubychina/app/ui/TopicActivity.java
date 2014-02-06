@@ -95,7 +95,7 @@ public class TopicActivity extends FragmentActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.topic_menu, menu);
         this.mMenu = menu;
-        menu.findItem(R.id.action_refresh).setActionView(R.layout.progressbar);
+        mMenu.findItem(R.id.action_refresh).setActionView(R.layout.progressbar);
         return true;
     }
 
@@ -159,6 +159,11 @@ public class TopicActivity extends FragmentActivity {
                 mMenu.findItem(R.id.action_refresh).setActionView(null);
             }
         });
+    }
+
+    public void afterReply(){
+        fetchData();
+        pager.setCurrentItem(1);
     }
 
 }
