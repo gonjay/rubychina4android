@@ -22,6 +22,7 @@ import org.rubychina.app.helper.MyBitmapDisplayer;
 import org.rubychina.app.ui.LoginActivity;
 import org.rubychina.app.ui.MainActivity;
 import org.rubychina.app.ui.adapter.DrawerAdapter;
+import org.rubychina.app.ui.fragment.topic.TopicsFragment;
 import org.rubychina.app.utils.UserUtils;
 
 /**
@@ -34,7 +35,6 @@ public class DrawerFragment extends Fragment {
             .imageScaleType(ImageScaleType.EXACTLY_STRETCHED)
             .cacheOnDisc(true).bitmapConfig(Bitmap.Config.RGB_565).build();
 
-
     private TextView login, email;
     private ListView mListView;
     private ImageView avatarView;
@@ -42,10 +42,14 @@ public class DrawerFragment extends Fragment {
 
     private DrawerAdapter mAdapter;
 
+    private MainActivity mainActivity;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         View contentView = inflater.inflate(R.layout.fragment_drawer, null);
+
+        mainActivity = (MainActivity)getActivity();
 
         login = (TextView)contentView.findViewById(R.id.tv_login);
         email = (TextView)contentView.findViewById(R.id.tv_email);
@@ -75,9 +79,22 @@ public class DrawerFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 mListView.setItemChecked(position, true);
+                callParent(position);
             }
         });
         return contentView;
+    }
 
+    private void callParent(int positiong){
+        switch (positiong){
+            case 0:
+                mainActivity.setMainContent(new TopicsFragment());
+                break;
+            case 1:
+                mainActivity.setMainContent(new NodesFragment());
+                break;
+            default:
+                break;
+        }
     }
 }

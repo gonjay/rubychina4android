@@ -23,6 +23,7 @@ dependencies {
     compile project(':extras:ActionBar-PullToRefresh')
     compile project(':extras:ListViewAnimationLib')
     compile project(':extras:SwipeLayout')
+    compile 'com.etsy.android.grid:library:1.0.3'
     compile files('libs/gson-2.2.4.jar')
     compile files('libs/universal-image-loader-1.9.1.jar')
     compile files('libs/android-async-http-1.4.4.jar')

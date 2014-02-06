@@ -8,6 +8,7 @@ import android.graphics.Color;
 import android.os.Build;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -132,4 +133,12 @@ public class MainActivity extends FragmentActivity {
             getSupportFragmentManager().beginTransaction().replace(R.id.left_drawer, new DrawerFragment()).commit();
         }
     }
+
+    public void setMainContent(Fragment fragment){
+        mDrawerLayout.closeDrawers();
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.container, fragment)
+                .commit();
+    }
+
 }

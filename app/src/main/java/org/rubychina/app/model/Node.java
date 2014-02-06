@@ -5,6 +5,14 @@ package org.rubychina.app.model;
  */
 public class Node {
 
+    public String id;
+    public String name;
+    public String topics_count;
+    public String summary;
+    public String section_id;
+    public String sort;
+    public String section_name;
+
     public static final String nodes_id[][] = {
             {"52","2","3","44","1","29","37","43","45","47","54",},
             {"26","27","24","63","64","30","38","42","50","56","62","25","28",},
