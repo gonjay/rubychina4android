@@ -46,6 +46,7 @@ public class NodesFragment extends Fragment {
                 Gson gson = new Gson();
                 List<Node> list = new Gson().fromJson(responce, new TypeToken<ArrayList<Node>>(){}.getType());
                 List<String> section_ids = new ArrayList<String>();
+                lists.clear();
                 for (Node node : list){
                     if (!section_ids.contains(node.section_id)){
                         section_ids.add(node.section_id);

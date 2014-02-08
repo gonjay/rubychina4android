@@ -16,6 +16,7 @@ public class ApiUtils {
     public static final String TOPIC_VIEW = "http://ruby-china.org/api/v2/topics/";
     public static final String TOPIC_NEW = "http://ruby-china.org/api/v2/topics.json";
     public static final String NODES = "http://ruby-china.org/api/v2/nodes.json";
+    public static final String NODE_URL = "http://ruby-china.org/api/topics/node/";
 
     public static AsyncHttpClient client = new AsyncHttpClient();
 
@@ -27,4 +28,26 @@ public class ApiUtils {
     public static void get(String url, ApiParams params, AsyncHttpResponseHandler handler){
         client.get(url, params, handler);
     }
+
+    /*
+    *****可用的URL列表*******
+        Method	URL
+        GET	    http://ruby-china.org/api/topics.json
+        GET	    http://ruby-china.org/api/topics/node/:id.json
+        POST	http://ruby-china.org/api/topics.json
+        GET	    http://ruby-china.org/api/topics/:id.json
+        POST	http://ruby-china.org/api/topics/:id/replies.json
+        POST	http://ruby-china.org/api/topics/:id/follow.json
+        POST	http://ruby-china.org/api/topics/:id/unfollow.json
+        POST	http://ruby-china.org/api/topics/:id/favorite.json
+        GET	    http://ruby-china.org/api/nodes.json
+        PUT	    http://ruby-china.org/api/user/favorite/:user/:topic.json
+        GET	    http://ruby-china.org/api/users.json
+        GET	    http://ruby-china.org/api/users/temp_access_token.json
+        GET	    http://ruby-china.org/api/users/:user.json
+        GET	    http://ruby-china.org/api/users/:user/topics.json
+        GET	    http://ruby-china.org/api/users/:user/topics/favorite.json
+        GET	    http://ruby-china.org/api/sites.json
+
+    */
 }

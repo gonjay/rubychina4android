@@ -23,6 +23,7 @@ import org.rubychina.app.ui.LoginActivity;
 import org.rubychina.app.ui.MainActivity;
 import org.rubychina.app.ui.adapter.DrawerAdapter;
 import org.rubychina.app.ui.fragment.topic.TopicsFragment;
+import org.rubychina.app.utils.ApiUtils;
 import org.rubychina.app.utils.UserUtils;
 
 /**
@@ -88,7 +89,7 @@ public class DrawerFragment extends Fragment {
     private void callParent(int positiong){
         switch (positiong){
             case 0:
-                mainActivity.setMainContent(new TopicsFragment());
+                mainActivity.setMainContent(new TopicsFragment(MainActivity.TOPICS, ApiUtils.TOPICS));
                 break;
             case 1:
                 mainActivity.setMainContent(new NodesFragment());

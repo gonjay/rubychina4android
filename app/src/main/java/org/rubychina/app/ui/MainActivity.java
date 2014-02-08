@@ -19,12 +19,14 @@ import android.view.View;
 import org.rubychina.app.R;
 import org.rubychina.app.ui.fragment.DrawerFragment;
 import org.rubychina.app.ui.fragment.topic.TopicsFragment;
+import org.rubychina.app.utils.ApiUtils;
 import org.rubychina.app.utils.UserUtils;
 
 import uk.co.senab.actionbarpulltorefresh.library.PullToRefreshAttacher;
 
 public class MainActivity extends FragmentActivity {
     public static final int ACTION_FOR_LOGIN = 2000;
+    public static final String TOPICS = "topics";
 
     private DrawerLayout mDrawerLayout;
     private ActionBarDrawerToggle mDrawerToggle;
@@ -71,7 +73,7 @@ public class MainActivity extends FragmentActivity {
 
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction()
-                    .add(R.id.container, new TopicsFragment())
+                    .add(R.id.container, new TopicsFragment("topics", ApiUtils.TOPICS))
                     .commit();
         }
         getSupportFragmentManager().beginTransaction().replace(R.id.left_drawer, new DrawerFragment()).commit();
@@ -138,6 +140,12 @@ public class MainActivity extends FragmentActivity {
         mDrawerLayout.closeDrawers();
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.container, fragment)
+                .commit();
+    }
+
+    public void addMainContent(Fragment fragment){
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.container, fragment).addToBackStack(null)
                 .commit();
     }
 

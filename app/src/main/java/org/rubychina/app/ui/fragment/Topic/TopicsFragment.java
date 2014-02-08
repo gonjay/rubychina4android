@@ -42,14 +42,17 @@ public class TopicsFragment extends Fragment implements PullToRefreshAttacher.On
 
     private TopicAdapter mAdapter;
 
+    private String type, url;
+
     int page = 1;
 
     Gson gson = new Gson();
     Type listType = new TypeToken<List<Topic>>(){}.getType();
     List<Topic> topics = new ArrayList<Topic>();
 
-    public TopicsFragment(){
-
+    public TopicsFragment(String type, String url) {
+        this.type = type;
+        this.url = url;
     }
 
     @Override
@@ -110,9 +113,9 @@ public class TopicsFragment extends Fragment implements PullToRefreshAttacher.On
     }
 
     private void loadCacheData(){
-        String cache = UserUtils.loadTopic();
+        String cache = UserUtils.loadTopic(type);
         if (cache.length() > 0){
-            List<Topic> ts = gson.fromJson(UserUtils.loadTopic(), listType);
+            List<Topic> ts = gson.fromJson(UserUtils.loadTopic(type), listType);
             for (Topic t : ts){
                 topics.add(t);
             }
@@ -123,7 +126,7 @@ public class TopicsFragment extends Fragment implements PullToRefreshAttacher.On
     }
 
     private void loadData(final int page) {
-        ApiUtils.get(ApiUtils.TOPICS, new ApiParams().with("page", page + "").with("per_page","15"), new AsyncHttpResponseHandler() {
+        ApiUtils.get(url, new ApiParams().with("page", page + "").with("per_page","15"), new AsyncHttpResponseHandler() {
             @Override
             public void onSuccess(String response) {
                 mLoadingFooter.setState(LoadingFooter.State.Idle, 3000);
@@ -131,7 +134,7 @@ public class TopicsFragment extends Fragment implements PullToRefreshAttacher.On
                 if (page == 1){
                     topics.clear();
                     mPullToRefreshAttacher.setRefreshComplete();
-                    UserUtils.cacheTopic(response);
+                    UserUtils.cacheTopic(response, type);
                 }
                 for (Topic t : ts){
                     topics.add(t);

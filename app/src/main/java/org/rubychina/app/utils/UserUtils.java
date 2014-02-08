@@ -14,16 +14,16 @@ public class UserUtils {
         return MyApp.getContext();
     }
 
-    public static String loadTopic() {
+    public static String loadTopic(String type) {
         SharedPreferences pref = getAppContext().getSharedPreferences(
                 "topic", 0);
-        return pref.getString("topic_cache", "");
+        return pref.getString(type, "");
     }
 
-    public static boolean cacheTopic(String responce) {
+    public static boolean cacheTopic(String responce, String type) {
         SharedPreferences pref = getAppContext().getSharedPreferences(
                 "topic", 0);
-        return pref.edit().putString("topic_cache", responce).commit();
+        return pref.edit().putString(type, responce).commit();
     }
 
     public static String getUserToken(){

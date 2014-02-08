@@ -32,7 +32,10 @@ Markdown
 
  练习之作，所以客户端还不是很完善。关于如何让iOS支持Markdown，我觉得完全可以使用一个UIWebView来实现，可以参考这个[index.html](https://github.com/gonjay/rubychina4android/blob/master/app/src/main/assets/index.html)
  然后这么调用
- ```NSString body_html = Topic.body_html;[self.webView stringByEvaluatingJavaScriptFromString:(@\"$('#display').html(%@);\", body_html)];```
+```
+NSString body_html = Topic.body_html;
+[self.webView stringByEvaluatingJavaScriptFromString:(@\"$('#display').html(%@);\", body_html)];
+```
  当然也欢迎会Android的朋友贡献代码咯，不过你得学会使用AndroidStudio，从Eclipse过来的童鞋可能得花点时间适应一下，不过确实是很有效率的开发工具
 
 ## 开发
