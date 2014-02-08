@@ -161,6 +161,11 @@ public class TopicActivity extends FragmentActivity {
         });
     }
 
+    public void setReply(String content){
+        pager.setCurrentItem(2);
+        myReplyFragment.updateBody(content);
+    }
+
     public void afterReply(){
         fetchData();
         pager.setCurrentItem(1);

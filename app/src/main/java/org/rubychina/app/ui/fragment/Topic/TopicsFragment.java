@@ -123,7 +123,7 @@ public class TopicsFragment extends Fragment implements PullToRefreshAttacher.On
     }
 
     private void loadData(final int page) {
-        ApiUtils.get(ApiUtils.TOPICS, new ApiParams().with("page", page + "").with("per_page","10"), new AsyncHttpResponseHandler() {
+        ApiUtils.get(ApiUtils.TOPICS, new ApiParams().with("page", page + "").with("per_page","15"), new AsyncHttpResponseHandler() {
             @Override
             public void onSuccess(String response) {
                 mLoadingFooter.setState(LoadingFooter.State.Idle, 3000);

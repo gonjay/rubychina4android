@@ -11,7 +11,11 @@ public class TopicReply extends Topic {
 
     public String getReplyBrief(int position){
 
-        return position + "楼，" + getCreated_at();
+        return (position + 1) + "楼，" + getCreated_at();
+    }
+
+    public String getReplyFront(int position){
+        return "#" + (position + 1)  + "楼 " + "@" + this.user.login;
     }
 
     public String getCreated_at(){

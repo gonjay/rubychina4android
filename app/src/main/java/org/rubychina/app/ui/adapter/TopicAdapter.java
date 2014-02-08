@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
@@ -38,6 +39,7 @@ public class TopicAdapter extends BaseAdapter {
     public class ViewHolder{
         public ImageView avatar;
         public TextView title, time, replies, node, userName, body;
+        public RelativeLayout item;
     }
 
     public TopicAdapter(){

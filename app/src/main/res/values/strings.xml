@@ -35,4 +35,10 @@
         <item>活动</item>
     </string-array>
 
+
+    <string-array name="repley_choice">
+        <item>回复</item>
+        <item>喜欢</item>
+    </string-array>
+
 </resources>

@@ -78,4 +78,11 @@ public class TopicReplyFragment extends Fragment {
         return body.getText().toString();
     }
 
+    public void updateBody(String content) {
+        if (body.getText().toString().length() > 0 && body.getText().toString().contains("@")){
+            content = body.getText().toString() + "\n" + content;
+        }
+
+        body.setText(content);
+    }
 }
