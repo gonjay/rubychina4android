@@ -1,5 +1,6 @@
 package org.rubychina.app.model;
 
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -24,83 +25,57 @@ public class Topic {
 
     public User user;
 
-    public String getDetail(){
+    private static final DateFormat CREATE_AT_DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ");
 
-        return node_name + " " + user.login + getCreated_at() + "\n" + "最后由 " + getLastReply() + " " + hits + "次阅读";
+    private static final DateFormat LAST_REPLY_FORMAT = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ");
+
+    private static final String DETAIL_TEMPLATE = "%s %s %s%n最后由 %s %s次阅读";
+
+    private static final String CREATE_AT_TEMPLATE = "%s于%d%s前创建";
+
+    private static final String LAST_REPLY_TEMPLATE = "%s于%d%s前回复";
+
+    public String getDetail(){
+        return String.format(DETAIL_TEMPLATE, node_name, user.login, getCreated_at(), getLastReply(), hits);
     }
 
     public String getCreated_at(){
-
-        if (created_at == null) return "";
-
-        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ");
-        Date date = new Date();
-        Date now = new Date();
-
-        try {
-            date = df.parse(created_at);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-
-        long between = Math.abs((now.getTime() - date.getTime())/1000);
-
-        long day1=between/(24*3600);
-
-        long hour1=between%(24*3600)/3600;
-
-        long minute1=between%3600/60;
-
-        long second1=between%60/60;
-
-        if (day1 > 0){
-            return last_reply_user_login + " 于" + day1 + "天前创建";
-        } else if (hour1 > 0){
-            return last_reply_user_login + " 于" + hour1 + "小时前创建";
-        } else if (minute1 > 0){
-            return last_reply_user_login + " 于" + minute1 + "分钟前创建";
-        } else if (second1 > 0){
-            return last_reply_user_login + " 于" + second1 + "秒前创建";
-        } else {
-            return "?";
-        }
+        return getShowTimeFormatString(created_at, CREATE_AT_DATE_FORMAT, CREATE_AT_TEMPLATE);
     }
 
     public String getLastReply(){
-        if (replied_at == null) return "";
+        return getShowTimeFormatString(replied_at, LAST_REPLY_FORMAT, LAST_REPLY_TEMPLATE);
+    }
 
-        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ");
+    private String getShowTimeFormatString(String showTime, DateFormat dateFormat, String stringTemplate) {
+
+        if (showTime == null) return "";
+
         Date date = new Date();
-        Date now = new Date();
-
+        Date nowTime = new Date();
         try {
-            date = df.parse(replied_at);
+            date = dateFormat.parse(showTime);
         } catch (ParseException e) {
             e.printStackTrace();
         }
 
-        long between = Math.abs((now.getTime() - date.getTime())/1000);
+        // 获得时间差的秒数
+        long between = Math.abs((nowTime.getTime() - date.getTime()) / 1000);
 
-        long day1=between/(24*3600);
+        long day = between / (24 * 3600);
 
-        long hour1=between%(24*3600)/3600;
+        long hour = between % (24 * 3600) / 3600;
 
-        long minute1=between%3600/60;
+        long minute = between % 3600 / 60;
 
-        long second1=between%60/60;
-
-        if (day1 > 0){
-            return last_reply_user_login + " 于" + day1 + "天前回复";
-        } else if (hour1 > 0){
-            return last_reply_user_login + " 于" + hour1 + "小时前回复";
-        } else if (minute1 > 0){
-            return last_reply_user_login + " 于" + minute1 + "分钟前回复";
-        } else if (second1 > 0){
-            return last_reply_user_login + " 于" + second1 + "秒前回复";
+        if (day > 0) {
+            return String.format(stringTemplate, last_reply_user_login, day, "天");
+        } else if (hour > 0) {
+            return String.format(stringTemplate, last_reply_user_login, hour, "小时");
+        } else if (minute > 0) {
+            return String.format(stringTemplate, last_reply_user_login, minute, "分钟");
         } else {
-           return "?";
+            return String.format(stringTemplate, last_reply_user_login, between, "秒");
         }
-
     }
-
 }
