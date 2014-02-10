@@ -78,46 +78,41 @@
             android:id="@+id/rl_topics"
             android:background="@drawable/listitem_selector"
             android:layout_width="150dip"
-            android:layout_height="48dip">
+            android:layout_height="48dip"
+            android:gravity="center_horizontal">
+            <TextView
+                android:layout_width="25dip"
+                android:layout_height="25dip"
+                android:layout_centerVertical="true"
+                android:background="@drawable/ic_quote"/>
             <TextView
                 android:id="@+id/tv_t"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:text="话题"/>
-
-            <TextView
-                android:layout_toLeftOf="@+id/tv_t"
-                android:layout_width="25dip"
-                android:layout_height="25dip"
-                android:layout_marginLeft="20dip"
-                android:layout_marginRight="5dip"
                 android:layout_centerVertical="true"
-                android:background="@drawable/ic_quote"/>
-
+                android:layout_marginLeft="30dip"
+                android:text="话题"/>
 
             </RelativeLayout>
         <RelativeLayout
             android:id="@+id/rl_likes"
             android:background="@drawable/listitem_selector"
             android:layout_width="150dip"
-            android:layout_height="48dip">
+            android:layout_height="48dip"
+            android:gravity="center_horizontal">
+            <TextView
+                android:layout_width="25dip"
+                android:layout_height="25dip"
+                android:layout_centerVertical="true"
+                android:background="@drawable/ic_star"/>
 
             <TextView
                 android:id="@+id/tv_f"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:text="喜欢"/>
-
-            <TextView
-                android:layout_toLeftOf="@+id/tv_f"
-                android:layout_width="25dip"
-                android:layout_height="25dip"
-                android:layout_marginLeft="20dip"
-                android:layout_marginRight="5dip"
                 android:layout_centerVertical="true"
-                android:background="@drawable/ic_star"/>
+                android:layout_marginLeft="30dip"
+                android:text="喜欢"/>
 
             </RelativeLayout>
         </LinearLayout>

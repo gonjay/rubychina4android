@@ -95,16 +95,12 @@ public class ProfileFragment extends Fragment {
             public void onClick(View v) {
                 TextView tv = new TextView(getActivity());
                 tv.setText(user.tagline);
+                tv.setTextColor(getResources().getColor(R.color.white));
                 PopupWindow pop = new PopupWindow(tv, LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT, false);
-                // 需要设置一下此参数，点击外边可消失
                 pop.setBackgroundDrawable(new BitmapDrawable());
-                //设置点击窗口外边窗口消失
                 pop.setOutsideTouchable(true);
-                // 设置此参数获得焦点，否则无法点击
                 pop.setFocusable(true);
-
-//                pop.showAsDropDown(v);
-                pop.showAtLocation(v, );
+                pop.showAsDropDown(v);
             }
 
         });
