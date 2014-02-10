@@ -1,0 +1,139 @@
+<RelativeLayout
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <LinearLayout
+        android:id="@+id/ll_blur"
+        android:orientation="horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="150dip"
+        android:paddingLeft="30dip"
+        android:gravity="center_vertical"
+        android:background="@drawable/blur_bg">
+
+        <ImageView
+            android:layout_width="80dip"
+            android:layout_height="80dip"
+            android:id="@+id/imageView" />
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/ll_blur"
+                android:padding="18dip"
+                android:id="@+id/linearLayout">
+                <TextView
+                    android:id="@+id/tv_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textStyle="bold"
+                    android:textSize="25sp"
+                    android:textColor="#fff"/>
+                <TextView
+                    android:id="@+id/tv_email"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#fff"/>
+            </LinearLayout>
+        </LinearLayout>
+
+    <LinearLayout
+        android:layout_alignParentRight="true"
+        android:layout_alignBottom="@+id/ll_blur"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:id="@+id/linearLayout3">
+        <ImageView
+            style="@style/CustomImage"
+            android:id="@+id/iv_twitter"
+            android:src="@drawable/ic_twitter"
+            android:layout_width="48dip"
+            android:layout_height="48dip"/>
+        <ImageView
+            style="@style/CustomImage"
+            android:id="@+id/iv_github"
+            android:src="@drawable/ic_github"
+            android:layout_width="48dip"
+            android:layout_height="48dip"/>
+        <ImageView
+            style="@style/CustomImage"
+            android:id="@+id/iv_location"
+            android:src="@drawable/ic_worldwide_location"
+            android:layout_width="48dip"
+            android:layout_height="48dip"/>
+        </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:padding="8dip"
+        android:gravity="center"
+        android:layout_below="@+id/ll_blur"
+        android:id="@+id/linearLayout2">
+        <RelativeLayout
+            android:id="@+id/rl_topics"
+            android:background="@drawable/listitem_selector"
+            android:layout_width="150dip"
+            android:layout_height="48dip">
+            <TextView
+                android:id="@+id/tv_t"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="话题"/>
+
+            <TextView
+                android:layout_toLeftOf="@+id/tv_t"
+                android:layout_width="25dip"
+                android:layout_height="25dip"
+                android:layout_marginLeft="20dip"
+                android:layout_marginRight="5dip"
+                android:layout_centerVertical="true"
+                android:background="@drawable/ic_quote"/>
+
+
+            </RelativeLayout>
+        <RelativeLayout
+            android:id="@+id/rl_likes"
+            android:background="@drawable/listitem_selector"
+            android:layout_width="150dip"
+            android:layout_height="48dip">
+
+            <TextView
+                android:id="@+id/tv_f"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="喜欢"/>
+
+            <TextView
+                android:layout_toLeftOf="@+id/tv_f"
+                android:layout_width="25dip"
+                android:layout_height="25dip"
+                android:layout_marginLeft="20dip"
+                android:layout_marginRight="5dip"
+                android:layout_centerVertical="true"
+                android:background="@drawable/ic_star"/>
+
+            </RelativeLayout>
+        </LinearLayout>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:paddingLeft="20dip"
+        android:paddingRight="20dip"
+        android:layout_below="@+id/linearLayout2">
+        <ListView
+            android:id="@+id/list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+        </LinearLayout>
+
+
+</RelativeLayout>

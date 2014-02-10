@@ -9,4 +9,12 @@
 
     </style>
 
+    <style name="CustomImage">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:padding">13dip</item>
+        <item name="android:clickable">true</item>
+        <item name="android:background">@drawable/img_src_selector</item>
+    </style>
+
 </resources>

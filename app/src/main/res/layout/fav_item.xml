@@ -1,0 +1,35 @@
+<RelativeLayout
+    android:id="@+id/rl_item"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/listitem_selector"
+    android:padding="10dip"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <TextView
+        android:id="@+id/tv_node"
+        android:layout_width="60dip"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:text="Node"/>
+
+    <TextView
+        android:id="@+id/tv_title"
+        android:layout_centerInParent="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/tv_node"
+        android:layout_marginLeft="10dip"
+        android:layout_marginRight="20dip"
+        android:textSize="15dp"
+        android:text="Title"/>
+
+    <TextView
+        android:id="@+id/tv_count"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="99"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"/>
+
+    </RelativeLayout>

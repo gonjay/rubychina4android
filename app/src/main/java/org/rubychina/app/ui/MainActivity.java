@@ -73,7 +73,7 @@ public class MainActivity extends FragmentActivity {
 
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction()
-                    .add(R.id.container, new TopicsFragment("topics", ApiUtils.TOPICS))
+                    .add(R.id.container, new TopicsFragment("topics", ApiUtils.TOPICS, mPullToRefreshAttacher))
                     .commit();
         }
         getSupportFragmentManager().beginTransaction().replace(R.id.left_drawer, new DrawerFragment()).commit();
@@ -138,6 +138,8 @@ public class MainActivity extends FragmentActivity {
 
     public void setMainContent(Fragment fragment){
         mDrawerLayout.closeDrawers();
+        //You need to pop some stacks in case setMainContent called after addMainContent
+        getSupportFragmentManager().popBackStack();
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.container, fragment)
                 .commit();

@@ -10,4 +10,31 @@ public class User {
     public String id;
     public String email;
     public String private_token;
+    public String name;
+    public String location;
+    public String company;
+    public String twitter;
+    public String website;
+    public String bio;
+    public String tagline;
+    public String gravatar_hash;
+
+    public String getName(){
+        if (name.length() < 1 ) return login;
+        return name;
+    }
+
+    public String getContactText(){
+        if (this.email != null) return email;
+        if (this.website != null) return website;
+        return "";
+    }
+
+    public String getBigAvatar(int size){
+        if (this.avatar_url.contains("?")){
+            return avatar_url + "&s=" + size;
+        } else {
+            return avatar_url + "?&s=" + size;
+        }
+    }
 }

@@ -1,5 +1,6 @@
 package org.rubychina.app.ui.adapter;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -19,7 +20,9 @@ import com.nostra13.universalimageloader.core.display.RoundedBitmapDisplayer;
 import org.rubychina.app.MyApp;
 import org.rubychina.app.R;
 import org.rubychina.app.model.Topic;
+import org.rubychina.app.ui.ProfileActivity;
 import org.rubychina.app.ui.TopicActivity;
+import org.rubychina.app.utils.UserUtils;
 
 import java.util.List;
 
@@ -91,6 +94,16 @@ public class TopicAdapter extends BaseAdapter {
                 Intent i = new Intent(context, TopicActivity.class);
                 i.putExtra("topic_id",topics.get(position).id);
                 context.startActivity(i);
+            }
+        });
+
+        holder.avatar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(context, ProfileActivity.class);
+                i.putExtra("user", topics.get(position).user.login);
+                context.startActivity(i);
+                ((Activity)context).overridePendingTransition(R.anim.push_up_in,R.anim.push_up_out);
             }
         });
 

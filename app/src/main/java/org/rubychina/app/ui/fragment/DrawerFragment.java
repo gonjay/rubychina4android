@@ -21,6 +21,7 @@ import org.rubychina.app.R;
 import org.rubychina.app.helper.MyBitmapDisplayer;
 import org.rubychina.app.ui.LoginActivity;
 import org.rubychina.app.ui.MainActivity;
+import org.rubychina.app.ui.ProfileActivity;
 import org.rubychina.app.ui.adapter.DrawerAdapter;
 import org.rubychina.app.ui.fragment.topic.TopicsFragment;
 import org.rubychina.app.utils.ApiUtils;
@@ -64,6 +65,11 @@ public class DrawerFragment extends Fragment {
                 if(!UserUtils.logined()) {
                     getActivity().startActivityForResult(new Intent(getActivity(), LoginActivity.class), MainActivity.ACTION_FOR_LOGIN);
                     getActivity().overridePendingTransition(R.anim.push_up_in,R.anim.push_up_out);
+                } else {
+                    Intent i = new Intent(getActivity(), ProfileActivity.class);
+                    i.putExtra("user", UserUtils.getUserLogin());
+                    getActivity().startActivity(i);
+                    getActivity().overridePendingTransition(R.anim.push_up_in,R.anim.push_up_out);
                 }
             }
         });
@@ -89,7 +95,7 @@ public class DrawerFragment extends Fragment {
     private void callParent(int positiong){
         switch (positiong){
             case 0:
-                mainActivity.setMainContent(new TopicsFragment(MainActivity.TOPICS, ApiUtils.TOPICS));
+                mainActivity.setMainContent(new TopicsFragment(MainActivity.TOPICS, ApiUtils.TOPICS, ((MainActivity)getActivity()).getPullToRefreshAttacher()));
                 break;
             case 1:
                 mainActivity.setMainContent(new NodesFragment());

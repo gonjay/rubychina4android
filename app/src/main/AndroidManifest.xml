@@ -25,6 +25,10 @@
         </activity>
 
         <activity
+            android:name=".ui.ProfileActivity"
+            android:label="@string/preview">
+        </activity>
+        <activity
             android:name=".ui.PreviewActivity"
             android:label="@string/preview">
         </activity>

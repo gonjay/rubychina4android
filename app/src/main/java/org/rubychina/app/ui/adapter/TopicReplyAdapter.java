@@ -1,8 +1,10 @@
 package org.rubychina.app.ui.adapter;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,6 +17,7 @@ import org.rubychina.app.MyApp;
 import org.rubychina.app.R;
 import org.rubychina.app.model.Topic;
 import org.rubychina.app.model.TopicReply;
+import org.rubychina.app.ui.ProfileActivity;
 import org.rubychina.app.ui.TopicActivity;
 
 import java.util.List;
@@ -54,13 +57,21 @@ public class TopicReplyAdapter extends TopicAdapter {
         holder.userName.setText(replies.get(position).user.login);
         holder.time.setText(replies.get(position).getReplyBrief(position));
 
+        holder.avatar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(context, ProfileActivity.class);
+                i.putExtra("user", replies.get(position).user.login);
+                context.startActivity(i);
+                ((Activity)context).overridePendingTransition(R.anim.push_up_in,R.anim.push_up_out);
+            }
+        });
+
         imageLoader.displayImage(replies.get(position).user.avatar_url, holder.avatar, options);
 
         holder.item.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                TopicActivity ta = (TopicActivity)context;
-//                ta.setReply(replies.get(position).getReplyFront(position));
                 createDialog(replies.get(position).getReplyFront(position));
             }
         });
