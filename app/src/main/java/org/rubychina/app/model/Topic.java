@@ -25,7 +25,7 @@ public class Topic {
 
     public User user;
 
-    private static final DateFormat CREATE_AT_DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ");
+    public static final DateFormat CREATE_AT_DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ");
 
     private static final DateFormat LAST_REPLY_FORMAT = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ");
 
