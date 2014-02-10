@@ -1,5 +1,6 @@
 package org.rubychina.app.model;
 
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -24,83 +25,66 @@ public class Topic {
 
     public User user;
 
+    public static final DateFormat CREATE_AT_DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ");
+
+    private static final DateFormat LAST_REPLY_FORMAT = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ");
+
+    private static final String DETAIL_TEMPLATE = "%s %s于%s发布%n最后由 %s %s次阅读";
+
+    private static final String DETAIL_WITHOUT_REPLY_TEMPLATE = "%s %s于%s发布%n%s次阅读";
+
+    private static final String LAST_REPLY_TEMPLATE = "%s于%s回复";
+
     public String getDetail(){
-
-        return node_name + " " + user.login + getCreated_at() + "\n" + "最后由 " + getLastReply() + " " + hits + "次阅读";
+        if (last_reply_user_login != null) {
+            return String.format(DETAIL_TEMPLATE, node_name, user.login, getCreated_at(), getLastReply(), hits);
+        }
+        // 没有回复时回复者部分不显示
+        else {
+            return String.format(DETAIL_WITHOUT_REPLY_TEMPLATE, node_name, user.login, getCreated_at(), hits);
+        }
     }
 
-    public String getCreated_at(){
+    public String getCreated_at() {
+        return getShowTimeString(created_at, CREATE_AT_DATE_FORMAT);
+    }
 
-        if (created_at == null) return "";
+    public String getLastReply() {
+        if (last_reply_user_login != null) {
+            return String.format(LAST_REPLY_TEMPLATE, last_reply_user_login, getShowTimeString(replied_at, LAST_REPLY_FORMAT));
+        }
+        // 没有回复时返回空
+        else {
+            return "";
+        }
+    }
 
-        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ");
+    public String getShowTimeString(String showTime, DateFormat dateFormat) {
         Date date = new Date();
-        Date now = new Date();
-
+        Date nowTime = new Date();
         try {
-            date = df.parse(created_at);
+            date = dateFormat.parse(showTime);
         } catch (ParseException e) {
             e.printStackTrace();
         }
 
-        long between = Math.abs((now.getTime() - date.getTime())/1000);
+        // 获得时间差的秒数
+        long between = Math.abs((nowTime.getTime() - date.getTime()) / 1000);
 
-        long day1=between/(24*3600);
+        long day = between / (24 * 3600);
 
-        long hour1=between%(24*3600)/3600;
+        long hour = between % (24 * 3600) / 3600;
 
-        long minute1=between%3600/60;
+        long minute = between % 3600 / 60;
 
-        long second1=between%60/60;
-
-        if (day1 > 0){
-            return last_reply_user_login + " 于" + day1 + "天前创建";
-        } else if (hour1 > 0){
-            return last_reply_user_login + " 于" + hour1 + "小时前创建";
-        } else if (minute1 > 0){
-            return last_reply_user_login + " 于" + minute1 + "分钟前创建";
-        } else if (second1 > 0){
-            return last_reply_user_login + " 于" + second1 + "秒前创建";
+        if (day > 0) {
+            return day + "天前";
+        } else if (hour > 0) {
+            return hour + "小时前";
+        } else if (minute > 0) {
+            return minute + "分钟前";
         } else {
-            return "?";
+            return between + "秒前";
         }
     }
-
-    public String getLastReply(){
-        if (replied_at == null) return "";
-
-        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ");
-        Date date = new Date();
-        Date now = new Date();
-
-        try {
-            date = df.parse(replied_at);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-
-        long between = Math.abs((now.getTime() - date.getTime())/1000);
-
-        long day1=between/(24*3600);
-
-        long hour1=between%(24*3600)/3600;
-
-        long minute1=between%3600/60;
-
-        long second1=between%60/60;
-
-        if (day1 > 0){
-            return last_reply_user_login + " 于" + day1 + "天前回复";
-        } else if (hour1 > 0){
-            return last_reply_user_login + " 于" + hour1 + "小时前回复";
-        } else if (minute1 > 0){
-            return last_reply_user_login + " 于" + minute1 + "分钟前回复";
-        } else if (second1 > 0){
-            return last_reply_user_login + " 于" + second1 + "秒前回复";
-        } else {
-           return "?";
-        }
-
-    }
-
 }
