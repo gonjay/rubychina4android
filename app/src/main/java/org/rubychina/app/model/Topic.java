@@ -29,28 +29,37 @@ public class Topic {
 
     private static final DateFormat LAST_REPLY_FORMAT = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ");
 
-    private static final String DETAIL_TEMPLATE = "%s %s%n最后由 %s %s次阅读";
+    private static final String DETAIL_TEMPLATE = "%s %s于%s发布%n最后由 %s %s次阅读";
 
-    private static final String CREATE_AT_TEMPLATE = "%s于%d%s前创建";
+    private static final String DETAIL_WITHOUT_REPLY_TEMPLATE = "%s %s于%s发布%n%s次阅读";
 
-    private static final String LAST_REPLY_TEMPLATE = "%s于%d%s前回复";
+    private static final String LAST_REPLY_TEMPLATE = "%s于%s回复";
 
     public String getDetail(){
-        return String.format(DETAIL_TEMPLATE, node_name, getCreated_at(), getLastReply(), hits);
+        if (last_reply_user_login != null) {
+            return String.format(DETAIL_TEMPLATE, node_name, user.login, getCreated_at(), getLastReply(), hits);
+        }
+        // 没有回复时回复者部分不显示
+        else {
+            return String.format(DETAIL_WITHOUT_REPLY_TEMPLATE, node_name, user.login, getCreated_at(), hits);
+        }
     }
 
-    public String getCreated_at(){
-        return getShowTimeFormatString(user.login, created_at, CREATE_AT_DATE_FORMAT, CREATE_AT_TEMPLATE);
+    public String getCreated_at() {
+        return getShowTimeString(created_at, CREATE_AT_DATE_FORMAT);
     }
 
-    public String getLastReply(){
-        return getShowTimeFormatString(last_reply_user_login, replied_at, LAST_REPLY_FORMAT, LAST_REPLY_TEMPLATE);
+    public String getLastReply() {
+        if (last_reply_user_login != null) {
+            return String.format(LAST_REPLY_TEMPLATE, last_reply_user_login, getShowTimeString(replied_at, LAST_REPLY_FORMAT));
+        }
+        // 没有回复时返回空
+        else {
+            return "";
+        }
     }
 
-    private String getShowTimeFormatString(String showUser, String showTime, DateFormat dateFormat, String stringTemplate) {
-
-        if (showTime == null) return "";
-
+    public String getShowTimeString(String showTime, DateFormat dateFormat) {
         Date date = new Date();
         Date nowTime = new Date();
         try {
@@ -69,13 +78,13 @@ public class Topic {
         long minute = between % 3600 / 60;
 
         if (day > 0) {
-            return String.format(stringTemplate, showUser, day, "天");
+            return day + "天前";
         } else if (hour > 0) {
-            return String.format(stringTemplate, showUser, hour, "小时");
+            return hour + "小时前";
         } else if (minute > 0) {
-            return String.format(stringTemplate, showUser, minute, "分钟");
+            return minute + "分钟前";
         } else {
-            return String.format(stringTemplate, showUser, between, "秒");
+            return between + "秒前";
         }
     }
 }
