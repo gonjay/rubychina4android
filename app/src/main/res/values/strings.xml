@@ -11,6 +11,7 @@
     <string name="refresh">刷新</string>
     <string name="send">发送</string>
     <string name="preview">预览</string>
+    <string name="user_home">用户主页</string>
 
     <string name="drawer_open">Open navigation drawer</string>
     <string name="drawer_close">Close navigation drawer</string>

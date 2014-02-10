@@ -45,11 +45,15 @@ public class ProfileActivity extends FragmentActivity {
         return false;
     }
 
-//    @Override
-//    public void onBackPressed() {
-//        finish();
-//        overridePendingTransition(R.anim.anim_left_to_right, R.anim.anim_right_to_left);
-//    }
+    @Override
+    public void onBackPressed() {
+        if (getSupportFragmentManager().getBackStackEntryCount() > 0){
+            getSupportFragmentManager().popBackStack();
+            return;
+        }
+        finish();
+        overridePendingTransition(R.anim.anim_left_to_right, R.anim.anim_right_to_left);
+    }
 
     private void initPulltorefresh(){
         PullToRefreshAttacher.Options options = new PullToRefreshAttacher.Options();

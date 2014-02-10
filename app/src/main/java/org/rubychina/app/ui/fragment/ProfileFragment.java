@@ -1,7 +1,9 @@
 package org.rubychina.app.ui.fragment;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -70,6 +72,7 @@ public class ProfileFragment extends Fragment {
             @Override
             public void onSuccess(String responce) {
                 user = new Gson().fromJson(responce, User.class);
+                getActivity().setTitle(user.getName());
                 try {
                     String topic = JsonUtils.getString(new JSONObject(responce), "topics");
                     recent = new Gson().fromJson(topic, new TypeToken<List<Topic>>() {
@@ -124,7 +127,12 @@ public class ProfileFragment extends Fragment {
                         .commit();
             }
         });
-
+        github.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(user.github_url)));
+            }
+        });
     }
 
     private void findView(){

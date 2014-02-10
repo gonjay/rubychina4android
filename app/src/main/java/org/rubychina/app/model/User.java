@@ -18,6 +18,7 @@ public class User {
     public String bio;
     public String tagline;
     public String gravatar_hash;
+    public String github_url;
 
     public String getName(){
         if (name.length() < 1 ) return login;
