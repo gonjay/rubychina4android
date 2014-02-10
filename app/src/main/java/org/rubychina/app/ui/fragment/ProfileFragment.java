@@ -6,6 +6,7 @@ import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -97,7 +98,8 @@ public class ProfileFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 TextView tv = new TextView(getActivity());
-                tv.setText(user.tagline);
+                tv.setText(user.getPop());
+                tv.setGravity(Gravity.CENTER);
                 tv.setTextColor(getResources().getColor(R.color.white));
                 PopupWindow pop = new PopupWindow(tv, LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT, false);
                 pop.setBackgroundDrawable(new BitmapDrawable());
@@ -130,7 +132,26 @@ public class ProfileFragment extends Fragment {
         github.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(user.github_url)));
+                if (user.github_url.length() > 0)startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(user.github_url)));
+            }
+        });
+        twitter.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (user.twitter.length() > 0)startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(user.getTwitter())));
+            }
+        });
+        location.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                TextView tv = new TextView(getActivity());
+                tv.setText(user.location);
+                tv.setTextColor(getResources().getColor(R.color.white));
+                PopupWindow pop = new PopupWindow(tv, LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT, false);
+                pop.setBackgroundDrawable(new BitmapDrawable());
+                pop.setOutsideTouchable(true);
+                pop.setFocusable(true);
+                pop.showAsDropDown(v, 0, -200);
             }
         });
     }

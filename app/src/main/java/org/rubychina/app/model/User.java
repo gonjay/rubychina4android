@@ -20,6 +20,12 @@ public class User {
     public String gravatar_hash;
     public String github_url;
 
+    private static final String POP_BRIEF = "第 %s 位会员\n%s";
+
+    public String getPop(){
+        return String.format(POP_BRIEF, id, tagline);
+    }
+
     public String getName(){
         if (name.length() < 1 ) return login;
         return name;
@@ -37,5 +43,9 @@ public class User {
         } else {
             return avatar_url + "?&s=" + size;
         }
+    }
+
+    public String getTwitter() {
+        return "https://twitter.com/" + twitter;
     }
 }
