@@ -29,25 +29,25 @@ public class Topic {
 
     private static final DateFormat LAST_REPLY_FORMAT = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ");
 
-    private static final String DETAIL_TEMPLATE = "%s %s %s%n最后由 %s %s次阅读";
+    private static final String DETAIL_TEMPLATE = "%s %s%n最后由 %s %s次阅读";
 
     private static final String CREATE_AT_TEMPLATE = "%s于%d%s前创建";
 
     private static final String LAST_REPLY_TEMPLATE = "%s于%d%s前回复";
 
     public String getDetail(){
-        return String.format(DETAIL_TEMPLATE, node_name, user.login, getCreated_at(), getLastReply(), hits);
+        return String.format(DETAIL_TEMPLATE, node_name, getCreated_at(), getLastReply(), hits);
     }
 
     public String getCreated_at(){
-        return getShowTimeFormatString(created_at, CREATE_AT_DATE_FORMAT, CREATE_AT_TEMPLATE);
+        return getShowTimeFormatString(user.login, created_at, CREATE_AT_DATE_FORMAT, CREATE_AT_TEMPLATE);
     }
 
     public String getLastReply(){
-        return getShowTimeFormatString(replied_at, LAST_REPLY_FORMAT, LAST_REPLY_TEMPLATE);
+        return getShowTimeFormatString(last_reply_user_login, replied_at, LAST_REPLY_FORMAT, LAST_REPLY_TEMPLATE);
     }
 
-    private String getShowTimeFormatString(String showTime, DateFormat dateFormat, String stringTemplate) {
+    private String getShowTimeFormatString(String showUser, String showTime, DateFormat dateFormat, String stringTemplate) {
 
         if (showTime == null) return "";
 
@@ -69,13 +69,13 @@ public class Topic {
         long minute = between % 3600 / 60;
 
         if (day > 0) {
-            return String.format(stringTemplate, last_reply_user_login, day, "天");
+            return String.format(stringTemplate, showUser, day, "天");
         } else if (hour > 0) {
-            return String.format(stringTemplate, last_reply_user_login, hour, "小时");
+            return String.format(stringTemplate, showUser, hour, "小时");
         } else if (minute > 0) {
-            return String.format(stringTemplate, last_reply_user_login, minute, "分钟");
+            return String.format(stringTemplate, showUser, minute, "分钟");
         } else {
-            return String.format(stringTemplate, last_reply_user_login, between, "秒");
+            return String.format(stringTemplate, showUser, between, "秒");
         }
     }
 }
