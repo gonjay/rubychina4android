@@ -24,8 +24,7 @@ import java.util.List;
 public class TopicRepliesFragment extends Fragment{
     private ListView mListView;
     private TopicReplyAdapter mAdapter;
-    Gson gson = new Gson();
-    Type listType = new TypeToken<List<Topic>>(){}.getType();
+    private Type listType = new TypeToken<List<Topic>>(){}.getType();
 
     private List<TopicReply> topicReplies;
 

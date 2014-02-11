@@ -68,15 +68,17 @@ public class ProfileFragment extends Fragment {
         return view;
     }
 
+    private final Gson gson = new Gson();
+
     private void fetchData(){
         ApiUtils.get(getUserUrl(), null , new AsyncHttpResponseHandler(){
             @Override
             public void onSuccess(String responce) {
-                user = new Gson().fromJson(responce, User.class);
+                user = gson.fromJson(responce, User.class);
                 getActivity().setTitle(user.getName());
                 try {
                     String topic = JsonUtils.getString(new JSONObject(responce), "topics");
-                    recent = new Gson().fromJson(topic, new TypeToken<List<Topic>>() {
+                    recent = gson.fromJson(topic, new TypeToken<List<Topic>>() {
                     }.getType());
                     list.setAdapter(new FavoriteAdapter(recent, getActivity()));
                 } catch (JSONException e) {
