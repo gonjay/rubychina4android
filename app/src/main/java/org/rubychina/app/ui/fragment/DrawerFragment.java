@@ -21,6 +21,7 @@ import org.rubychina.app.R;
 import org.rubychina.app.helper.MyBitmapDisplayer;
 import org.rubychina.app.ui.LoginActivity;
 import org.rubychina.app.ui.MainActivity;
+import org.rubychina.app.ui.NotificationActivity;
 import org.rubychina.app.ui.ProfileActivity;
 import org.rubychina.app.ui.adapter.DrawerAdapter;
 import org.rubychina.app.ui.fragment.topic.TopicsFragment;
@@ -99,6 +100,9 @@ public class DrawerFragment extends Fragment {
                 break;
             case 1:
                 mainActivity.setMainContent(new NodesFragment());
+                break;
+            case 2:
+                startActivity(new Intent(getActivity(), NotificationActivity.class));
                 break;
             default:
                 break;

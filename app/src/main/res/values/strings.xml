@@ -12,6 +12,17 @@
     <string name="send">发送</string>
     <string name="preview">预览</string>
     <string name="user_home">用户主页</string>
+    <string name="notification">通知中心</string>
+
+    <string name="itemdeleted">已删除</string>
+    <string name="taptoundo">点击撤销</string>
+
+    <plurals name="countdown_seconds">
+        <item quantity="one">1秒内删除</item>
+        <item quantity="other">%d秒内删除</item>
+    </plurals>
+
+    <string name="countdown_dismissing">Dismissing</string>
 
     <string name="drawer_open">Open navigation drawer</string>
     <string name="drawer_close">Close navigation drawer</string>

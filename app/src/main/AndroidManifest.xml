@@ -25,6 +25,10 @@
         </activity>
 
         <activity
+            android:name=".ui.NotificationActivity"
+            android:label="@string/notification">
+        </activity>
+        <activity
             android:name=".ui.ProfileActivity"
             android:label="@string/user_home">
         </activity>
