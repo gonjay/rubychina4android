@@ -174,12 +174,12 @@ public class ProfileFragment extends Fragment {
     }
 
     private String getUserUrl(){
-        return ApiUtils.USER_PROFILE + userName + ".json";
+        return String.format(ApiUtils.USER_PROFILE, userName);
     }
     private String getUserTopics(){
-        return ApiUtils.USER_PROFILE + userName + "/topics.json";
+        return String.format(ApiUtils.USER_PROFILE_TOPICS, userName);
     }
     private String getUserLikes(){
-        return ApiUtils.USER_PROFILE + userName + "/topics/favorite.json";
+        return String.format(ApiUtils.USER_PROFILE_TOPICS_FAVORITE, userName);
     }
 }

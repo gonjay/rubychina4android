@@ -71,7 +71,7 @@ public class LoginActivity extends Activity {
                 UserUtils.saveUserToken(u.private_token);
                 UserUtils.saveUserEmail(u.email);
                 Toast.makeText(LoginActivity.this, R.string.login_success,Toast.LENGTH_SHORT).show();
-                ApiUtils.get(ApiUtils.USER_PROFILE+u.login+".json",null,new AsyncHttpResponseHandler(){
+                ApiUtils.get(String.format(ApiUtils.USER_PROFILE, u.login),null,new AsyncHttpResponseHandler(){
                     @Override
                     public void onSuccess(String responce) {
                         User userPro = gson.fromJson(responce, User.class);

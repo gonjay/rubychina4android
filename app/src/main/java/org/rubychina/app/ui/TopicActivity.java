@@ -140,7 +140,7 @@ public class TopicActivity extends FragmentActivity {
     private final Gson gson = new Gson();
 
     private void fetchData(){
-        ApiUtils.get(ApiUtils.TOPIC_VIEW + topic.id + ".json", null, new AsyncHttpResponseHandler() {
+        ApiUtils.get(String.format(ApiUtils.TOPIC_VIEW, topic.id), null, new AsyncHttpResponseHandler() {
             @Override
             public void onSuccess(String response) {
                 topic = gson.fromJson(response, Topic.class);
