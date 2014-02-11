@@ -137,11 +137,12 @@ public class TopicActivity extends FragmentActivity {
         overridePendingTransition(R.anim.anim_left_to_right, R.anim.anim_right_to_left);
     }
 
+    private final Gson gson = new Gson();
+
     private void fetchData(){
-        ApiUtils.get(ApiUtils.TOPIC_VIEW + topic.id + ".json", null, new AsyncHttpResponseHandler() {
+        ApiUtils.get(String.format(ApiUtils.TOPIC_VIEW, topic.id), null, new AsyncHttpResponseHandler() {
             @Override
             public void onSuccess(String response) {
-                Gson gson = new Gson();
                 topic = gson.fromJson(response, Topic.class);
                 mFragments.add(new TopicViewFragment(topic));
                 try {

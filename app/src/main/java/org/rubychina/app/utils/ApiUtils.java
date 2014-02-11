@@ -11,12 +11,14 @@ public class ApiUtils {
 
     public static final String SIGN_IN = "http://ruby-china.org/account/sign_in.json";
     public static final String TOPICS = "http://ruby-china.org/api/v2/topics.json";
-    public static final String TOPIC_REPLY = "http://ruby-china.org/api/v2/topics/";
-    public static final String USER_PROFILE = "http://ruby-china.org/api/v2/users/";
-    public static final String TOPIC_VIEW = "http://ruby-china.org/api/v2/topics/";
+    public static final String TOPIC_REPLY = "http://ruby-china.org/api/v2/topics/%s/replies.json";
+    public static final String USER_PROFILE = "http://ruby-china.org/api/v2/users/%s.json";
+    public static final String USER_PROFILE_TOPICS = "http://ruby-china.org/api/v2/users/%s/topics.json";
+    public static final String USER_PROFILE_TOPICS_FAVORITE = "http://ruby-china.org/api/v2/users/%s/topics/favorite.json";
+    public static final String TOPIC_VIEW = "http://ruby-china.org/api/v2/topics/%s.json";
     public static final String TOPIC_NEW = "http://ruby-china.org/api/v2/topics.json";
     public static final String NODES = "http://ruby-china.org/api/v2/nodes.json";
-    public static final String NODE_URL = "http://ruby-china.org/api/topics/node/";
+    public static final String NODE_URL = "http://ruby-china.org/api/topics/node/%s.json";
 
     public static AsyncHttpClient client = new AsyncHttpClient();
 

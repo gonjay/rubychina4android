@@ -68,15 +68,17 @@ public class ProfileFragment extends Fragment {
         return view;
     }
 
+    private final Gson gson = new Gson();
+
     private void fetchData(){
         ApiUtils.get(getUserUrl(), null , new AsyncHttpResponseHandler(){
             @Override
             public void onSuccess(String responce) {
-                user = new Gson().fromJson(responce, User.class);
+                user = gson.fromJson(responce, User.class);
                 getActivity().setTitle(user.getName());
                 try {
                     String topic = JsonUtils.getString(new JSONObject(responce), "topics");
-                    recent = new Gson().fromJson(topic, new TypeToken<List<Topic>>() {
+                    recent = gson.fromJson(topic, new TypeToken<List<Topic>>() {
                     }.getType());
                     list.setAdapter(new FavoriteAdapter(recent, getActivity()));
                 } catch (JSONException e) {
@@ -172,12 +174,12 @@ public class ProfileFragment extends Fragment {
     }
 
     private String getUserUrl(){
-        return ApiUtils.USER_PROFILE + userName + ".json";
+        return String.format(ApiUtils.USER_PROFILE, userName);
     }
     private String getUserTopics(){
-        return ApiUtils.USER_PROFILE + userName + "/topics.json";
+        return String.format(ApiUtils.USER_PROFILE_TOPICS, userName);
     }
     private String getUserLikes(){
-        return ApiUtils.USER_PROFILE + userName + "/topics/favorite.json";
+        return String.format(ApiUtils.USER_PROFILE_TOPICS_FAVORITE, userName);
     }
 }
