@@ -85,7 +85,12 @@ public class TopicAdapter extends BaseAdapter {
         holder.title.setText(topics.get(position).title);
         holder.node.setText(topics.get(position).node_name);
         holder.time.setText(topics.get(position).getLastReply());
-        holder.replies.setText(topics.get(position).replies_count);
+        // 有人回复时才显示回复数量
+        if (Integer.valueOf(topics.get(position).replies_count) != 0) {
+            holder.replies.setText(topics.get(position).replies_count);
+        } else {
+            holder.replies.setText("");
+        }
         holder.userName.setText(topics.get(position).user.login);
         convertView.setOnClickListener(new View.OnClickListener(){
 
