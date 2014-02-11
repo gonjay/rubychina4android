@@ -56,7 +56,7 @@ public class TopicReplyFragment extends Fragment {
             Toast.makeText(getActivity(), R.string.reply_empty, Toast.LENGTH_SHORT).show();
             return;
         }
-        ApiUtils.post(ApiUtils.TOPIC_REPLY + topic_id + "/replies.json", new ApiParams().with("body", replyBody).withToken(), new AsyncHttpResponseHandler() {
+        ApiUtils.post(String.format(ApiUtils.TOPIC_REPLY, topic_id), new ApiParams().with("body", replyBody).withToken(), new AsyncHttpResponseHandler() {
             @Override
             public void onSuccess(String response) {
                 Toast.makeText(getActivity(), R.string.reply_success, Toast.LENGTH_SHORT).show();

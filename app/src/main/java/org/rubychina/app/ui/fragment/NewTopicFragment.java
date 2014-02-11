@@ -102,6 +102,8 @@ public class NewTopicFragment extends Fragment {
         title = (EditText) v.findViewById(R.id.et_title);
     }
 
+    private final Gson gson = new Gson();
+
     public void send() {
         ApiUtils.post(ApiUtils.TOPIC_NEW, new ApiParams()
                 .with("node_id", node_id)
@@ -112,7 +114,6 @@ public class NewTopicFragment extends Fragment {
                     @Override
                     public void onSuccess(String response) {
                         Toast.makeText(getActivity(), R.string.send_success, Toast.LENGTH_SHORT).show();
-                        Gson gson = new Gson();
                         Topic t = gson.fromJson(response, Topic.class);
                         Intent i = new Intent(getActivity(), TopicActivity.class);
                         i.putExtra("topic_id", t.id);

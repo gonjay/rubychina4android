@@ -39,12 +39,14 @@ public class NodesFragment extends Fragment {
         return contentView;
     }
 
+    private final Gson gson = new Gson();
+
     private void fetchData(){
         ApiUtils.get(ApiUtils.NODES, null, new AsyncHttpResponseHandler(){
             @Override
             public void onSuccess(String responce){
-                Gson gson = new Gson();
-                List<Node> list = new Gson().fromJson(responce, new TypeToken<ArrayList<Node>>(){}.getType());
+                List<Node> list = gson.fromJson(responce, new TypeToken<ArrayList<Node>>() {
+                }.getType());
                 List<String> section_ids = new ArrayList<String>();
                 lists.clear();
                 for (Node node : list){

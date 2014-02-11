@@ -57,7 +57,7 @@ public class NodeAdapter extends BaseAdapter {
             @Override
             public void onClick(View v) {
                 MainActivity ma = (MainActivity)context;
-                ma.addMainContent(new TopicsFragment(nodes.get(position).name, ApiUtils.NODE_URL + nodes.get(position).id +".json", ma.getPullToRefreshAttacher()));
+                ma.addMainContent(new TopicsFragment(nodes.get(position).name, String.format(ApiUtils.NODE_URL + nodes.get(position).id), ma.getPullToRefreshAttacher()));
             }
         });
         return convertView;

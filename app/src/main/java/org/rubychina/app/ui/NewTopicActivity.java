@@ -3,6 +3,7 @@ package org.rubychina.app.ui;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -82,7 +83,7 @@ public class NewTopicActivity extends FragmentActivity {
                 newFragment.send();
                 return true;
             case R.id.action_preview:
-                System.out.println(mShowingBack);
+                Log.i("NewTopicActivity", String.valueOf(mShowingBack));
                 flipCard();
                 return true;
             default:
