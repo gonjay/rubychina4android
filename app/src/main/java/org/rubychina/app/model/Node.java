@@ -1,5 +1,7 @@
 package org.rubychina.app.model;
 
+import org.rubychina.app.utils.ApiUtils;
+
 /**
  * Created by mac on 14-2-4.
  */
@@ -12,6 +14,10 @@ public class Node {
     public String section_id;
     public String sort;
     public String section_name;
+
+    public String getUrl(){
+        return String.format(ApiUtils.NODE_URL, id);
+    }
 
     public static final String nodes_id[][] = {
             {"52","2","3","44","1","29","37","43","45","47","54",},

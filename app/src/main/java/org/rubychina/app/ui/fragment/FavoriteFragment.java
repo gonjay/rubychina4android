@@ -65,7 +65,7 @@ public class FavoriteFragment extends Fragment implements PullToRefreshAttacher.
 
         mAdapter = new FavoriteAdapter(topics, getActivity());
         AnimationAdapter animationAdapter = new ItemAnimationAdapter(mAdapter);
-        animationAdapter.setListView(mListView);
+        animationAdapter.setAbsListView(mListView);
         mListView.setAdapter(animationAdapter);
 
         loadData(1);
@@ -87,6 +87,7 @@ public class FavoriteFragment extends Fragment implements PullToRefreshAttacher.
                     topics.add(t);
                 }
                 mAdapter.notifyDataSetChanged();
+                mLoadingFooter.setState(LoadingFooter.State.TheEnd);
             }
         });
     }

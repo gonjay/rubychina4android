@@ -70,7 +70,7 @@ public class TopicsFragment extends Fragment implements PullToRefreshAttacher.On
 
         mAdapter = new TopicAdapter(topics, getActivity());
         AnimationAdapter animationAdapter = new ItemAnimationAdapter(mAdapter);
-        animationAdapter.setListView(mListView);
+        animationAdapter.setAbsListView(mListView);
         mListView.setAdapter(animationAdapter);
         bindListView();
 
@@ -127,6 +127,7 @@ public class TopicsFragment extends Fragment implements PullToRefreshAttacher.On
     }
 
     private void loadData(final int page) {
+        System.out.println(url + "\n" + page);
         ApiUtils.get(url, new ApiParams().with("page", page + "").with("per_page","15"), new AsyncHttpResponseHandler() {
             @Override
             public void onSuccess(String response) {

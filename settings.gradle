@@ -1,1 +1,1 @@
-include ':app', ':extras:ActionBar-PullToRefresh', ':extras:ListViewAnimationLib', ':extras:SwipeLayout'
+include ':app', ':extras:ActionBar-PullToRefresh', ':extras:ListViewAnimationLib'

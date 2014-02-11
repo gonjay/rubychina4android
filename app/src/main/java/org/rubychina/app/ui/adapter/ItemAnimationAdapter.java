@@ -1,12 +1,12 @@
 package org.rubychina.app.ui.adapter;
 
-import android.animation.Animator;
-import android.animation.ObjectAnimator;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 
 import com.haarman.listviewanimations.swinginadapters.AnimationAdapter;
+import com.nineoldandroids.animation.Animator;
+import com.nineoldandroids.animation.ObjectAnimator;
 
 import org.rubychina.app.MyApp;
 /**
@@ -43,9 +43,9 @@ public class ItemAnimationAdapter extends AnimationAdapter {
         };
     }
 
-    @Override
-    protected void prepareAnimation(View view) {
-        view.setTranslationY(mTranslationY);
-        view.setRotationX(mRotationX);
-    }
+//    @Override
+//    protected void prepareAnimation(View view) {
+//        view.setTranslationY(mTranslationY);
+//        view.setRotationX(mRotationX);
+//    }
 }
