@@ -52,7 +52,12 @@ public class FavoriteAdapter extends BaseAdapter {
         v = mInflater.inflate(R.layout.fav_item, parent, false);
         ((TextView)v.findViewById(R.id.tv_node)).setText(topics.get(position).node_name);
         ((TextView)v.findViewById(R.id.tv_title)).setText(topics.get(position).title);
-        ((TextView)v.findViewById(R.id.tv_count)).setText(topics.get(position).replies_count);
+        // 有人回复时才显示回复数量
+        if (Integer.valueOf(topics.get(position).replies_count) != 0) {
+            ((TextView)v.findViewById(R.id.tv_count)).setText(topics.get(position).replies_count);
+        } else {
+            ((TextView)v.findViewById(R.id.tv_count)).setText("");
+        }
         ((RelativeLayout)v.findViewById(R.id.rl_item)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
