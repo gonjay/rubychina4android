@@ -1,7 +1,6 @@
 ## 开源地址
-
-    https://github.com/gonjay/rubychina4android
-    [APK 1.0.1](https://github.com/gonjay/rubychina4android/blob/master/app/build/apk/app-debug-unaligned.apk?raw=true)
+  https://github.com/gonjay/rubychina4android
+  [APK 1.0.3](https://github.com/gonjay/rubychina4android/blob/master/app/build/apk/app-debug-unaligned.apk?raw=true)
 
 ## 特性：
 
@@ -20,12 +19,12 @@
 
 ## 预览
 
-Gmail的抽屉
-![](http://rubychina.qiniudn.com/media-20140204%20(1).png?imageView2/1/w/300/h/550)
-Markdown
-![](http://rubychina.qiniudn.com/media-20140204.png?imageView2/1/w/300/h/550)
-节点
-![](http://l.ruby-china.org/photo/2014/b27a671625842fb65f5e573d20b5c63a.png)
+![](http://rubychina.qiniudn.com/Screenshot_2014-02-12-12-33-06.png?imageView2/1/w/300/h/550)
+
+![](http://rubychina.qiniudn.com/media-20140204%20(1).png?imageView2/1/w/300/h/550) ![](http://rubychina.qiniudn.com/device-2014-02-10-232412.png?imageView2/1/w/300/h/550)
+
+![](http://rubychina.qiniudn.com/media-20140204.png?imageView2/1/w/300/h/550) ![](http://rubychina.qiniudn.com/device-2014-02-07-135606.png?imageView2/1/w/300/h/550)
+
 ![](http://rubychina.qiniudn.com/media-20140204%20(2).png?imageView2/1/w/300/h/550) ![](http://rubychina.qiniudn.com/media-20140204%20(3).png?imageView2/1/w/300/h/550)
 
 ## Tips

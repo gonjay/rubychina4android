@@ -50,6 +50,8 @@ public class TopicsFragment extends Fragment implements PullToRefreshAttacher.On
     private Type listType = new TypeToken<List<Topic>>(){}.getType();
     private List<Topic> topics = new ArrayList<Topic>();
 
+    public TopicsFragment(){}
+
     public TopicsFragment(String type, String url, PullToRefreshAttacher mPullToRefreshAttacher) {
         this.type = type;
         this.url = url;
