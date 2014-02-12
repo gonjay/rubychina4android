@@ -13,6 +13,8 @@
     <string name="preview">预览</string>
     <string name="user_home">用户主页</string>
     <string name="notification">通知中心</string>
+    <string name="delete_failed">删除失败</string>
+    <string name="delete_success">删除成功</string>
 
     <string name="itemdeleted">已删除</string>
     <string name="taptoundo">点击撤销</string>

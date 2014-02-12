@@ -62,7 +62,6 @@ public class LoginActivity extends Activity {
         ApiUtils.post(ApiUtils.SIGN_IN, new ApiParams().with("user[login]", login).with("user[password]", password), new AsyncHttpResponseHandler(){
             @Override
             public void onSuccess(String responce) {
-                System.out.println("responce: "+responce);
                 final Gson gson = new Gson();
                 User u = gson.fromJson(responce, User.class);
                 UserUtils.saveUserLogin(u.login);

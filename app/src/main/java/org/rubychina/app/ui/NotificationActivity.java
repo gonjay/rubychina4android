@@ -1,66 +1,90 @@
 package org.rubychina.app.ui;
 
+import android.app.Activity;
 import android.app.ListActivity;
-import android.content.Context;
 import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
+import android.util.Log;
 import android.widget.AbsListView;
-import android.widget.TextView;
+import android.widget.ListView;
 
-import com.haarman.listviewanimations.ArrayAdapter;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.haarman.listviewanimations.itemmanipulation.OnDismissCallback;
+import com.haarman.listviewanimations.itemmanipulation.SwipeDismissAdapter;
 import com.haarman.listviewanimations.itemmanipulation.contextualundo.ContextualUndoAdapter;
 import com.haarman.listviewanimations.itemmanipulation.contextualundo.ContextualUndoAdapter.DeleteItemCallback;
+import com.loopj.android.http.AsyncHttpResponseHandler;
 
 import org.rubychina.app.R;
+import org.rubychina.app.model.Notification;
+import org.rubychina.app.ui.adapter.NotificationAdapter;
+import org.rubychina.app.utils.ApiParams;
+import org.rubychina.app.utils.ApiUtils;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by mac on 14-2-11.
  */
-public class NotificationActivity extends ListActivity implements OnDismissCallback, DeleteItemCallback {
-    private ArrayAdapter<Integer> mAdapter;
+public class NotificationActivity extends Activity implements DeleteItemCallback, OnDismissCallback {
+    private NotificationAdapter adapter;
+    private List<Notification> lists = new ArrayList<Notification>();
+    ContextualUndoAdapter undoAdapter;
+    private ListView mListView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        mAdapter = createListAdapter();
-
-        setContextualUndoWithTimedDeleteAndCountDownAdapter();
-
+        setContentView(R.layout.activity_notification);
+//        setSwipeDismissAdapter();
+        mListView = (ListView) findViewById(R.id.listView);
+        fetchData();
     }
 
-    public static ArrayList<Integer> getItems() {
-        ArrayList<Integer> items = new ArrayList<Integer>();
-        for (int i = 0; i < 1000; i++) {
-            items.add(i);
-        }
-        return items;
+    private void setSwipeDismissAdapter() {
+        adapter = new NotificationAdapter(lists, NotificationActivity.this);
+        SwipeDismissAdapter swipeadapter = new SwipeDismissAdapter(adapter, this);
+        swipeadapter.setAbsListView(getListView());
+        getListView().setAdapter(swipeadapter);
     }
 
-    protected ArrayAdapter<Integer> createListAdapter() {
-        return new MyListAdapter(this, getItems());
+    protected ListView getListView(){
+        return mListView;
+    }
+
+    private void fetchData(){
+        ApiUtils.get(ApiUtils.NOTIFICATIONS, new ApiParams().withToken(), new AsyncHttpResponseHandler(){
+            @Override
+            public void onSuccess(String responce) {
+                lists = new Gson().fromJson(responce, new TypeToken<ArrayList<Notification>>(){}.getType());
+                setSwipeDismissAdapter();
+            }
+        });
+    }
+
+    public void setDis(){
+        adapter = new NotificationAdapter(lists, NotificationActivity.this);
+        undoAdapter = new ContextualUndoAdapter(adapter, R.layout.undo_row, R.id.undo_row_undobutton);
+        undoAdapter.setAbsListView(getListView());
+        getListView().setAdapter(undoAdapter);
+        undoAdapter.setDeleteItemCallback(this);
     }
 
     @Override
     public void deleteItem(int position) {
-
+        Log.v("deleteItem:", " " + position);
+        adapter.remove(position);
+        adapter.notifyDataSetChanged();
     }
 
     @Override
     public void onDismiss(AbsListView absListView, int[] ints) {
-
-    }
-
-    private void setContextualUndoWithTimedDeleteAndCountDownAdapter() {
-        ContextualUndoAdapter adapter = new ContextualUndoAdapter(mAdapter, R.layout.undo_row, R.id.undo_row_undobutton, 3000, R.id.undo_row_texttv, new MyFormatCountDownCallback());
-        adapter.setAbsListView(getListView());
-        getListView().setAdapter(adapter);
-        adapter.setDeleteItemCallback(this);
+        Log.v("onDismiss:", " " + ints);
+        for (int position : ints) {
+            Log.v("onDismiss:", " " + position);
+            adapter.remove(position);
+        }
     }
 
     private class MyFormatCountDownCallback implements ContextualUndoAdapter.CountDownFormatter {
@@ -76,33 +100,4 @@ public class NotificationActivity extends ListActivity implements OnDismissCallb
         }
     }
 
-    private static class MyListAdapter extends ArrayAdapter<Integer> {
-
-        private Context mContext;
-
-        public MyListAdapter(Context context, ArrayList<Integer> items) {
-            super(items);
-            mContext = context;
-        }
-
-        @Override
-        public long getItemId(int position) {
-            return getItem(position).hashCode();
-        }
-
-        @Override
-        public boolean hasStableIds() {
-            return true;
-        }
-
-        @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
-            TextView tv = (TextView) convertView;
-            if (tv == null) {
-                tv = (TextView) LayoutInflater.from(mContext).inflate(R.layout.list_row, parent, false);
-            }
-            tv.setText("This is row number " + getItem(position));
-            return tv;
-        }
-    }
 }

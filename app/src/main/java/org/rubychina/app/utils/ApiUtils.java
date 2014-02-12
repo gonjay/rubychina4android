@@ -9,18 +9,21 @@ import com.loopj.android.http.RequestParams;
  */
 public class ApiUtils {
 
-    public static final String HOST = "http://ruby-china.org/api/v2/";
+    public static final String HOST = "http://ruby-china.org/";
+    public static final String API = HOST + "api/v2/";
 //    public static final String HOST = "http://192.168.1.102:3000/api/v2/";
 
-    public static final String SIGN_IN = "http://ruby-china.org/account/sign_in.json";
+    public static final String SIGN_IN = HOST + "account/sign_in.json";
 
-    public static final String TOPICS = HOST + "topics.json";
-    public static final String TOPIC_REPLY = HOST + "topics/";
-    public static final String USER_PROFILE = HOST + "users/";
-    public static final String TOPIC_VIEW = HOST + "topics/";
-    public static final String TOPIC_NEW = HOST + "topics.json";
-    public static final String NODES = HOST + "nodes.json";
-    public static final String NODE_URL = HOST + "topics/node/%s.json";
+    public static final String TOPICS = API + "topics.json";
+    public static final String TOPIC_REPLY = API + "topics/";
+    public static final String USER_PROFILE = API + "users/";
+    public static final String TOPIC_VIEW = API + "topics/";
+    public static final String TOPIC_NEW = API + "topics.json";
+    public static final String NODES = API + "nodes.json";
+    public static final String NODE_URL = API + "topics/node/%s.json";
+    public static final String NOTIFICATIONS = API + "notifications.json";
+    public static final String NOTIFICATION_DELETE = API + "notifications/%s.json?token=%s";
 
     public static AsyncHttpClient client = new AsyncHttpClient();
 
@@ -31,6 +34,10 @@ public class ApiUtils {
 
     public static void get(String url, ApiParams params, AsyncHttpResponseHandler handler){
         client.get(url, params, handler);
+    }
+
+    public static void delete(String url, AsyncHttpResponseHandler handler){
+        client.delete(url, handler);
     }
 
     /*
