@@ -3,6 +3,7 @@ package org.rubychina.app.ui;
 import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -58,17 +59,19 @@ public class LoginActivity extends Activity {
         });
     }
 
+    private final Gson gson = new Gson();
+
     private void signIn() {
         ApiUtils.post(ApiUtils.SIGN_IN, new ApiParams().with("user[login]", login).with("user[password]", password), new AsyncHttpResponseHandler(){
             @Override
             public void onSuccess(String responce) {
-                final Gson gson = new Gson();
+                Log.i("LoginActivity", "responce: " + responce);
                 User u = gson.fromJson(responce, User.class);
                 UserUtils.saveUserLogin(u.login);
                 UserUtils.saveUserToken(u.private_token);
                 UserUtils.saveUserEmail(u.email);
                 Toast.makeText(LoginActivity.this, R.string.login_success,Toast.LENGTH_SHORT).show();
-                ApiUtils.get(ApiUtils.USER_PROFILE+u.login+".json",null,new AsyncHttpResponseHandler(){
+                ApiUtils.get(String.format(ApiUtils.USER_PROFILE, u.login),null,new AsyncHttpResponseHandler(){
                     @Override
                     public void onSuccess(String responce) {
                         User userPro = gson.fromJson(responce, User.class);

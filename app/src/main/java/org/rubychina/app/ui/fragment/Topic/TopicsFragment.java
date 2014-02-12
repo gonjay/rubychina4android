@@ -44,11 +44,11 @@ public class TopicsFragment extends Fragment implements PullToRefreshAttacher.On
 
     private String type, url;
 
-    int page = 1;
+    private int page = 1;
 
-    Gson gson = new Gson();
-    Type listType = new TypeToken<List<Topic>>(){}.getType();
-    List<Topic> topics = new ArrayList<Topic>();
+    private final Gson gson = new Gson();
+    private Type listType = new TypeToken<List<Topic>>(){}.getType();
+    private List<Topic> topics = new ArrayList<Topic>();
 
     public TopicsFragment(String type, String url, PullToRefreshAttacher mPullToRefreshAttacher) {
         this.type = type;

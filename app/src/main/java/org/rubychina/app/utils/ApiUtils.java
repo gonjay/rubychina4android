@@ -16,14 +16,16 @@ public class ApiUtils {
     public static final String SIGN_IN = HOST + "account/sign_in.json";
 
     public static final String TOPICS = API + "topics.json";
-    public static final String TOPIC_REPLY = API + "topics/";
-    public static final String USER_PROFILE = API + "users/";
-    public static final String TOPIC_VIEW = API + "topics/";
+    public static final String TOPIC_REPLY = API + "topics/%s/replies.json";
+    public static final String USER_PROFILE = API + "users/%s.json";
+    public static final String TOPIC_VIEW = API + "topics/%s.json";
     public static final String TOPIC_NEW = API + "topics.json";
     public static final String NODES = API + "nodes.json";
     public static final String NODE_URL = API + "topics/node/%s.json";
     public static final String NOTIFICATIONS = API + "notifications.json";
     public static final String NOTIFICATION_DELETE = API + "notifications/%s.json?token=%s";
+    public static final String USER_PROFILE_TOPICS = API + "users/%s/topics.json";
+    public static final String USER_PROFILE_TOPICS_FAVORITE = API + "users/%s/topics/favorite.json";
 
     public static AsyncHttpClient client = new AsyncHttpClient();
 
