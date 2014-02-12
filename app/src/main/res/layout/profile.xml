@@ -68,16 +68,18 @@
 
     <LinearLayout
         android:orientation="horizontal"
-        android:layout_width="fill_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:padding="8dip"
+        android:layout_centerHorizontal="true"
+        android:paddingTop="8dip"
+        android:paddingBottom="8dip"
         android:gravity="center"
         android:layout_below="@+id/ll_blur"
         android:id="@+id/linearLayout2">
         <RelativeLayout
             android:id="@+id/rl_topics"
             android:background="@drawable/listitem_selector"
-            android:layout_width="150dip"
+            android:layout_width="160dip"
             android:layout_height="48dip"
             android:gravity="center_horizontal">
             <TextView
@@ -97,7 +99,7 @@
         <RelativeLayout
             android:id="@+id/rl_likes"
             android:background="@drawable/listitem_selector"
-            android:layout_width="150dip"
+            android:layout_width="160dip"
             android:layout_height="48dip"
             android:gravity="center_horizontal">
             <TextView
@@ -119,14 +121,14 @@
 
     <LinearLayout
         android:orientation="vertical"
-        android:layout_width="fill_parent"
+        android:layout_width="wrap_content"
         android:layout_height="fill_parent"
-        android:paddingLeft="20dip"
-        android:paddingRight="20dip"
+        android:layout_alignLeft="@id/linearLayout2"
+        android:layout_alignRight="@id/linearLayout2"
         android:layout_below="@+id/linearLayout2">
         <ListView
             android:id="@+id/list"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
         </LinearLayout>
 

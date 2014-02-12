@@ -27,8 +27,10 @@ public class User {
     }
 
     public String getName(){
-        if (name.length() < 1 ) return login;
-        return name;
+        if (name != null){
+            if (name.length() > 0)return name;
+        }
+        return login;
     }
 
     public String getContactText(){
