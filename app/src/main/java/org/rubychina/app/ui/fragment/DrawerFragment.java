@@ -3,6 +3,7 @@ package org.rubychina.app.ui.fragment;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -110,8 +111,11 @@ public class DrawerFragment extends Fragment {
                     getActivity().overridePendingTransition(R.anim.push_up_in, R.anim.push_up_out);
                 }
                 break;
+            case 3:
+                mainActivity.setMainContent(new TopUserFragment());
+                break;
             case 4:
-
+                getActivity().startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(ApiUtils.WIKI)));
                 break;
             default:
                 break;

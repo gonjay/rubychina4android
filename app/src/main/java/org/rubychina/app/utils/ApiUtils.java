@@ -27,6 +27,8 @@ public class ApiUtils {
     public static final String NOTIFICATION_DELETE = API + "notifications/%s.json?token=%s";
     public static final String USER_PROFILE_TOPICS = API + "users/%s/topics.json";
     public static final String USER_PROFILE_TOPICS_FAVORITE = API + "users/%s/topics/favorite.json";
+    public static final String TOP_USERS = API + "users.json";
+    public static final String WIKI = HOST + "wiki";
 
     public static AsyncHttpClient client = new AsyncHttpClient();
 

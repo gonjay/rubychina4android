@@ -7,9 +7,15 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.etsy.android.grid.StaggeredGridView;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+import com.loopj.android.http.AsyncHttpResponseHandler;
 
 import org.rubychina.app.R;
+import org.rubychina.app.model.Author;
 import org.rubychina.app.model.User;
+import org.rubychina.app.ui.adapter.TopUsersAdapter;
+import org.rubychina.app.utils.ApiUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,8 +35,20 @@ public class TopUserFragment extends Fragment {
 
         staggeredGridView = (StaggeredGridView) contentView.findViewById(R.id.grid_view);
 
-//        staggeredGridView.setAdapter();
+        fetchData();
 
         return contentView;
+    }
+
+    private void fetchData(){
+        ApiUtils.get(ApiUtils.TOP_USERS, null, new AsyncHttpResponseHandler(){
+            @Override
+            public void onSuccess(String responce){
+                list = new Gson().fromJson(responce, new TypeToken<ArrayList<User>>(){}.getType());
+                list.add(Author.getUser1());
+                list.add(Author.getUser2());
+                staggeredGridView.setAdapter(new TopUsersAdapter(getActivity(), list));
+            }
+        });
     }
 }

@@ -50,4 +50,9 @@ public class User {
     public String getTwitter() {
         return "https://twitter.com/" + twitter;
     }
+
+    public String getBrief() {
+        if (bio.length() > 0) return bio;
+        return tagline;
+    }
 }
