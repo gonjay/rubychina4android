@@ -23,15 +23,7 @@ import java.util.List;
 /**
  * Created by mac on 14-2-11.
  */
-public class NotificationAdapter extends MyAdapter {
-//    LayoutInflater mInflater;
-//    Context context;
-//    ImageLoader imageLoader = ImageLoader.getInstance();
-//    DisplayImageOptions options = new DisplayImageOptions.Builder()
-//            .showImageOnFail(R.drawable.avatar).displayer(new RoundedBitmapDisplayer(100))
-//            .imageScaleType(ImageScaleType.EXACTLY_STRETCHED)
-//            .cacheInMemory(true)
-//            .cacheOnDisc(true).bitmapConfig(Bitmap.Config.RGB_565).build();
+public class NotificationAdapter extends MyBaseAdapter {
 
     private List<Notification> notifications = new ArrayList<Notification>();
 
@@ -43,16 +35,6 @@ public class NotificationAdapter extends MyAdapter {
     @Override
     public int getCount() {
         return notifications.size();
-    }
-
-    @Override
-    public Object getItem(int position) {
-        return null;
-    }
-
-    @Override
-    public long getItemId(int position) {
-        return 0;
     }
 
     @Override

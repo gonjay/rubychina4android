@@ -17,7 +17,7 @@ import org.rubychina.app.R;
 /**
  * Created by mac on 14-2-11.
  */
-public class MyAdapter extends BaseAdapter {
+public class MyBaseAdapter extends BaseAdapter {
     LayoutInflater mInflater;
     Context context;
     ImageLoader imageLoader = ImageLoader.getInstance();
@@ -27,7 +27,7 @@ public class MyAdapter extends BaseAdapter {
             .cacheInMemory(true)
             .cacheOnDisc(true).bitmapConfig(Bitmap.Config.RGB_565).build();
 
-    public MyAdapter(Context context){
+    public MyBaseAdapter(Context context){
         this.mInflater = LayoutInflater.from(context);
         this.context = context;
     }

@@ -1,5 +1,6 @@
 package org.rubychina.app.ui.fragment;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
@@ -102,7 +103,12 @@ public class DrawerFragment extends Fragment {
                 mainActivity.setMainContent(new NodesFragment());
                 break;
             case 2:
-                startActivity(new Intent(getActivity(), NotificationActivity.class));
+                if (UserUtils.logined()){
+                    startActivity(new Intent(getActivity(), NotificationActivity.class));
+                } else {
+                    startActivityForResult(new Intent(getActivity(), LoginActivity.class), MainActivity.ACTION_FOR_LOGIN);
+                    getActivity().overridePendingTransition(R.anim.push_up_in, R.anim.push_up_out);
+                }
                 break;
             case 4:
 

@@ -117,7 +117,7 @@ public class ProfileFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 getFragmentManager().beginTransaction()
-                        .replace(R.id.container, new FavoriteFragment("", getUserTopics(), ((ProfileActivity) getActivity()).getPullToRefreshAttacher()))
+                        .add(R.id.container, new FavoriteFragment("", getUserTopics(), ((ProfileActivity) getActivity()).getPullToRefreshAttacher()))
                         .addToBackStack(null)
                         .commit();
             }
@@ -126,7 +126,7 @@ public class ProfileFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 getFragmentManager().beginTransaction()
-                        .replace(R.id.container, new FavoriteFragment("", getUserLikes(), ((ProfileActivity)getActivity()).getPullToRefreshAttacher()))
+                        .add(R.id.container, new FavoriteFragment("", getUserLikes(), ((ProfileActivity)getActivity()).getPullToRefreshAttacher()))
                         .addToBackStack(null)
                         .commit();
             }
