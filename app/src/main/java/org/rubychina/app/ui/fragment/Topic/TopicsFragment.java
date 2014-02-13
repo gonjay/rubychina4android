@@ -44,6 +44,8 @@ public class TopicsFragment extends Fragment implements PullToRefreshAttacher.On
 
     private String type, url;
 
+    private boolean hasmore = true;
+
     private int page = 1;
 
     private final Gson gson = new Gson();
@@ -63,8 +65,6 @@ public class TopicsFragment extends Fragment implements PullToRefreshAttacher.On
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_hot, container, false);
         mListView = (ListView)rootView.findViewById(R.id.listView);
-
-//        mPullToRefreshAttacher = ((MainActivity)getActivity()).getPullToRefreshAttacher();
 
         mPullToRefreshAttacher.setRefreshableView(mListView, this);
         mLoadingFooter = new LoadingFooter(getActivity());
@@ -97,7 +97,8 @@ public class TopicsFragment extends Fragment implements PullToRefreshAttacher.On
                 if (firstVisibleItem + visibleItemCount >= totalItemCount
                         && totalItemCount != 0
                         && totalItemCount != mListView.getHeaderViewsCount()
-                        + mListView.getFooterViewsCount() && mAdapter.getCount() > 0) {
+                        + mListView.getFooterViewsCount() && mAdapter.getCount() > 0
+                        && hasmore) {
                     loadNextPage();
                 }
             }
@@ -129,7 +130,6 @@ public class TopicsFragment extends Fragment implements PullToRefreshAttacher.On
     }
 
     private void loadData(final int page) {
-        System.out.println(url + "\n" + page);
         ApiUtils.get(url, new ApiParams().with("page", page + "").with("per_page","15"), new AsyncHttpResponseHandler() {
             @Override
             public void onSuccess(String response) {
@@ -144,6 +144,10 @@ public class TopicsFragment extends Fragment implements PullToRefreshAttacher.On
                     topics.add(t);
                 }
                 mAdapter.notifyDataSetChanged();
+                if (ts.size() < 1){
+                    hasmore = false;
+                    mLoadingFooter.setState(LoadingFooter.State.TheEnd);
+                }
             }
         });
     }

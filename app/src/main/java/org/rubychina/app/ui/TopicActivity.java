@@ -5,8 +5,10 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -21,6 +23,7 @@ import org.rubychina.app.ui.adapter.TopicFragmentPagerAdapter;
 import org.rubychina.app.ui.fragment.topic.TopicRepliesFragment;
 import org.rubychina.app.ui.fragment.topic.TopicReplyFragment;
 import org.rubychina.app.ui.fragment.topic.TopicViewFragment;
+import org.rubychina.app.utils.ApiParams;
 import org.rubychina.app.utils.ApiUtils;
 import org.rubychina.app.utils.JsonUtils;
 import org.rubychina.app.utils.UserUtils;
@@ -45,6 +48,8 @@ public class TopicActivity extends FragmentActivity {
     private TopicFragmentPagerAdapter topicFragmentPagerAdapter;
 
     private List<Fragment> mFragments = new ArrayList<Fragment>();
+
+    List<TopicReply> topicReplies;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -115,16 +120,14 @@ public class TopicActivity extends FragmentActivity {
                 return true;
             case R.id.action_send:
                 if (UserUtils.logined()) {
-                    myReplyFragment.sendReply();
+                    sendReply();
                 } else {
                     startActivityForResult(new Intent(TopicActivity.this, LoginActivity.class), MainActivity.ACTION_FOR_LOGIN);
                     overridePendingTransition(R.anim.push_up_in,R.anim.push_up_out);
                 }
                 return true;
             case R.id.action_refresh:
-                item.setActionView(R.layout.progressbar);
-                mFragments.clear();
-                fetchData();
+                refresh();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -145,11 +148,12 @@ public class TopicActivity extends FragmentActivity {
             public void onSuccess(String response) {
                 topic = gson.fromJson(response, Topic.class);
                 mFragments.add(new TopicViewFragment(topic));
+                Log.v("", response);
                 try {
                     String replies = JsonUtils.getString(new JSONObject(response), "replies");
                     Type listType = new TypeToken<List<TopicReply>>() {
                     }.getType();
-                    List<TopicReply> topicReplies = gson.fromJson(replies, listType);
+                    topicReplies = gson.fromJson(replies, listType);
                     mFragments.add(new TopicRepliesFragment(topicReplies));
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -157,7 +161,29 @@ public class TopicActivity extends FragmentActivity {
 
                 mFragments.add(myReplyFragment);
                 topicFragmentPagerAdapter.notifyDataSetChanged();
+
                 mMenu.findItem(R.id.action_refresh).setActionView(null);
+
+            }
+        });
+    }
+
+    public void sendReply() {
+        String replyBody = myReplyFragment.getBody();
+        if (replyBody.length() < 1){
+            Toast.makeText(TopicActivity.this, R.string.reply_empty, Toast.LENGTH_SHORT).show();
+            return;
+        }
+        ApiUtils.post(String.format(ApiUtils.TOPIC_REPLY, topic.id), new ApiParams().with("body", replyBody).withToken(), new AsyncHttpResponseHandler() {
+            @Override
+            public void onSuccess(String response) {
+                Toast.makeText(TopicActivity.this, R.string.reply_success, Toast.LENGTH_SHORT).show();
+                TopicReply rt = gson.fromJson(response, TopicReply.class);
+                topicReplies.add(rt);
+                myReplyFragment.clearBody();
+                mFragments.remove(1);
+                mFragments.add(1, new TopicRepliesFragment(topicReplies));
+                pager.setCurrentItem(1);
             }
         });
     }
@@ -167,9 +193,10 @@ public class TopicActivity extends FragmentActivity {
         myReplyFragment.updateBody(content);
     }
 
-    public void afterReply(){
+    private void refresh(){
+        mMenu.findItem(R.id.action_refresh).setActionView(R.layout.progressbar);
+        mFragments.clear();
         fetchData();
-        pager.setCurrentItem(1);
     }
 
 }

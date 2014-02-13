@@ -39,6 +39,7 @@ public class TopicRepliesFragment extends Fragment{
         mListView = (ListView)view.findViewById(R.id.listView);
         mAdapter = new TopicReplyAdapter(topicReplies, getActivity());
         mListView.setAdapter(mAdapter);
+//        mListView.scrollTo(0, mListView.getHeight());
         return view;
     }
 

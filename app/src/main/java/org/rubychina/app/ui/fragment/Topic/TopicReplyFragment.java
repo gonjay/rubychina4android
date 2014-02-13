@@ -50,22 +50,6 @@ public class TopicReplyFragment extends Fragment {
         return view;
     }
 
-    public void sendReply() {
-        String replyBody = body.getText().toString();
-        if (replyBody.length() < 1){
-            Toast.makeText(getActivity(), R.string.reply_empty, Toast.LENGTH_SHORT).show();
-            return;
-        }
-        ApiUtils.post(String.format(ApiUtils.TOPIC_REPLY, topic_id), new ApiParams().with("body", replyBody).withToken(), new AsyncHttpResponseHandler() {
-            @Override
-            public void onSuccess(String response) {
-                Toast.makeText(getActivity(), R.string.reply_success, Toast.LENGTH_SHORT).show();
-                TopicActivity ta = (TopicActivity)getActivity();
-                ta.afterReply();
-                clearBody();
-            }
-        });
-    }
 
     public void clearBody(){
         body.setText("");
