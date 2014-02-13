@@ -77,6 +77,9 @@ public class TopicsFragment extends Fragment implements PullToRefreshAttacher.On
         bindListView();
 
         loadCacheData();
+
+        mPullToRefreshAttacher.setRefreshing(true);
+        loadFirstPage();
         return rootView;
     }
 

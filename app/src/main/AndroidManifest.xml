@@ -26,6 +26,10 @@
         </activity>
 
         <activity
+            android:name=".ui.PreferenceActivity"
+            android:label="@string/action_settings">
+        </activity>
+        <activity
             android:name=".ui.NotificationActivity"
             android:label="@string/notification">
         </activity>

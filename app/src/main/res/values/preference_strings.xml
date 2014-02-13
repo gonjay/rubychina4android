@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="pref_key_version">pref_key_version</string>
+    <string name="pref_key_from">pref_key_from</string>
+    <string name="pref_title_from">Powered by Ruby-China</string>
+    <string name="pref_key_coder">pref_key_coder</string>
+    <string name="pref_summary_coder">Full Stack Dev</string>
+    <string name="pref_title_coder">\@GonJay</string>
+    <string name="pref_key_designer">pref_key_designer</string>
+    <string name="pref_title_designer"></string>
+    <string name="pref_summary_designer">Designer</string>
+    <string name="pref_key_github">pref_key_github</string>
+    <string name="pref_title_github">Github</string>
+    <string name="pref_clear_cache">清空缓存</string>
+    <string name="pref_clear_cache_key">pref_clear_cache_key</string>
+</resources>

@@ -94,10 +94,10 @@ public class MainActivity extends FragmentActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
         mMenu = menu;
+        if (!UserUtils.logined()) mMenu.findItem(R.id.action_exit).setTitle(R.string.login);
         return true;
     }
 
@@ -108,7 +108,8 @@ public class MainActivity extends FragmentActivity {
         }
         int id = item.getItemId();
         if (id == R.id.action_settings) {
-
+            startActivity(new Intent(MainActivity.this, PreferenceActivity.class));
+            overridePendingTransition(R.anim.push_up_in,R.anim.push_up_out);
         } else if (id == R.id.action_write){
 
             if (UserUtils.logined()) {
@@ -118,8 +119,14 @@ public class MainActivity extends FragmentActivity {
                 overridePendingTransition(R.anim.push_up_in,R.anim.push_up_out);
             }
         } else if (id == R.id.action_exit) {
-            UserUtils.clearUser();
-            getSupportFragmentManager().beginTransaction().replace(R.id.left_drawer, new DrawerFragment()).commit();
+            if (UserUtils.logined()){
+                this.invalidateOptionsMenu();
+                UserUtils.clearUser();
+                getSupportFragmentManager().beginTransaction().replace(R.id.left_drawer, new DrawerFragment()).commit();
+            } else {
+                startActivityForResult(new Intent(MainActivity.this, LoginActivity.class), ACTION_FOR_LOGIN);
+                overridePendingTransition(R.anim.push_up_in,R.anim.push_up_out);
+            }
         }
         return super.onOptionsItemSelected(item);
     }
@@ -132,6 +139,7 @@ public class MainActivity extends FragmentActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if(resultCode == LoginActivity.LOGIN_SUCCESS){
+            this.invalidateOptionsMenu();
             getSupportFragmentManager().beginTransaction().replace(R.id.left_drawer, new DrawerFragment()).commit();
         }
     }

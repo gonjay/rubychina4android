@@ -104,6 +104,9 @@ public class DrawerFragment extends Fragment {
             case 2:
                 startActivity(new Intent(getActivity(), NotificationActivity.class));
                 break;
+            case 4:
+
+                break;
             default:
                 break;
         }

@@ -38,6 +38,7 @@
     <string name="reply_empty">回复内容不能为空字符</string>
     <string name="reply_success">回复成功</string>
     <string name="login_success">登录成功</string>
+    <string name="clear_cache_success">清除成功</string>
 
     <string-array name="node_category_arrays">
         <item>Ruby</item>
