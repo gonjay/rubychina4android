@@ -6,6 +6,8 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
+import android.text.Html;
+import android.text.method.LinkMovementMethod;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,9 +33,12 @@ public class TopicReplyAdapter extends TopicAdapter {
 
     AlertDialog.Builder builder;
 
+    LayoutInflater mInflater;
+
     public TopicReplyAdapter(List<TopicReply> topics, Context context) {
         this.replies = topics;
         this.context = context;
+        this.mInflater = LayoutInflater.from(context);
     }
 
     @Override
@@ -45,7 +50,7 @@ public class TopicReplyAdapter extends TopicAdapter {
     public View getView(final int position, View convertView, ViewGroup parent) {
         final ViewHolder holder = new ViewHolder();
 
-        convertView = LayoutInflater.from(MyApp.getContext()).inflate(R.layout.reply_item, null);
+        convertView = mInflater.inflate(R.layout.reply_item, null);
 
         holder.avatar = (ImageView)convertView.findViewById(R.id.iv_avatar);
         holder.time = (TextView)convertView.findViewById(R.id.tv_time);
@@ -53,7 +58,9 @@ public class TopicReplyAdapter extends TopicAdapter {
         holder.userName = (TextView)convertView.findViewById(R.id.tv_login);
         holder.item = (RelativeLayout)convertView.findViewById(R.id.rl_item);
 
-        holder.body.setText(replies.get(position).body);
+        holder.body.setText(Html.fromHtml(replies.get(position).body_html));
+        holder.body.setMovementMethod(LinkMovementMethod.getInstance());
+
         holder.userName.setText(replies.get(position).user.login);
         holder.time.setText(replies.get(position).getReplyBrief(position));
 
