@@ -77,8 +77,9 @@ public class CustomLinkMovementMethod extends LinkMovementMethod {
         return linkMovementMethod;
     }
 
+    private static final Pattern LOGIN_NAME_PATTERN = Pattern.compile("^(?!_)(?!.*?_$)[a-zA-Z0-9_]+$");
+
     public static boolean isLoginName(String str){
-        Pattern pattern = Pattern.compile("^(?!_)(?!.*?_$)[a-zA-Z0-9_]+$");
-        return pattern.matcher(str).matches();
+        return LOGIN_NAME_PATTERN.matcher(str).matches();
     }
 }
