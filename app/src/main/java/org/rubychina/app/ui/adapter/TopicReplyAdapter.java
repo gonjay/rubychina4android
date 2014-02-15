@@ -17,6 +17,9 @@ import android.widget.TextView;
 
 import org.rubychina.app.MyApp;
 import org.rubychina.app.R;
+import org.rubychina.app.helper.CustomLinkMovementMethod;
+import org.rubychina.app.helper.ImageGetter;
+import org.rubychina.app.helper.TagGetter;
 import org.rubychina.app.model.Topic;
 import org.rubychina.app.model.TopicReply;
 import org.rubychina.app.ui.ProfileActivity;
@@ -58,8 +61,8 @@ public class TopicReplyAdapter extends TopicAdapter {
         holder.userName = (TextView)convertView.findViewById(R.id.tv_login);
         holder.item = (RelativeLayout)convertView.findViewById(R.id.rl_item);
 
-        holder.body.setText(Html.fromHtml(replies.get(position).body_html));
-        holder.body.setMovementMethod(LinkMovementMethod.getInstance());
+        holder.body.setText(Html.fromHtml(replies.get(position).body_html, new ImageGetter(), null));
+        holder.body.setMovementMethod(CustomLinkMovementMethod.getInstance(context));
 
         holder.userName.setText(replies.get(position).user.login);
         holder.time.setText(replies.get(position).getReplyBrief(position));
