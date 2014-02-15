@@ -13,8 +13,6 @@ import android.view.MotionEvent;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import org.rubychina.app.utils.ApiUtils;
-
 import java.util.regex.Pattern;
 
 /**
@@ -22,13 +20,19 @@ import java.util.regex.Pattern;
  */
 public class CustomLinkMovementMethod extends LinkMovementMethod {
 
-    public interface CustomLinkMovementMethodCallback {
-        public void onClick();
-    }
-
+    private static final Pattern LOGIN_NAME_PATTERN = Pattern.compile("^(?!_)(?!.*?_$)[a-zA-Z0-9_]+$");
     private static Context movementContext;
 
     private static CustomLinkMovementMethod linkMovementMethod = new CustomLinkMovementMethod();
+
+    public static android.text.method.MovementMethod getInstance(Context c) {
+        movementContext = c;
+        return linkMovementMethod;
+    }
+
+    public static boolean isLoginName(String str) {
+        return LOGIN_NAME_PATTERN.matcher(str).matches();
+    }
 
     @Override
     public boolean onTouchEvent(TextView widget, Spannable buffer,
@@ -54,11 +58,10 @@ public class CustomLinkMovementMethod extends LinkMovementMethod {
             if (link.length != 0) {
                 String url = link[0].getURL();
                 Log.v("url: ", url);
-                if (url.contains("http"))
-                {
+                if (url.contains("http")) {
                     Toast.makeText(movementContext, "Link was clicked", Toast.LENGTH_LONG).show();
                     movementContext.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(url)));
-                } else if (isLoginName(url.replace("/", ""))){
+                } else if (isLoginName(url.replace("/", ""))) {
                     Toast.makeText(movementContext, "LoginName was clicked", Toast.LENGTH_LONG).show();
                 } else if (url.contains("#")) {
                     Toast.makeText(movementContext, url, Toast.LENGTH_LONG).show();
@@ -72,13 +75,7 @@ public class CustomLinkMovementMethod extends LinkMovementMethod {
         return super.onTouchEvent(widget, buffer, event);
     }
 
-    public static android.text.method.MovementMethod getInstance(Context c) {
-        movementContext = c;
-        return linkMovementMethod;
-    }
-
-    public static boolean isLoginName(String str){
-        Pattern pattern = Pattern.compile("^(?!_)(?!.*?_$)[a-zA-Z0-9_]+$");
-        return pattern.matcher(str).matches();
+    public interface CustomLinkMovementMethodCallback {
+        public void onClick();
     }
 }
