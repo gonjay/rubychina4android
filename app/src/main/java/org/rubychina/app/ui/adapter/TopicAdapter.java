@@ -7,6 +7,7 @@ import android.graphics.Bitmap;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.WebView;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -43,6 +44,7 @@ public class TopicAdapter extends BaseAdapter {
         public ImageView avatar;
         public TextView title, time, replies, node, userName, body;
         public RelativeLayout item;
+        public List<String> images;
     }
 
     public TopicAdapter(){

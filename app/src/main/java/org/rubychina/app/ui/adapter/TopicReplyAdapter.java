@@ -5,15 +5,24 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
 import android.text.Html;
 import android.text.method.LinkMovementMethod;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.JavascriptInterface;
+import android.webkit.WebView;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
+import com.nostra13.universalimageloader.core.assist.SimpleImageLoadingListener;
 
 import org.rubychina.app.MyApp;
 import org.rubychina.app.R;
@@ -25,6 +34,7 @@ import org.rubychina.app.model.TopicReply;
 import org.rubychina.app.ui.ProfileActivity;
 import org.rubychina.app.ui.TopicActivity;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -61,7 +71,8 @@ public class TopicReplyAdapter extends TopicAdapter {
         holder.userName = (TextView)convertView.findViewById(R.id.tv_login);
         holder.item = (RelativeLayout)convertView.findViewById(R.id.rl_item);
 
-        holder.body.setText(Html.fromHtml(replies.get(position).body_html, new ImageGetter(), null));
+        holder.body.setText(Html.fromHtml(replies.get(position).body_html, new ImageGetter(holder.body, context), null));
+
         holder.body.setMovementMethod(CustomLinkMovementMethod.getInstance(context));
 
         holder.userName.setText(replies.get(position).user.login);
