@@ -140,7 +140,6 @@ public class TopicsFragment extends Fragment implements PullToRefreshAttacher.On
                 List<Topic> ts = gson.fromJson(response, listType);
                 if (page == 1){
                     topics.clear();
-                    mPullToRefreshAttacher.setRefreshComplete();
                     UserUtils.cacheTopic(response, type);
                 }
                 for (Topic t : ts){
@@ -151,6 +150,7 @@ public class TopicsFragment extends Fragment implements PullToRefreshAttacher.On
                     hasmore = false;
                     mLoadingFooter.setState(LoadingFooter.State.TheEnd);
                 }
+                mPullToRefreshAttacher.setRefreshComplete();
             }
         });
     }

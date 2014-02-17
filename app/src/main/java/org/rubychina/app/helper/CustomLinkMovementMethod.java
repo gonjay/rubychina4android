@@ -3,6 +3,7 @@ package org.rubychina.app.helper;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Bundle;
 import android.text.Layout;
 import android.text.Selection;
 import android.text.Spannable;
@@ -12,6 +13,8 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import org.rubychina.app.ui.ProfileActivity;
 
 import java.util.regex.Pattern;
 
@@ -39,8 +42,7 @@ public class CustomLinkMovementMethod extends LinkMovementMethod {
                                 MotionEvent event) {
         int action = event.getAction();
 
-        if (action == MotionEvent.ACTION_UP ||
-                action == MotionEvent.ACTION_DOWN) {
+        if (action == MotionEvent.ACTION_UP ) {
             int x = (int) event.getX();
             int y = (int) event.getY();
 
@@ -59,12 +61,10 @@ public class CustomLinkMovementMethod extends LinkMovementMethod {
                 String url = link[0].getURL();
                 Log.v("url: ", url);
                 if (url.contains("http")) {
-                    Toast.makeText(movementContext, "Link was clicked", Toast.LENGTH_LONG).show();
                     movementContext.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(url)));
                 } else if (isLoginName(url.replace("/", ""))) {
-                    Toast.makeText(movementContext, "LoginName was clicked", Toast.LENGTH_LONG).show();
+                    movementContext.startActivity(new Intent(movementContext, ProfileActivity.class).putExtra("user",(url.replace("/", ""))));
                 } else if (url.contains("#")) {
-                    Toast.makeText(movementContext, url, Toast.LENGTH_LONG).show();
                 }
                 return true;
             } else {

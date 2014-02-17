@@ -1,6 +1,11 @@
 ## 开源地址
   https://github.com/gonjay/rubychina4android
-  [APK 1.0.3](https://github.com/gonjay/rubychina4android/blob/master/app/build/apk/app-debug-unaligned.apk?raw=true)
+
+  [Google Play下载](https://play.google.com/store/apps/details?id=org.rubychina.app)
+
+  [预览版下载 1.0.4](https://github.com/gonjay/rubychina4android/blob/master/app/build/apk/app-debug-unaligned.apk?raw=true)
+
+  ![](http://rubychina.qiniudn.com/app.apk?qrcode)
 
 ## 特性：
 
@@ -39,4 +44,4 @@ NSString body_html = Topic.body_html;
 
 ## 开发
 
-  fork和like是最能证明这个开源APP的价值了，所以对[repo](https://github.com/gonjay/rubychina4android)fork或者是like吧，越多我越有动力把这个app完善好!
+  fork和like是最能证明这个开源APP的价值了，所以对[repo](https://github.com/gonjay/rubychina4android)fork或者是like吧，越多我越有动力把这个app完善好!当然也期待你的contribute
