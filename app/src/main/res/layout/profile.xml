@@ -6,7 +6,7 @@
     <LinearLayout
         android:id="@+id/ll_blur"
         android:orientation="horizontal"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="150dip"
         android:paddingLeft="30dip"
         android:gravity="center_vertical"
@@ -68,7 +68,7 @@
 
     <LinearLayout
         android:orientation="horizontal"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:paddingTop="8dip"
