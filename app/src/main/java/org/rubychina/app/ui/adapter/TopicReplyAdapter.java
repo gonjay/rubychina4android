@@ -33,6 +33,7 @@ import org.rubychina.app.model.Topic;
 import org.rubychina.app.model.TopicReply;
 import org.rubychina.app.ui.ProfileActivity;
 import org.rubychina.app.ui.TopicActivity;
+import org.rubychina.app.ui.TopicTabActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -108,7 +109,7 @@ public class TopicReplyAdapter extends TopicAdapter {
             public void onClick(DialogInterface dialog, int which) {
                 switch (which){
                     case 0:
-                        TopicActivity ta = (TopicActivity)context;
+                        TopicTabActivity ta = (TopicTabActivity)context;
                         ta.setReply(replyFront);
                         break;
                     case 1:

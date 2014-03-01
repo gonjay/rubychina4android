@@ -1,5 +1,7 @@
 package org.rubychina.app.model;
 
+import com.google.gson.Gson;
+
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -34,6 +36,10 @@ public class Topic {
     private static final String DETAIL_WITHOUT_REPLY_TEMPLATE = "%s %s于%s发布%n%s次阅读";
 
     private static final String LAST_REPLY_TEMPLATE = "%s于%s回复";
+
+    public Topic getInstance(String response){
+        return new Gson().fromJson(response, Topic.class);
+    }
 
     public String getDetail(){
         if (last_reply_user_login != null) {

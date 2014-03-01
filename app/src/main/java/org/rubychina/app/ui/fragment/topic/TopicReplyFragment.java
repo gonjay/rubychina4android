@@ -29,16 +29,10 @@ public class TopicReplyFragment extends Fragment {
 
     private EditText body;
 
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-        if (getArguments().containsKey(ARG_TOPIC_ID)) {
-            topic_id = getArguments().getString(ARG_TOPIC_ID);
-        } else if (getArguments().containsKey(ARG_NODE_ID)) {
-
-        }
+    public TopicReplyFragment(String topic_id) {
+        this.topic_id = topic_id;
     }
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

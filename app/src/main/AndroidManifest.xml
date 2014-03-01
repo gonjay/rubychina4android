@@ -26,6 +26,10 @@
         </activity>
 
         <activity
+            android:name=".ui.TopicTabActivity"
+            android:label="@string/view_topic">
+        </activity>
+        <activity
             android:name=".ui.PreferenceActivity"
             android:label="@string/action_settings">
         </activity>

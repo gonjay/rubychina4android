@@ -35,11 +35,10 @@ public class TopicRepliesFragment extends Fragment{
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_hot, container, false);
+        View view = inflater.inflate(R.layout.fragment_replies, container, false);
         mListView = (ListView)view.findViewById(R.id.listView);
         mAdapter = new TopicReplyAdapter(topicReplies, getActivity());
         mListView.setAdapter(mAdapter);
-//        mListView.scrollTo(0, mListView.getHeight());
         return view;
     }
 
