@@ -22,8 +22,7 @@ import org.rubychina.app.MyApp;
 import org.rubychina.app.R;
 import org.rubychina.app.model.Topic;
 import org.rubychina.app.ui.ProfileActivity;
-import org.rubychina.app.ui.TopicActivity;
-import org.rubychina.app.utils.UserUtils;
+import org.rubychina.app.ui.TopicTabActivity;
 
 import java.util.List;
 
@@ -98,7 +97,7 @@ public class TopicAdapter extends BaseAdapter {
 
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(context, TopicActivity.class);
+                Intent i = new Intent(context, TopicTabActivity.class);
                 i.putExtra("topic_id",topics.get(position).id);
                 context.startActivity(i);
             }

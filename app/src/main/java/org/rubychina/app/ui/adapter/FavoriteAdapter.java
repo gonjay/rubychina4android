@@ -10,9 +10,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import org.rubychina.app.R;
-import org.rubychina.app.model.Node;
 import org.rubychina.app.model.Topic;
-import org.rubychina.app.ui.TopicActivity;
+import org.rubychina.app.ui.TopicTabActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -62,7 +61,7 @@ public class FavoriteAdapter extends BaseAdapter {
             @Override
             public void onClick(View v) {
                 if (topics.get(position).id != null){
-                    Intent i = new Intent(context, TopicActivity.class);
+                    Intent i = new Intent(context, TopicTabActivity.class);
                     i.putExtra("topic_id",topics.get(position).id);
                     context.startActivity(i);
                 }

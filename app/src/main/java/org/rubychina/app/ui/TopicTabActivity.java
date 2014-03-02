@@ -12,7 +12,6 @@ import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 
 import org.json.JSONException;
@@ -29,7 +28,6 @@ import org.rubychina.app.utils.ApiUtils;
 import org.rubychina.app.utils.JsonUtils;
 import org.rubychina.app.utils.UserUtils;
 
-import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -47,13 +45,13 @@ public class TopicTabActivity extends FragmentActivity implements ActionBar.TabL
 
     private List<Fragment> mFragments = new ArrayList<Fragment>();
 
-    List<TopicReply> topicReplies;
-
     ActionBar actionBar;
 
     String titles[];
 
     Menu mMenu;
+
+    TopicRepliesFragment repliesFragment;TopicReplyFragment replyFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,9 +61,12 @@ public class TopicTabActivity extends FragmentActivity implements ActionBar.TabL
 
         setContentView(R.layout.activity_topic_detail);
 
+        replyFragment = new TopicReplyFragment();
+
         actionBar = getActionBar();
 
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
+
 
         pager = (ViewPager)findViewById(R.id.pager);
 
@@ -138,19 +139,19 @@ public class TopicTabActivity extends FragmentActivity implements ActionBar.TabL
                 mFragments.add(new TopicViewFragment(topic));
                 try {
                     String replies = JsonUtils.getString(new JSONObject(response), "replies");
-                    Type listType = new TypeToken<List<TopicReply>>() {
-                    }.getType();
-                    topicReplies = gson.fromJson(replies, listType);
-                    mFragments.add(new TopicRepliesFragment(topicReplies));
+                    repliesFragment = new TopicRepliesFragment().newInstance(replies);
+                    mFragments.add(repliesFragment);
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
 
-                mFragments.add(new TopicReplyFragment(topic.id));
+                mFragments.add(replyFragment);
 
                 topicFragmentPagerAdapter.notifyDataSetChanged();
 
-                for (int i = 0; i < topicFragmentPagerAdapter.getCount(); i++) {
+                actionBar.removeAllTabs();
+
+                for (int i = 0; i < 3; i++) {
                     actionBar.addTab(
                             actionBar.newTab()
                                     .setText(titles[i])
@@ -164,7 +165,7 @@ public class TopicTabActivity extends FragmentActivity implements ActionBar.TabL
     }
 
     public void sendReply() {
-        String replyBody = ((TopicReplyFragment)mFragments.get(2)).getBody();
+        String replyBody = replyFragment.getBody();
 
         if (replyBody.length() < 1){
             Toast.makeText(TopicTabActivity.this, R.string.reply_empty, Toast.LENGTH_SHORT).show();
@@ -176,19 +177,22 @@ public class TopicTabActivity extends FragmentActivity implements ActionBar.TabL
             public void onSuccess(String response) {
                 Toast.makeText(TopicTabActivity.this, R.string.reply_success, Toast.LENGTH_SHORT).show();
                 TopicReply rt = gson.fromJson(response, TopicReply.class);
-                topicReplies.add(rt);
-                mFragments.remove(2);
-                mFragments.add(2, new TopicReplyFragment(topic.id));
+
                 mFragments.remove(1);
-                mFragments.add(1, new TopicRepliesFragment(topicReplies));
+                repliesFragment.topicReplies.add(rt);
+                mFragments.add(1, repliesFragment);
                 pager.setCurrentItem(1);
+
+                mFragments.remove(2);
+                replyFragment.clearBody();
+                mFragments.add(2, replyFragment);
             }
         });
     }
 
     public void setReply(String content){
         pager.setCurrentItem(2);
-        ((TopicReplyFragment)mFragments.get(2)).updateBody(content);
+        replyFragment.updateBody(content);
     }
 
     private void refresh(){

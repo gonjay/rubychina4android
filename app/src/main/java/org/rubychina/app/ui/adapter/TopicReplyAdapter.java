@@ -5,37 +5,23 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.ColorDrawable;
-import android.graphics.drawable.Drawable;
 import android.text.Html;
-import android.text.method.LinkMovementMethod;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.webkit.JavascriptInterface;
-import android.webkit.WebView;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.nostra13.universalimageloader.core.assist.SimpleImageLoadingListener;
 
-import org.rubychina.app.MyApp;
 import org.rubychina.app.R;
 import org.rubychina.app.helper.CustomLinkMovementMethod;
 import org.rubychina.app.helper.ImageGetter;
-import org.rubychina.app.helper.TagGetter;
-import org.rubychina.app.model.Topic;
 import org.rubychina.app.model.TopicReply;
 import org.rubychina.app.ui.ProfileActivity;
-import org.rubychina.app.ui.TopicActivity;
 import org.rubychina.app.ui.TopicTabActivity;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**

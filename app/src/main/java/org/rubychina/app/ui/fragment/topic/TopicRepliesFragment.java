@@ -16,6 +16,7 @@ import org.rubychina.app.model.TopicReply;
 import org.rubychina.app.ui.adapter.TopicReplyAdapter;
 
 import java.lang.reflect.Type;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -26,10 +27,27 @@ public class TopicRepliesFragment extends Fragment{
     private TopicReplyAdapter mAdapter;
     private Type listType = new TypeToken<List<Topic>>(){}.getType();
 
-    private List<TopicReply> topicReplies;
+    public List<TopicReply> topicReplies = new ArrayList<TopicReply>();
 
-    public TopicRepliesFragment(List<TopicReply> topicReplies) {
-        this.topicReplies = topicReplies;
+    Gson gson = new Gson();
+
+    public static TopicRepliesFragment newInstance(String repliesJson){
+        TopicRepliesFragment fragment = new TopicRepliesFragment();
+        Bundle args = new Bundle();
+        args.putString("repliesJson", repliesJson);
+        fragment.setArguments(args);
+        return fragment;
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        if (getArguments() != null) {
+            String repliesJson = getArguments().getString("repliesJson");
+            Type listType = new TypeToken<List<TopicReply>>() {
+            }.getType();
+            topicReplies = gson.fromJson(repliesJson, listType);
+        }
     }
 
     @Override

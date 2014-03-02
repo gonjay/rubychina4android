@@ -21,7 +21,7 @@ import org.json.JSONObject;
 import org.rubychina.app.R;
 import org.rubychina.app.model.Node;
 import org.rubychina.app.model.Topic;
-import org.rubychina.app.ui.TopicActivity;
+import org.rubychina.app.ui.TopicTabActivity;
 import org.rubychina.app.utils.ApiParams;
 import org.rubychina.app.utils.ApiUtils;
 import org.rubychina.app.utils.JsonUtils;
@@ -115,7 +115,7 @@ public class NewTopicFragment extends Fragment {
                     public void onSuccess(String response) {
                         Toast.makeText(getActivity(), R.string.send_success, Toast.LENGTH_SHORT).show();
                         Topic t = gson.fromJson(response, Topic.class);
-                        Intent i = new Intent(getActivity(), TopicActivity.class);
+                        Intent i = new Intent(getActivity(), TopicTabActivity.class);
                         i.putExtra("topic_id", t.id);
                         getActivity().startActivity(i);
                         getActivity().finish();

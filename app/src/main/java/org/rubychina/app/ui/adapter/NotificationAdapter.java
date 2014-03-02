@@ -13,7 +13,7 @@ import com.loopj.android.http.AsyncHttpResponseHandler;
 
 import org.rubychina.app.R;
 import org.rubychina.app.model.Notification;
-import org.rubychina.app.ui.TopicActivity;
+import org.rubychina.app.ui.TopicTabActivity;
 import org.rubychina.app.utils.ApiUtils;
 import org.rubychina.app.utils.UserUtils;
 
@@ -61,7 +61,7 @@ public class NotificationAdapter extends MyBaseAdapter {
             @Override
             public void onClick(View v) {
                 Log.v("getID: ", notifications.get(position).getMention().getID());
-                Intent i = new Intent(context, TopicActivity.class);
+                Intent i = new Intent(context, TopicTabActivity.class);
                 i.putExtra("topic_id",notifications.get(position).getMention().getID());
                 context.startActivity(i);
             }
