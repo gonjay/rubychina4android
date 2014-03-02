@@ -20,6 +20,7 @@ import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 
 import org.rubychina.app.R;
 import org.rubychina.app.helper.MyBitmapDisplayer;
+import org.rubychina.app.model.Node;
 import org.rubychina.app.ui.LoginActivity;
 import org.rubychina.app.ui.MainActivity;
 import org.rubychina.app.ui.NotificationActivity;
@@ -28,6 +29,8 @@ import org.rubychina.app.ui.adapter.DrawerAdapter;
 import org.rubychina.app.ui.fragment.topic.TopicsFragment;
 import org.rubychina.app.utils.ApiUtils;
 import org.rubychina.app.utils.UserUtils;
+
+import java.util.ArrayList;
 
 /**
  * Created by mac on 14-1-27.

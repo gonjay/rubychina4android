@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import org.rubychina.app.R;
 import org.rubychina.app.model.Topic;
@@ -78,7 +79,6 @@ public class TopicsFragment extends Fragment implements PullToRefreshAttacher.On
 
         loadCacheData();
 
-        mPullToRefreshAttacher.setRefreshing(true);
         loadFirstPage();
         return rootView;
     }
@@ -120,12 +120,14 @@ public class TopicsFragment extends Fragment implements PullToRefreshAttacher.On
     }
 
     private void loadCacheData(){
+        mPullToRefreshAttacher.setRefreshing(true);
         String cache = UserUtils.loadTopic(type);
         if (cache.length() > 0){
             List<Topic> ts = gson.fromJson(UserUtils.loadTopic(type), listType);
             for (Topic t : ts){
                 topics.add(t);
             }
+            mPullToRefreshAttacher.setRefreshComplete();
             mAdapter.notifyDataSetChanged();
         } else {
             loadFirstPage();
@@ -151,6 +153,12 @@ public class TopicsFragment extends Fragment implements PullToRefreshAttacher.On
                     mLoadingFooter.setState(LoadingFooter.State.TheEnd);
                 }
                 mPullToRefreshAttacher.setRefreshComplete();
+            }
+
+            @Override
+            public void onFailure(Throwable throwable){
+                mPullToRefreshAttacher.setRefreshComplete();
+                Toast.makeText(getActivity(), R.string.load_failed, Toast.LENGTH_SHORT).show();
             }
         });
     }
