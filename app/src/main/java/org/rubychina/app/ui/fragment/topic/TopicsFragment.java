@@ -67,6 +67,8 @@ public class TopicsFragment extends Fragment implements PullToRefreshAttacher.On
         View rootView = inflater.inflate(R.layout.fragment_hot, container, false);
         mListView = (ListView)rootView.findViewById(R.id.listView);
 
+        mPullToRefreshAttacher = ((MainActivity)getActivity()).getPullToRefreshAttacher();
+
         mPullToRefreshAttacher.setRefreshableView(mListView, this);
         mLoadingFooter = new LoadingFooter(getActivity());
         mListView.addFooterView(mLoadingFooter.getView());

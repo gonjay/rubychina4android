@@ -2,8 +2,10 @@ package org.rubychina.app.ui;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.NavUtils;
 import android.util.Log;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -18,6 +20,9 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.rubychina.app.R;
 import org.rubychina.app.model.User;
+import org.rubychina.app.ui.fragment.LoginFragment;
+import org.rubychina.app.ui.fragment.SignUpFragment;
+import org.rubychina.app.ui.fragment.topic.TopicsFragment;
 import org.rubychina.app.utils.ApiParams;
 import org.rubychina.app.utils.ApiUtils;
 import org.rubychina.app.utils.JsonUtils;
@@ -26,72 +31,29 @@ import org.rubychina.app.utils.UserUtils;
 /**
  * Created by mac on 14-1-29.
  */
-public class LoginActivity extends Activity {
+public class LoginActivity extends FragmentActivity {
     public static final int LOGIN_SUCCESS = 2001;
 
-    private String login;
-    private String password;
-    private EditText loginEditText, passwordEditText;
-    private Button submitButton;
+    MenuItem item;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
+        setContentView(R.layout.activity_main);
         getActionBar().setDisplayHomeAsUpEnabled(true);
 
-        loginEditText = (EditText)findViewById(R.id.et_user_login);
-        passwordEditText = (EditText)findViewById(R.id.et_user_password);
-        submitButton = (Button)findViewById(R.id.bt_summit);
-
-        submitButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                login = loginEditText.getText().toString();
-                password = passwordEditText.getText().toString();
-                if (login.length() > 0 && password.length() > 0){
-                    signIn();
-                } else {
-                    Toast.makeText(LoginActivity.this, R.string.login_validate,Toast.LENGTH_LONG).show();
-                }
-
-            }
-        });
+        if (savedInstanceState == null) {
+            getSupportFragmentManager().beginTransaction()
+                    .add(R.id.container, new LoginFragment())
+                    .commit();
+        }
     }
 
-    private final Gson gson = new Gson();
-
-    private void signIn() {
-        ApiUtils.post(ApiUtils.SIGN_IN, new ApiParams().with("user[login]", login).with("user[password]", password), new AsyncHttpResponseHandler(){
-            @Override
-            public void onSuccess(String responce) {
-                User u = gson.fromJson(responce, User.class);
-                UserUtils.saveUserLogin(u.login);
-                UserUtils.saveUserToken(u.private_token);
-                UserUtils.saveUserEmail(u.email);
-                Toast.makeText(LoginActivity.this, R.string.login_success,Toast.LENGTH_SHORT).show();
-                ApiUtils.get(String.format(ApiUtils.USER_PROFILE, u.login),null,new AsyncHttpResponseHandler(){
-                    @Override
-                    public void onSuccess(String responce) {
-                        User userPro = gson.fromJson(responce, User.class);
-                        UserUtils.saveUserAvatar(userPro.avatar_url);
-                        setResult(LOGIN_SUCCESS);
-                        onBackPressed();
-                    }
-                });
-            }
-
-            @Override
-            public void onFailure(Throwable error, String responce) {
-                String notice = "未知错误";
-                try {
-                    notice = JsonUtils.getString(new JSONObject(responce), "error");
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-                Toast.makeText(LoginActivity.this, notice,Toast.LENGTH_LONG).show();
-            }
-        });
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.login, menu);
+        return true;
     }
 
     @Override
@@ -100,6 +62,14 @@ public class LoginActivity extends Activity {
             case android.R.id.home:
                 onBackPressed();
                 return true;
+            case R.id.action_sign_up:
+                getSupportFragmentManager().beginTransaction()
+                        .add(R.id.container, new SignUpFragment())
+                        .addToBackStack(null)
+                        .commit();
+                item.setVisible(false);
+                this.item = item;
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -107,7 +77,10 @@ public class LoginActivity extends Activity {
 
     @Override
     public void onBackPressed() {
-        finish();
+        super.onBackPressed();
+        if (getSupportFragmentManager().getBackStackEntryCount() < 1){
+            item.setVisible(true);
+        }
         overridePendingTransition(R.anim.push_down_in,R.anim.push_down_out);
     }
 }

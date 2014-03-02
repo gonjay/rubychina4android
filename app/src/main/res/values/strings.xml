@@ -6,6 +6,7 @@
     <string name="action_settings">设置</string>
     <string name="action_exit">退出</string>
     <string name="write">发帖</string>
+    <string name="sign_up">注册</string>
     <string name="send_success">发帖</string>
     <string name="reply">回复</string>
     <string name="refresh">刷新</string>
@@ -16,6 +17,7 @@
     <string name="delete_failed">删除失败</string>
     <string name="delete_success">删除成功</string>
     <string name="load_failed">加载失败，请检查网络</string>
+    <string name="sign_up_success">帐号申请成功，请重新登录</string>
 
     <string name="itemdeleted">已删除</string>
     <string name="taptoundo">点击撤销</string>

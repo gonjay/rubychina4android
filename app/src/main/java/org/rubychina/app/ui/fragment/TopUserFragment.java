@@ -52,7 +52,6 @@ public class TopUserFragment extends Fragment {
         ApiUtils.get(ApiUtils.TOP_USERS, null, new AsyncHttpResponseHandler(){
             @Override
             public void onSuccess(String responce){
-                Log.v("", responce);
                 list = new Gson().fromJson(responce, new TypeToken<ArrayList<User>>(){}.getType());
                 list.add(Author.getUser1());
                 list.add(Author.getUser2());
