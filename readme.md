@@ -1,11 +1,15 @@
 ## 开源地址
   https://github.com/gonjay/rubychina4android
 
+## 下载
+
   [Google Play下载](https://play.google.com/store/apps/details?id=org.rubychina.app)
 
-  [预览版下载 1.0.4](https://github.com/gonjay/rubychina4android/blob/master/app/build/apk/app-debug-unaligned.apk?raw=true)
+  [开发版下载 1.0.5](https://github.com/gonjay/rubychina4android/blob/master/app/build/apk/app-debug-unaligned.apk?raw=true)
+  ![](https://raw.github.com/gonjay/rubychina4android/master/shots/unsigned-apk.png)
 
-  ![](http://rubychina.qiniudn.com/app.apk?qrcode)
+  [发布版下载 1.0.5](https://github.com/gonjay/rubychina4android/blob/master/app/build/apk/app-debug-unaligned.apk?raw=true)
+  ![](https://raw.github.com/gonjay/rubychina4android/master/shots/signed-apk.png)
 
 ## 特性：
 
