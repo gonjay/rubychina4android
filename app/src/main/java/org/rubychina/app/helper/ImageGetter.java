@@ -64,6 +64,7 @@ public class ImageGetter implements Html.ImageGetter {
 
         @Override
         protected void onPostExecute(Drawable result) {
+            if (null == result) return;
             // set the correct bound according to the result from HTTP call
             urlDrawable.setBounds(0, 0, 0 + result.getIntrinsicWidth() * 2, 0
                     + result.getIntrinsicHeight() * 2);
