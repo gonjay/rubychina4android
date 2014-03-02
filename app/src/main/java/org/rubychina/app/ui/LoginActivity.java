@@ -53,6 +53,7 @@ public class LoginActivity extends FragmentActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.login, menu);
+        this.item = menu.findItem(R.id.action_sign_up);
         return true;
     }
 
@@ -68,7 +69,6 @@ public class LoginActivity extends FragmentActivity {
                         .addToBackStack(null)
                         .commit();
                 item.setVisible(false);
-                this.item = item;
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
