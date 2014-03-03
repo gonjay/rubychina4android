@@ -1,7 +1,9 @@
 package org.rubychina.app.ui.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +17,7 @@ import com.loopj.android.http.AsyncHttpResponseHandler;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.rubychina.app.R;
+import org.rubychina.app.helper.WebSocketService;
 import org.rubychina.app.model.User;
 import org.rubychina.app.utils.ApiParams;
 import org.rubychina.app.utils.ApiUtils;
@@ -70,6 +73,7 @@ public class LoginFragment extends Fragment{
                 UserUtils.saveUserToken(u.private_token);
                 UserUtils.saveUserEmail(u.email);
                 Toast.makeText(getActivity(), R.string.login_success, Toast.LENGTH_SHORT).show();
+
                 ApiUtils.get(String.format(ApiUtils.USER_PROFILE, u.login), null, new AsyncHttpResponseHandler() {
                     @Override
                     public void onSuccess(String responce) {
@@ -77,6 +81,23 @@ public class LoginFragment extends Fragment{
                         UserUtils.saveUserAvatar(userPro.avatar_url);
                         getActivity().setResult(LOGIN_SUCCESS);
                         getActivity().onBackPressed();
+                    }
+                });
+
+                ApiUtils.get(ApiUtils.USER_TEMP_ACCESS_TOKEN, new ApiParams().withToken(), new AsyncHttpResponseHandler() {
+                    @Override
+                    public void onSuccess(String responce) {
+
+                        Log.v("", responce);
+
+                        try {
+                            String temp_access_token = JsonUtils.getString(new JSONObject(responce), "temp_access_token");
+                            UserUtils.saveUserTempToken(temp_access_token);
+                            Intent intent = new Intent(getActivity(), WebSocketService.class);
+                            getActivity().startService(intent);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
                     }
                 });
             }

@@ -57,6 +57,8 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".ui.MainActivity" />
         </activity>
+
+        <service android:name=".helper.WebSocketService" />
     </application>
 
 </manifest>

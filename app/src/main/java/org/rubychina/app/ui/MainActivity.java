@@ -17,6 +17,7 @@ import android.view.MenuItem;
 import android.view.View;
 
 import org.rubychina.app.R;
+import org.rubychina.app.helper.WebSocketService;
 import org.rubychina.app.ui.fragment.DrawerFragment;
 import org.rubychina.app.ui.fragment.topic.TopicsFragment;
 import org.rubychina.app.utils.ApiUtils;
@@ -27,6 +28,7 @@ import uk.co.senab.actionbarpulltorefresh.library.PullToRefreshAttacher;
 public class MainActivity extends FragmentActivity {
     public static final int ACTION_FOR_LOGIN = 2000;
     public static final String TOPICS = "topics";
+    public static final String ACTIVITY_EXTRA = "activity";
 
     private DrawerLayout mDrawerLayout;
     private ActionBarDrawerToggle mDrawerToggle;
@@ -38,6 +40,13 @@ public class MainActivity extends FragmentActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        Intent intent = new Intent(this, WebSocketService.class);
+        startService(intent);
+
+        if (getIntent().getStringExtra(ACTIVITY_EXTRA) != null) {
+            startActivity(new Intent(this, NotificationActivity.class));
+        }
 
         ActionBar actionBar = getActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);

@@ -38,6 +38,18 @@ public class UserUtils {
         return pref.edit().putString("token", s).commit();
     }
 
+    public static String getUserTempToken(){
+        SharedPreferences pref = getAppContext().getSharedPreferences(
+                "user", 0);
+        return pref.getString("temp_access_token", "");
+    }
+
+    public static boolean saveUserTempToken(String s) {
+        SharedPreferences pref = getAppContext().getSharedPreferences(
+                "user", 0);
+        return pref.edit().putString("temp_access_token", s).commit();
+    }
+
     public static String getUserLogin(){
         SharedPreferences pref = getAppContext().getSharedPreferences(
                 "user", 0);

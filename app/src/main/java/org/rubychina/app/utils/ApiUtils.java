@@ -10,9 +10,11 @@ import com.loopj.android.http.RequestParams;
 public class ApiUtils {
 
     public static final String HOST = "http://ruby-china.org/";
+    public static final String FAYE_SERVER = "ws://ruby-china.org:8080/faye";
 //    public static final String HOST = "http://192.168.1.102:3000/";
 
     public static final String API = HOST + "api/v2/";
+    public static final String API0 = HOST + "api/";
 
     public static final String SIGN_IN = HOST + "account/sign_in.json";
 
@@ -27,9 +29,12 @@ public class ApiUtils {
     public static final String NOTIFICATION_DELETE = API + "notifications/%s.json?token=%s";
     public static final String USER_PROFILE_TOPICS = API + "users/%s/topics.json";
     public static final String USER_PROFILE_TOPICS_FAVORITE = API + "users/%s/topics/favorite.json";
+    public static final String USER_TEMP_ACCESS_TOKEN = API0 + "users/temp_access_token.json";//Need to use old api to get temp_access_token
     public static final String TOP_USERS = API + "users.json";
     public static final String WIKI = HOST + "wiki";
     public static final String SIGN_UP = HOST + "account/sign_up";
+
+    public static final String FAYE_CHANNEL = "/notifications_count/%s";
 
     public static AsyncHttpClient client = new AsyncHttpClient();
 
