@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.NavUtils;
+import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -83,4 +84,5 @@ public class LoginActivity extends FragmentActivity {
         }
         overridePendingTransition(R.anim.push_down_in,R.anim.push_down_out);
     }
+
 }
