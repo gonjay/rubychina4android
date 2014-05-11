@@ -41,11 +41,9 @@
             android:layout_width="22dip"
             android:layout_height="wrap_content"
             android:layout_marginRight="6dip"
-            android:textSize="10sp"
-            android:background="@drawable/text_comment_count_style"
+            android:textSize="12sp"
             android:drawablePadding="3dip"
-            android:gravity="center"
-            android:textColor="#fff"
+            android:textColor="#7E7E7E"
             />
 
     </LinearLayout>

@@ -90,7 +90,7 @@ public class TopicAdapter extends BaseAdapter {
         if (Integer.valueOf(topics.get(position).replies_count) != 0) {
             holder.replies.setText(topics.get(position).replies_count);
         } else {
-            holder.replies.setText("0");
+            holder.replies.setText("");
         }
         holder.userName.setText(topics.get(position).user.login);
         convertView.setOnClickListener(new View.OnClickListener(){
