@@ -93,8 +93,8 @@ public class LoginFragment extends Fragment{
                         try {
                             String temp_access_token = JsonUtils.getString(new JSONObject(responce), "temp_access_token");
                             UserUtils.saveUserTempToken(temp_access_token);
-                            Intent intent = new Intent(getActivity(), WebSocketService.class);
-                            getActivity().startService(intent);
+//                            Intent intent = new Intent(getActivity(), WebSocketService.class);
+//                            getActivity().startService(intent);
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }

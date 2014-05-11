@@ -29,7 +29,7 @@ public class Topic {
 
     public static final DateFormat CREATE_AT_DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ");
 
-    private static final DateFormat LAST_REPLY_FORMAT = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ");
+    private static final DateFormat LAST_REPLY_FORMAT = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ");
 
     private static final String DETAIL_TEMPLATE = "%s %s于%s发布%n最后由 %s %s次阅读";
 

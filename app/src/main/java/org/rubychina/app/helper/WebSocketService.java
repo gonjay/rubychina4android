@@ -46,6 +46,7 @@ public class WebSocketService extends IntentService implements FayeClient.FayeLi
         Log.i(TAG, "Starting Web Socket");
         URI uri = URI.create(ApiUtils.FAYE_SERVER);
         String channel = String.format(ApiUtils.FAYE_CHANNEL, UserUtils.getUserTempToken());
+        Log.v(TAG, channel);
         mClient = new FayeClient(null, uri, channel);
         mClient.setFayeListener(this);
         mClient.connectToServer(null);
@@ -99,22 +100,13 @@ public class WebSocketService extends IntentService implements FayeClient.FayeLi
                         .setContentTitle(message.title)
                         .setContentText(message.content)
                         .setAutoCancel(true);
-        // Creates an explicit intent for an Activity in your app
         Intent resultIntent = new Intent(this, MainActivity.class).putExtra(MainActivity.ACTIVITY_EXTRA, NotificationActivity.class.getName());
-
-        // The stack builder object will contain an artificial back stack for the
-        // started Activity.
-        // This ensures that navigating backward from the Activity leads out of
-        // your application to the Home screen.
         TaskStackBuilder stackBuilder = TaskStackBuilder.create(this);
-        // Adds the back stack for the Intent (but not the Intent itself)
         stackBuilder.addParentStack(MainActivity.class);
-        // Adds the Intent that starts the Activity to the top of the stack
         stackBuilder.addNextIntent(resultIntent);
         PendingIntent resultPendingIntent = stackBuilder.getPendingIntent(0,PendingIntent.FLAG_UPDATE_CURRENT);
         mBuilder.setContentIntent(resultPendingIntent);
         NotificationManager mNotificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-        // mId allows you to update the notification later on.
         mNotificationManager.notify(0, mBuilder.build());
     }
 }
