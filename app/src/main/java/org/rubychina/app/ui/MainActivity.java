@@ -164,8 +164,8 @@ public class MainActivity extends FragmentActivity {
 
     public void addMainContent(Fragment fragment){
         getSupportFragmentManager().beginTransaction()
-                .replace(R.id.container, fragment)
-                //.addToBackStack(null)
+                .add(R.id.container, fragment)
+                .addToBackStack(null)
                 .commit();
     }
 
