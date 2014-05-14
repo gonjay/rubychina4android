@@ -159,8 +159,10 @@ public class TopicsFragment extends Fragment implements PullToRefreshAttacher.On
 
             @Override
             public void onFailure(Throwable throwable){
-                mPullToRefreshAttacher.setRefreshComplete();
-                Toast.makeText(getActivity(), R.string.load_failed, Toast.LENGTH_SHORT).show();
+                if(isAdded()) {
+                    mPullToRefreshAttacher.setRefreshComplete();
+                    Toast.makeText(getActivity(), R.string.load_failed, Toast.LENGTH_SHORT).show();
+                }
             }
         });
     }

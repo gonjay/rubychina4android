@@ -17,7 +17,6 @@ import android.view.MenuItem;
 import android.view.View;
 
 import org.rubychina.app.R;
-import org.rubychina.app.helper.WebSocketService;
 import org.rubychina.app.ui.fragment.DrawerFragment;
 import org.rubychina.app.ui.fragment.topic.TopicsFragment;
 import org.rubychina.app.utils.ApiUtils;
@@ -41,8 +40,6 @@ public class MainActivity extends FragmentActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-//        Intent intent = new Intent(this, WebSocketService.class);
-//        startService(intent);
 
         if (getIntent().getStringExtra(ACTIVITY_EXTRA) != null) {
             startActivity(new Intent(this, NotificationActivity.class));
