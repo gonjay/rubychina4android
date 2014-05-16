@@ -3,7 +3,7 @@
     tools:context="org.rubychina.app.ui.MainActivity" >
 
     <item
-        android:id="@+id/action_refresh"
+        android:id="@+id/action_refresh_topic"
         android:title="@string/refresh"
         android:icon="@drawable/ic_menu_refresh"
         android:showAsAction="always"/>

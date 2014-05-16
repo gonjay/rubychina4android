@@ -70,6 +70,7 @@ public class NewTopicActivity extends FragmentActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.topic_reply_menu, menu);
         menu.findItem(R.id.action_preview).setVisible(!mShowingBack);
+        menu.findItem(R.id.action_send).setVisible(true);
         return true;
     }
 
