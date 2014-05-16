@@ -1,6 +1,7 @@
 package org.rubychina.app.ui.adapter;
 
 import android.content.Context;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -62,4 +63,7 @@ public class NodeAdapter extends BaseAdapter {
         });
         return convertView;
     }
+
+
+
 }

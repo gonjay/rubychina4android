@@ -3,7 +3,6 @@ package org.rubychina.app.ui.adapter;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.view.PagerAdapter;
 
 import org.rubychina.app.model.Node;
 import org.rubychina.app.ui.fragment.NodeFragment;
