@@ -3,7 +3,6 @@ package org.rubychina.app.ui.fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -54,12 +53,10 @@ public class NewTopicFragment extends Fragment {
     }
 
     public String getBody(){
-        return body.getText().toString();
+        return body.getText().toString()+getString(R.string.from);
     }
 
-    private void sendTopic(){
 
-    }
 
     private void bindView() {
         adapter =new ArrayAdapter(getActivity(),android.R.layout.simple_spinner_item, s[7]);
@@ -108,7 +105,7 @@ public class NewTopicFragment extends Fragment {
         ApiUtils.post(ApiUtils.TOPIC_NEW, new ApiParams()
                 .with("node_id", node_id)
                 .with("title", title.getText().toString())
-                .with("body", body.getText().toString())
+                .with("body", getBody())
                 .withToken(),
                 new AsyncHttpResponseHandler(){
                     @Override

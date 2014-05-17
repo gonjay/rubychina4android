@@ -100,7 +100,7 @@ public class TopicTabActivity extends FragmentActivity implements ActionBar.TabL
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.topic_reply_menu, menu);
         this.mMenu = menu;
-        mMenu.findItem(R.id.action_refresh).setActionView(R.layout.progressbar);
+        mMenu.findItem(R.id.action_refresh_topic).setActionView(R.layout.progressbar);
         return true;
     }
 
@@ -112,7 +112,7 @@ public class TopicTabActivity extends FragmentActivity implements ActionBar.TabL
                 break;
             case R.id.action_preview:
                 Intent i = new Intent(TopicTabActivity.this, PreviewActivity.class);
-                i.putExtra("body", ((TopicReplyFragment)mFragments.get(2)).getBody());
+                i.putExtra("body", ((TopicReplyFragment)mFragments.get(2)).getBody()+getString( R.string.from));
                 startActivity(i);
                 break;
             case R.id.action_send:
@@ -158,7 +158,7 @@ public class TopicTabActivity extends FragmentActivity implements ActionBar.TabL
                                     .setTabListener(TopicTabActivity.this));
                 }
 
-                mMenu.findItem(R.id.action_refresh).setActionView(null);
+                mMenu.findItem(R.id.action_refresh_topic).setActionView(null);
 
             }
         });
@@ -172,7 +172,7 @@ public class TopicTabActivity extends FragmentActivity implements ActionBar.TabL
             return;
         }
 
-        ApiUtils.post(String.format(ApiUtils.TOPIC_REPLY, topic.id), new ApiParams().with("body", replyBody).withToken(), new AsyncHttpResponseHandler() {
+        ApiUtils.post(String.format(ApiUtils.TOPIC_REPLY, topic.id), new ApiParams().with("body", replyBody+getString( R.string.from)).withToken(), new AsyncHttpResponseHandler() {
             @Override
             public void onSuccess(String response) {
                 Toast.makeText(TopicTabActivity.this, R.string.reply_success, Toast.LENGTH_SHORT).show();
