@@ -2,6 +2,7 @@ package org.rubychina.app.ui.fragment;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,18 +26,16 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
-import uk.co.senab.actionbarpulltorefresh.library.PullToRefreshAttacher;
-
 /**
  * Created by mac on 14-2-10.
  */
-public class FavoriteFragment extends Fragment implements PullToRefreshAttacher.OnRefreshListener {
-    private PullToRefreshAttacher mPullToRefreshAttacher;
+public class FavoriteFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener {
+    private static final String ARG_TYPE_KEY = "type";
+    private static final String ARG_URL_KEY = "url";
 
+    private SwipeRefreshLayout mSwipeRefreshLayout;
     private ListView mListView;
-
     private LoadingFooter mLoadingFooter;
-
     private FavoriteAdapter mAdapter;
 
     private String type, url;
@@ -47,19 +46,31 @@ public class FavoriteFragment extends Fragment implements PullToRefreshAttacher.
     private Type listType = new TypeToken<List<Topic>>(){}.getType();
     private List<Topic> topics = new ArrayList<Topic>();
 
-    public FavoriteFragment(String type, String url, PullToRefreshAttacher mPullToRefreshAttacher) {
-        this.type = type;
-        this.url = url;
-        this.mPullToRefreshAttacher = mPullToRefreshAttacher;
+    public FavoriteFragment() {
+    }
+
+    public static FavoriteFragment newInstance(String type, String url) {
+        FavoriteFragment fragment = new FavoriteFragment();
+
+        Bundle args = new Bundle();
+        args.putString(ARG_TYPE_KEY, type);
+        args.putString(ARG_URL_KEY, url);
+        fragment.setArguments(args);
+
+        return fragment;
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_hot, container, false);
+        mSwipeRefreshLayout = (SwipeRefreshLayout)rootView.findViewById(R.id.swipeRefresh);
+        mSwipeRefreshLayout.setColorScheme(R.color.swipe_color_1,
+                R.color.swipe_color_2, R.color.swipe_color_3, R.color.swipe_color_4);
+        mSwipeRefreshLayout.setOnRefreshListener(this);
+
         mListView = (ListView)rootView.findViewById(R.id.listView);
 
-        mPullToRefreshAttacher.setRefreshableView(mListView, this);
         mLoadingFooter = new LoadingFooter(getActivity());
         mListView.addFooterView(mLoadingFooter.getView());
 
@@ -80,7 +91,7 @@ public class FavoriteFragment extends Fragment implements PullToRefreshAttacher.
                 List<Topic> ts = gson.fromJson(response, listType);
                 if (page == 1) {
                     topics.clear();
-                    mPullToRefreshAttacher.setRefreshComplete();
+                    mSwipeRefreshLayout.setRefreshing(false);
                     UserUtils.cacheTopic(response, type);
                 }
                 for (Topic t : ts) {
@@ -93,7 +104,7 @@ public class FavoriteFragment extends Fragment implements PullToRefreshAttacher.
     }
 
     @Override
-    public void onRefreshStarted(View view) {
+    public void onRefresh() {
         loadData(1);
     }
 }

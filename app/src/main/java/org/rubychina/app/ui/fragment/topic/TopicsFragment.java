@@ -2,6 +2,7 @@ package org.rubychina.app.ui.fragment.topic;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,7 +12,6 @@ import android.widget.Toast;
 
 import org.rubychina.app.R;
 import org.rubychina.app.model.Topic;
-import org.rubychina.app.ui.MainActivity;
 import org.rubychina.app.ui.adapter.ItemAnimationAdapter;
 import org.rubychina.app.ui.adapter.TopicAdapter;
 import org.rubychina.app.utils.ApiParams;
@@ -28,14 +28,14 @@ import com.google.gson.reflect.TypeToken;
 import com.haarman.listviewanimations.swinginadapters.AnimationAdapter;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 
-import uk.co.senab.actionbarpulltorefresh.library.PullToRefreshAttacher;
-
 /**
  * Created by mac on 14-1-28.
  */
-public class TopicsFragment extends Fragment implements PullToRefreshAttacher.OnRefreshListener{
+public class TopicsFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener {
+    private static final String ARG_TYPE_KEY = "type";
+    private static final String ARG_URL_KEY = "url";
 
-    private PullToRefreshAttacher mPullToRefreshAttacher;
+    private SwipeRefreshLayout mSwipeRefreshLayout;
 
     private ListView mListView;
 
@@ -55,21 +55,32 @@ public class TopicsFragment extends Fragment implements PullToRefreshAttacher.On
 
     public TopicsFragment(){}
 
-    public TopicsFragment(String type, String url, PullToRefreshAttacher mPullToRefreshAttacher) {
-        this.type = type;
-        this.url = url;
-        this.mPullToRefreshAttacher = mPullToRefreshAttacher;
+    public static TopicsFragment newInstance(String type, String url) {
+        TopicsFragment fragment = new TopicsFragment();
+
+        Bundle args = new Bundle();
+        args.putString(ARG_TYPE_KEY, type);
+        args.putString(ARG_URL_KEY, url);
+        fragment.setArguments(args);
+
+        return fragment;
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        Bundle args = getArguments();
+        type = args.getString(ARG_TYPE_KEY);
+        url = args.getString(ARG_URL_KEY);
+
         View rootView = inflater.inflate(R.layout.fragment_hot, container, false);
+        mSwipeRefreshLayout = (SwipeRefreshLayout)rootView.findViewById(R.id.swipeRefresh);
+        mSwipeRefreshLayout.setColorScheme(R.color.swipe_color_1,
+                R.color.swipe_color_2, R.color.swipe_color_3, R.color.swipe_color_4);
+        mSwipeRefreshLayout.setOnRefreshListener(this);
+
         mListView = (ListView)rootView.findViewById(R.id.listView);
 
-        mPullToRefreshAttacher = ((MainActivity)getActivity()).getPullToRefreshAttacher();
-
-        mPullToRefreshAttacher.setRefreshableView(mListView, this);
         mLoadingFooter = new LoadingFooter(getActivity());
         mListView.addFooterView(mLoadingFooter.getView());
 
@@ -122,14 +133,14 @@ public class TopicsFragment extends Fragment implements PullToRefreshAttacher.On
     }
 
     private void loadCacheData(){
-        mPullToRefreshAttacher.setRefreshing(true);
+        mSwipeRefreshLayout.setRefreshing(true);
         String cache = UserUtils.loadTopic(type);
         if (cache.length() > 0){
             List<Topic> ts = gson.fromJson(UserUtils.loadTopic(type), listType);
             for (Topic t : ts){
                 topics.add(t);
             }
-            mPullToRefreshAttacher.setRefreshComplete();
+            mSwipeRefreshLayout.setRefreshing(false);
             mAdapter.notifyDataSetChanged();
         } else {
             loadFirstPage();
@@ -154,13 +165,13 @@ public class TopicsFragment extends Fragment implements PullToRefreshAttacher.On
                     hasmore = false;
                     mLoadingFooter.setState(LoadingFooter.State.TheEnd);
                 }
-                mPullToRefreshAttacher.setRefreshComplete();
+                mSwipeRefreshLayout.setRefreshing(false);
             }
 
             @Override
             public void onFailure(Throwable throwable){
                 if(isAdded()) {
-                    mPullToRefreshAttacher.setRefreshComplete();
+                    mSwipeRefreshLayout.setRefreshing(false);
                     Toast.makeText(getActivity(), R.string.load_failed, Toast.LENGTH_SHORT).show();
                 }
             }
@@ -168,7 +179,7 @@ public class TopicsFragment extends Fragment implements PullToRefreshAttacher.On
     }
 
     @Override
-    public void onRefreshStarted(View view) {
+    public void onRefresh() {
         loadFirstPage();
     }
 }

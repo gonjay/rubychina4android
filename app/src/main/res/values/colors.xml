@@ -10,4 +10,8 @@
     <color name="red">#fff10800</color>
     <color name="list_item_pressed">#1A000000</color>
     <color name="transparent">#00ffffff</color>
+    <color name="swipe_color_1">#33B5E5</color>
+    <color name="swipe_color_2">#99CC00</color>
+    <color name="swipe_color_3">#FFBB33</color>
+    <color name="swipe_color_4">#FF4444</color>
 </resources>

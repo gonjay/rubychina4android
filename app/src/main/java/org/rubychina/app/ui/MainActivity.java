@@ -22,8 +22,6 @@ import org.rubychina.app.ui.fragment.topic.TopicsFragment;
 import org.rubychina.app.utils.ApiUtils;
 import org.rubychina.app.utils.UserUtils;
 
-import uk.co.senab.actionbarpulltorefresh.library.PullToRefreshAttacher;
-
 public class MainActivity extends FragmentActivity {
     public static final int ACTION_FOR_LOGIN = 2000;
     public static final String TOPICS = "topics";
@@ -32,7 +30,6 @@ public class MainActivity extends FragmentActivity {
     private DrawerLayout mDrawerLayout;
     private ActionBarDrawerToggle mDrawerToggle;
     private Menu mMenu;
-    private PullToRefreshAttacher mPullToRefreshAttacher;
 
     @TargetApi(Build.VERSION_CODES.ICE_CREAM_SANDWICH)
     @Override
@@ -70,16 +67,9 @@ public class MainActivity extends FragmentActivity {
 
         mDrawerLayout.setDrawerListener(mDrawerToggle);
 
-        PullToRefreshAttacher.Options options = new PullToRefreshAttacher.Options();
-        options.headerInAnimation = R.anim.pulldown_fade_in;
-        options.headerOutAnimation = R.anim.pulldown_fade_out;
-        options.refreshScrollDistance = 0.3f;
-        options.headerLayout = R.layout.pulldown_header;
-        mPullToRefreshAttacher = new PullToRefreshAttacher(this, options);
-
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction()
-                    .add(R.id.container, new TopicsFragment("topics", ApiUtils.TOPICS, mPullToRefreshAttacher))
+                    .add(R.id.container, TopicsFragment.newInstance("topics", ApiUtils.TOPICS))
                     .commit();
         }
         getSupportFragmentManager().beginTransaction().replace(R.id.left_drawer, new DrawerFragment()).commit();
@@ -136,11 +126,6 @@ public class MainActivity extends FragmentActivity {
         }
         return super.onOptionsItemSelected(item);
     }
-
-    public PullToRefreshAttacher getPullToRefreshAttacher() {
-        return mPullToRefreshAttacher;
-    }
-
 
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);

@@ -30,7 +30,6 @@ import org.rubychina.app.R;
 import org.rubychina.app.helper.MyBitmapDisplayer;
 import org.rubychina.app.model.Topic;
 import org.rubychina.app.model.User;
-import org.rubychina.app.ui.ProfileActivity;
 import org.rubychina.app.ui.adapter.FavoriteAdapter;
 import org.rubychina.app.utils.ApiUtils;
 import org.rubychina.app.utils.JsonUtils;
@@ -41,6 +40,8 @@ import java.util.List;
  * Created by mac on 14-2-10.
  */
 public class ProfileFragment extends Fragment {
+    private static final String ARG_USER_NAME_KEY = "user_name";
+
     ImageLoader imageLoader = ImageLoader.getInstance();
     DisplayImageOptions options = new DisplayImageOptions.Builder()
             .showImageOnFail(R.drawable.avatar).displayer(new MyBitmapDisplayer(200, 2000))
@@ -56,8 +57,17 @@ public class ProfileFragment extends Fragment {
     User user;
     List<Topic> recent;
 
-    public ProfileFragment(String userName){
-        this.userName = userName;
+    public ProfileFragment() {
+    }
+
+    public static ProfileFragment newInstance(String userName) {
+        ProfileFragment fragment = new ProfileFragment();
+
+        Bundle args = new Bundle();
+        args.putString(ARG_USER_NAME_KEY, userName);
+        fragment.setArguments(args);
+
+        return fragment;
     }
 
     @Override
@@ -117,7 +127,7 @@ public class ProfileFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 getFragmentManager().beginTransaction()
-                        .add(R.id.container, new FavoriteFragment("", getUserTopics(), ((ProfileActivity) getActivity()).getPullToRefreshAttacher()))
+                        .add(R.id.container, FavoriteFragment.newInstance("", getUserTopics()))
                         .addToBackStack(null)
                         .commit();
             }
@@ -126,7 +136,7 @@ public class ProfileFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 getFragmentManager().beginTransaction()
-                        .add(R.id.container, new FavoriteFragment("", getUserLikes(), ((ProfileActivity)getActivity()).getPullToRefreshAttacher()))
+                        .add(R.id.container, FavoriteFragment.newInstance("", getUserLikes()))
                         .addToBackStack(null)
                         .commit();
             }

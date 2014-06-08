@@ -100,7 +100,7 @@ public class DrawerFragment extends Fragment {
     private void callParent(int positiong){
         switch (positiong){
             case 0:
-                mainActivity.setMainContent(new TopicsFragment(MainActivity.TOPICS, ApiUtils.TOPICS, ((MainActivity)getActivity()).getPullToRefreshAttacher()));
+                mainActivity.setMainContent(TopicsFragment.newInstance(MainActivity.TOPICS, ApiUtils.TOPICS));
                 break;
             case 1:
                 mainActivity.setMainContent(new NodesFragment());
