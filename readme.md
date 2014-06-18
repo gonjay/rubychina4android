@@ -3,16 +3,16 @@
 
 ## 下载
 
-  [Google Play下载](https://play.google.com/store/apps/details?id=org.rubychina.app)
-
-  [Debug版下载 1.0.6](https://github.com/gonjay/rubychina4android/blob/master/app/build/apk/app-debug-unaligned.apk?raw=true)
-  ![](https://raw.github.com/gonjay/rubychina4android/master/shots/unsigned-apk.png)
-
   [Google Play 1.0.6](https://play.google.com/store/apps/details?id=org.rubychina.app)
+  
+  ![](https://raw.github.com/gonjay/rubychina4android/master/shots/signed-apk.png)
+  
+  [Debug版下载 1.0.6](https://github.com/gonjay/rubychina4android/blob/master/app/build/apk/app-debug-unaligned.apk?raw=true)
+  
+  ![](https://raw.github.com/gonjay/rubychina4android/master/shots/unsigned-apk.png)
   
   [Google Play备胎下载 1.0.6](https://github.com/gonjay/rubychina4android/blob/master/app/build/apk/app-signed.apk?raw=true)
   
-  ![](https://raw.github.com/gonjay/rubychina4android/master/shots/signed-apk.png)
 
 ## 特性：
 
