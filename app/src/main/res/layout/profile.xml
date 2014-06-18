@@ -73,6 +73,8 @@
         android:layout_centerHorizontal="true"
         android:paddingTop="8dip"
         android:paddingBottom="8dip"
+        android:paddingLeft="15dip"
+        android:paddingRight="15dip"
         android:gravity="center"
         android:layout_below="@+id/ll_blur"
         android:id="@+id/linearLayout2">
@@ -80,6 +82,7 @@
             android:id="@+id/rl_topics"
             android:background="@drawable/listitem_selector"
             android:layout_width="160dip"
+            android:layout_weight="1"
             android:layout_height="48dip"
             android:gravity="center_horizontal">
             <TextView
@@ -99,6 +102,7 @@
         <RelativeLayout
             android:id="@+id/rl_likes"
             android:background="@drawable/listitem_selector"
+            android:layout_weight="1"
             android:layout_width="160dip"
             android:layout_height="48dip"
             android:gravity="center_horizontal">
@@ -123,6 +127,8 @@
         android:orientation="vertical"
         android:layout_width="wrap_content"
         android:layout_height="fill_parent"
+        android:paddingLeft="15dip"
+        android:paddingRight="15dip"
         android:layout_alignLeft="@id/linearLayout2"
         android:layout_alignRight="@id/linearLayout2"
         android:layout_below="@+id/linearLayout2">

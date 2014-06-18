@@ -73,6 +73,7 @@ public class ProfileFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.profile, null);
+        userName = getArguments().getString(ARG_USER_NAME_KEY);
         findView();
         fetchData();
         return view;

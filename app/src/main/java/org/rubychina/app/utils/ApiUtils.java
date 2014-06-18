@@ -9,7 +9,7 @@ import com.loopj.android.http.RequestParams;
  */
 public class ApiUtils {
 
-    public static final String HOST = "http://ruby-china.org/";
+    public static final String HOST = "https://ruby-china.org/";
     public static final String FAYE_SERVER = "http://ruby-china.org:8080/faye";
 //    public static final String HOST = "http://192.168.1.102:3000/";
 

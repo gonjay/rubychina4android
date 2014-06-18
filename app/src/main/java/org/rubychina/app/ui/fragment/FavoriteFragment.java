@@ -79,6 +79,9 @@ public class FavoriteFragment extends Fragment implements SwipeRefreshLayout.OnR
         animationAdapter.setAbsListView(mListView);
         mListView.setAdapter(animationAdapter);
 
+        type = getArguments().getString(ARG_TYPE_KEY);
+        url = getArguments().getString(ARG_URL_KEY);
+
         loadData(1);
         return rootView;
     }

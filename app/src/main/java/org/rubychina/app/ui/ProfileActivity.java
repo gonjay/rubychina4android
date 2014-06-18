@@ -17,13 +17,13 @@ public class ProfileActivity extends FragmentActivity {
         super.onCreate(savedInstanceState);
         getActionBar().setDisplayHomeAsUpEnabled(true);
         setContentView(R.layout.activity_new_topic);
-        String user = "assyer";
+        String userName = "assyer";
         if(getIntent().getExtras().getString("user") != null){
-            user = getIntent().getExtras().getString("user");
+            userName = getIntent().getExtras().getString("user");
         }
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction()
-                    .add(R.id.container, ProfileFragment.newInstance(user))
+                    .add(R.id.container, ProfileFragment.newInstance(userName))
                     .commit();
         }
     }
