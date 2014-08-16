@@ -25,8 +25,9 @@ import java.util.List;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import com.haarman.listviewanimations.swinginadapters.AnimationAdapter;
 import com.loopj.android.http.AsyncHttpResponseHandler;
+import com.nhaarman.listviewanimations.appearance.AnimationAdapter;
+import com.nhaarman.listviewanimations.appearance.simple.SwingBottomInAnimationAdapter;
 
 /**
  * Created by mac on 14-1-28.
@@ -85,8 +86,12 @@ public class TopicsFragment extends Fragment implements SwipeRefreshLayout.OnRef
         mListView.addFooterView(mLoadingFooter.getView());
 
         mAdapter = new TopicAdapter(topics, getActivity());
+
         AnimationAdapter animationAdapter = new ItemAnimationAdapter(mAdapter);
         animationAdapter.setAbsListView(mListView);
+        animationAdapter.getViewAnimator().setAnimationDelayMillis(30);
+        animationAdapter.getViewAnimator().setAnimationDurationMillis(getResources().getInteger(android.R.integer.config_mediumAnimTime));
+
         mListView.setAdapter(animationAdapter);
         bindListView();
 

@@ -10,8 +10,8 @@ import android.widget.ListView;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import com.haarman.listviewanimations.swinginadapters.AnimationAdapter;
 import com.loopj.android.http.AsyncHttpResponseHandler;
+import com.nhaarman.listviewanimations.appearance.AnimationAdapter;
 
 import org.rubychina.app.R;
 import org.rubychina.app.model.Topic;

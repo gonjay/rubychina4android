@@ -2,16 +2,18 @@ package org.rubychina.app.ui;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.ListView;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import com.haarman.listviewanimations.itemmanipulation.OnDismissCallback;
-import com.haarman.listviewanimations.itemmanipulation.SwipeDismissAdapter;
 import com.loopj.android.http.AsyncHttpResponseHandler;
+import com.nhaarman.listviewanimations.itemmanipulation.swipedismiss.OnDismissCallback;
+import com.nhaarman.listviewanimations.itemmanipulation.swipedismiss.SwipeDismissAdapter;
 
 import org.rubychina.app.R;
 import org.rubychina.app.model.Notification;
@@ -56,16 +58,6 @@ public class NotificationActivity extends Activity implements OnDismissCallback 
         });
     }
 
-    @Override
-    public void onDismiss(AbsListView absListView, int[] ints) {
-        Log.v("onDismiss:", " " + ints);
-        if (lists.size() < 1){
-            return;
-        }
-        for (int position : ints) {
-            adapter.remove(position);
-        }
-    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -78,4 +70,14 @@ public class NotificationActivity extends Activity implements OnDismissCallback 
         }
     }
 
+    @Override
+    public void onDismiss(@NonNull ViewGroup listView, @NonNull int[] ints) {
+        Log.v("onDismiss:", " " + ints);
+        if (lists.size() < 1){
+            return;
+        }
+        for (int position : ints) {
+            adapter.remove(position);
+        }
+    }
 }

@@ -71,46 +71,56 @@ public class TopicAdapter extends BaseAdapter {
 
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
-        final ViewHolder holder = new ViewHolder();
+        ViewHolder holder;
+        View view = convertView;
 
-        convertView = LayoutInflater.from(MyApp.getContext()).inflate(R.layout.list_item, null);
+        if (view == null) {
 
-        holder.avatar = (ImageView)convertView.findViewById(R.id.avatar);
-        holder.title = (TextView)convertView.findViewById(R.id.title);
-        holder.node = (TextView)convertView.findViewById(R.id.nodeName);
-        holder.time = (TextView)convertView.findViewById(R.id.time);
-        holder.replies = (TextView)convertView.findViewById(R.id.text_comment_count);
-        holder.userName = (TextView)convertView.findViewById(R.id.userName);
+            view = LayoutInflater.from(MyApp.getContext()).inflate(R.layout.list_item, null);
+            holder = new ViewHolder();
+            view.setTag(holder);
 
-        holder.title.setText(topics.get(position).title);
-        holder.node.setText(topics.get(position).node_name);
-        holder.time.setText(topics.get(position).getLastReply());
-        // 显示回复条数
-        holder.replies.setText(topics.get(position).replies_count);
+            holder.avatar = (ImageView) view.findViewById(R.id.avatar);
+            holder.title = (TextView) view.findViewById(R.id.title);
+            holder.node = (TextView) view.findViewById(R.id.nodeName);
+            holder.time = (TextView) view.findViewById(R.id.time);
+            holder.replies = (TextView) view.findViewById(R.id.text_comment_count);
+            holder.userName = (TextView) view.findViewById(R.id.userName);
 
-        holder.userName.setText(topics.get(position).user.login);
-        convertView.setOnClickListener(new View.OnClickListener(){
+            holder.title.setText(topics.get(position).title);
+            holder.node.setText(topics.get(position).node_name);
+            holder.time.setText(topics.get(position).getLastReply());
+            // 显示回复条数
+            holder.replies.setText(topics.get(position).replies_count);
 
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(context, TopicTabActivity.class);
-                i.putExtra("topic_id",topics.get(position).id);
-                context.startActivity(i);
-            }
-        });
+            holder.userName.setText(topics.get(position).user.login);
+            view.setOnClickListener(new View.OnClickListener() {
 
-        holder.avatar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(context, ProfileActivity.class);
-                i.putExtra("user", topics.get(position).user.login);
-                context.startActivity(i);
-                ((Activity)context).overridePendingTransition(R.anim.push_up_in,R.anim.push_up_out);
-            }
-        });
+                @Override
+                public void onClick(View v) {
+                    Intent i = new Intent(context, TopicTabActivity.class);
+                    i.putExtra("topic_id", topics.get(position).id);
+                    context.startActivity(i);
+                }
+            });
 
-        imageLoader.displayImage(topics.get(position).user.avatar_url, holder.avatar, options);
+            holder.avatar.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent i = new Intent(context, ProfileActivity.class);
+                    i.putExtra("user", topics.get(position).user.login);
+                    context.startActivity(i);
+                    ((Activity) context).overridePendingTransition(R.anim.push_up_in, R.anim.push_up_out);
+                }
+            });
 
-        return convertView;
+            imageLoader.displayImage(topics.get(position).user.avatar_url, holder.avatar, options);
+        } else {
+
+            holder = (ViewHolder)view.getTag();
+
+        }
+
+        return view;
     }
 }

@@ -4,7 +4,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 
-import com.haarman.listviewanimations.swinginadapters.AnimationAdapter;
+import com.nhaarman.listviewanimations.appearance.AnimationAdapter;
 import com.nineoldandroids.animation.Animator;
 import com.nineoldandroids.animation.ObjectAnimator;
 
@@ -26,16 +26,6 @@ public class ItemAnimationAdapter extends AnimationAdapter {
     }
 
     @Override
-    protected long getAnimationDelayMillis() {
-        return 30;
-    }
-
-    @Override
-    protected long getAnimationDurationMillis() {
-        return mDuration;
-    }
-
-    @Override
     public Animator[] getAnimators(ViewGroup parent, View view) {
         return new Animator[] {
                 ObjectAnimator.ofFloat(view, "translationY", mTranslationY, 0),
@@ -43,9 +33,5 @@ public class ItemAnimationAdapter extends AnimationAdapter {
         };
     }
 
-//    @Override
-//    protected void prepareAnimation(View view) {
-//        view.setTranslationY(mTranslationY);
-//        view.setRotationX(mRotationX);
-//    }
+
 }
