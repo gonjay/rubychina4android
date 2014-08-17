@@ -58,7 +58,7 @@
                 android:value=".ui.MainActivity" />
         </activity>
 
-        <service android:name=".helper.WebSocketService" />
+        <!--<service android:name=".helper.WebSocketService" />-->
     </application>
 
 </manifest>
