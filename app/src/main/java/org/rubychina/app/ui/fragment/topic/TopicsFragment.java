@@ -3,6 +3,7 @@ package org.rubychina.app.ui.fragment.topic;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -97,7 +98,6 @@ public class TopicsFragment extends Fragment implements SwipeRefreshLayout.OnRef
 
         loadCacheData();
 
-        loadFirstPage();
         return rootView;
     }
 
@@ -134,10 +134,11 @@ public class TopicsFragment extends Fragment implements SwipeRefreshLayout.OnRef
 
     private void loadFirstPage(){
         page = 1;
-        loadData(1);
+        loadData(page);
     }
 
     private void loadCacheData(){
+        Log.v("","loadCacheData : " + page);
         mSwipeRefreshLayout.setRefreshing(true);
         String cache = UserUtils.loadTopic(type);
         if (cache.length() > 0){
@@ -147,6 +148,7 @@ public class TopicsFragment extends Fragment implements SwipeRefreshLayout.OnRef
             }
             mSwipeRefreshLayout.setRefreshing(false);
             mAdapter.notifyDataSetChanged();
+            loadFirstPage();
         } else {
             loadFirstPage();
         }
