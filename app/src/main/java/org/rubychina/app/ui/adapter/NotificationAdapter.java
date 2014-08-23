@@ -57,16 +57,6 @@ public class NotificationAdapter extends MyBaseAdapter {
         viewHolder.body.setText(notifications.get(position).getMention().body);
         imageLoader.displayImage(notifications.get(position).getMention().user.avatar_url, viewHolder.avatar, options);
 
-        viewHolder.body.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Log.v("getID: ", notifications.get(position).getMention().getID());
-                Intent i = new Intent(context, TopicTabActivity.class);
-                i.putExtra("topic_id",notifications.get(position).getMention().getID());
-                context.startActivity(i);
-            }
-        });
-
         return view;
     }
 

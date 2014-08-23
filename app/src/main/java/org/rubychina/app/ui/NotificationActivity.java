@@ -1,12 +1,15 @@
 package org.rubychina.app.ui;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.google.gson.Gson;
@@ -46,6 +49,16 @@ public class NotificationActivity extends Activity implements OnDismissCallback 
         SwipeDismissAdapter swipeadapter = new SwipeDismissAdapter(adapter, this);
         swipeadapter.setAbsListView(mListView);
         mListView.setAdapter(swipeadapter);
+
+        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Log.v("position", "" + position);
+                Intent i = new Intent(NotificationActivity.this, TopicTabActivity.class);
+                i.putExtra("topic_id",lists.get(position).getMention().getID());
+                startActivity(i);
+            }
+        });
     }
 
     private void fetchData(){
