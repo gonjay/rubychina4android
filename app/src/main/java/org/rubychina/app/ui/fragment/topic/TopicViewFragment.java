@@ -1,5 +1,6 @@
 package org.rubychina.app.ui.fragment.topic;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.os.Bundle;
@@ -24,6 +25,7 @@ import org.rubychina.app.model.Topic;
 /**
  * Created by mac on 14-2-2.
  */
+@SuppressLint("ValidFragment")
 public class TopicViewFragment extends Fragment {
     private TextView title, detail;
 

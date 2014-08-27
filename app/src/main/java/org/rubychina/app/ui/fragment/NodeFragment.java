@@ -1,5 +1,6 @@
 package org.rubychina.app.ui.fragment;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -18,6 +19,7 @@ import java.util.List;
 /**
  * Created by mac on 14-2-6.
  */
+@SuppressLint("ValidFragment")
 public class NodeFragment extends Fragment {
     List<Node> list = new ArrayList<Node>();
 

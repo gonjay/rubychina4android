@@ -1,5 +1,6 @@
 package org.rubychina.app.ui.fragment;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -14,6 +15,7 @@ import org.rubychina.app.R;
 /**
  * Created by mac on 14-2-4.
  */
+@SuppressLint("ValidFragment")
 public class PreviewFragment extends Fragment {
     View v;
     WebView web;
